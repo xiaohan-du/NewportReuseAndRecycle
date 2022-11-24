@@ -10,5 +10,6 @@ public class RequestRouter implements WebMvcConfigurer {
         registry.addViewController("/").setViewName("reuseAndRecycle/home");
         registry.addViewController("/hello").setViewName("hello");
         registry.addViewController("/login").setViewName("login");
+        registry.addViewController("/admin").setViewName("admin");
     }
 }
