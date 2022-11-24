@@ -1,11 +1,26 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-  <title>Spring Security Example</title>
+  <meta charset="ISO-8859-1">
+  <title>Welcome to Newport Reuse and Recycle</title>
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous"
+        th:fragment="bootstrap-css"
+  >
 </head>
 <body>
-<h1>Welcome!</h1>
+<div class="container text-center">
+  <h1>Welcome to CodeJava.net</h1>
+  <h3><a th:href="@{/user-list}">List of Users</a></h3>
+  <h3><a th:href="@{/register}">Register</a></h3>
+  <h3><a th:href="@{/login}">Login</a></h3>
+</div>
 
 <p>Click <a th:href="@{/hello}">here</a> to see a greeting.</p>
+<script crossorigin="anonymous" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        th:fragment="bootstrap-js"></script>
 </body>
 </html>
