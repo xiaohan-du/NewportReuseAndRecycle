@@ -18,7 +18,7 @@ public class UserRepositoryImpl implements UserRepository{
 
     private void setUserRowMapper() {
         userRowMapper = (rm, index) -> new User(
-                rm.getLong("id"),
+                rm.getInt("id"),
                 rm.getString("email"),
                 rm.getString("password"),
                 rm.getString("first_name"),
@@ -36,6 +36,7 @@ public class UserRepositoryImpl implements UserRepository{
     public void addNewUser(User aUser) {
         String addAUSerSQL = "INSERT INTO project_user (id, email, password, first_name, last_name) VALUES (?, ?, ?, ?, ?)";
         jdbcTemplate.update(addAUSerSQL, aUser.getId(), aUser.getEmail(), aUser.getPassword(), aUser.getFirstName(), aUser.getLastName());
+        System.out.println(aUser.getId());
     }
 
 }

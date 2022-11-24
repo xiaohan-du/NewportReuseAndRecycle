@@ -4,7 +4,7 @@ import lombok.Data;
 @Data
 public class User {
 
-    private Long id;
+    private Integer id;
 
     private String email;
 
@@ -14,7 +14,7 @@ public class User {
 
     private String lastName;
 
-    public User(Long id, String email, String password, String firstName, String lastName) {
+    public User(Integer id, String email, String password, String firstName, String lastName) {
         this.id = id;
         this.email = email;
         this.password = password;

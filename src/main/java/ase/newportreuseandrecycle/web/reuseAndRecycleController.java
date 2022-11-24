@@ -8,6 +8,7 @@ import ase.newportreuseandrecycle.web.forms.UserSignupForm;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,16 +54,21 @@ public class reuseAndRecycleController {
     }
 
     @PostMapping("process_register")
-    public ModelAndView processRegister(User user, Model model) {
-        BCryptPasswordEncoder passwordEncoder =new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
-        user.setId(2L);
-        user.setEmail("123@1.com");
-        user.setFirstName("test");
-        user.setLastName("test");
-        userService.addNewUser(UserAssembler.toDto(user));
-        var mv = new ModelAndView("login/register-success", model.asMap());
-        return mv;
+    public ModelAndView processRegister(UserSignupForm signupForm, BindingResult bindingResult, Model model) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        if (bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().forEach(System.out::println);
+            return new ModelAndView("login/signup-form", model.asMap());
+        } else {
+            UserDto userDto = new UserDto(signupForm.getId(),
+                    signupForm.getEmail(),
+                    passwordEncoder.encode(signupForm.getPassword()),
+                    signupForm.getFirstName(),
+                    signupForm.getLastName()
+            );
+            userService.addNewUser(userDto);
+            var mv = new ModelAndView("login/register-success", model.asMap());
+            return mv;
+        }
     }
 }

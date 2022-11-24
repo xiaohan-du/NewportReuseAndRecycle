@@ -6,7 +6,7 @@ import lombok.Value;
 @Value
 @AllArgsConstructor
 public class UserDto {
-    private Long id;
+    private Integer id;
     private String email;
     private String password;
     private String firstName;
