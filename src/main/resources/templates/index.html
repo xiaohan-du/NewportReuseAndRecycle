@@ -1,14 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-  <meta charset="UTF-8">
-  <title>Newport Reuse and Recycle</title>
+  <title>Spring Security Example</title>
 </head>
+  <body>
+  <h1>Welcome!</h1>
 
-<body>
-  <div class="container">
-    <h1>Repairing Newport, one step at a time</h1>
-    <h2>Let's work together to live in a cleaner city</h2>
-  </div>
-</body>
+  <p>Click <a th:href="@{/hello}">here</a> to see a greeting.</p>
+  </body>
 </html>
