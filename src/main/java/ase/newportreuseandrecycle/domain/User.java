@@ -1,7 +1,9 @@
 package ase.newportreuseandrecycle.domain;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class User {
 
     private Integer id;
@@ -13,13 +15,5 @@ public class User {
     private String firstName;
 
     private String lastName;
-
-    public User(Integer id, String email, String password, String firstName, String lastName) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
 
 }

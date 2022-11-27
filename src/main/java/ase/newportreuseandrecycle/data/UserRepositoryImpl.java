@@ -1,11 +1,13 @@
 package ase.newportreuseandrecycle.data;
 
 import ase.newportreuseandrecycle.domain.User;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository{
@@ -36,7 +38,17 @@ public class UserRepositoryImpl implements UserRepository{
     public void addNewUser(User aUser) {
         String addAUSerSQL = "INSERT INTO project_user (id, email, password, first_name, last_name) VALUES (?, ?, ?, ?, ?)";
         jdbcTemplate.update(addAUSerSQL, aUser.getId(), aUser.getEmail(), aUser.getPassword(), aUser.getFirstName(), aUser.getLastName());
-        System.out.println(aUser.getId());
     }
 
+    @Override
+    public Optional<User> getAUserByEmail(String email) {
+        String getAUserByEmailSQL = "SELECT * FROM project_user WHERE email = ?";
+        Optional<User> aUser;
+        try {
+            aUser = Optional.of(jdbcTemplate.queryForObject(getAUserByEmailSQL, userRowMapper, email));
+            return aUser;
+        } catch (IncorrectResultSizeDataAccessException e) {
+            return Optional.empty();
+        }
+    }
 }

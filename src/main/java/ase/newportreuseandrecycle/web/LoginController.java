@@ -1,9 +1,8 @@
 package ase.newportreuseandrecycle.web;
 
-import ase.newportreuseandrecycle.domain.User;
-import ase.newportreuseandrecycle.service.UserAssembler;
 import ase.newportreuseandrecycle.service.UserDto;
 import ase.newportreuseandrecycle.service.UserService;
+import ase.newportreuseandrecycle.web.forms.LoginForm;
 import ase.newportreuseandrecycle.web.forms.UserSignupForm;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -14,42 +13,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/")
-public class reuseAndRecycleController {
-
+public class LoginController {
     private final UserService userService;
-    public reuseAndRecycleController(UserService svc) {
+    public LoginController(UserService svc) {
         this.userService = svc;
-    }
-
-    @GetMapping("")
-    public ModelAndView index(Model model) {
-        var mv = new ModelAndView("index", model.asMap());
-        return mv;
-    }
-
-    @GetMapping("hello")
-    public ModelAndView helloWorld(Model model) {
-        var mv = new ModelAndView("hello", model.asMap());
-        return mv;
     }
 
     @GetMapping("register")
     public ModelAndView register(Model model) {
         model.addAttribute("user", new UserSignupForm());
         var mv = new ModelAndView("login/signup-form", model.asMap());
-        return mv;
-    }
-
-    @GetMapping("user-list")
-    public ModelAndView getUsers(Model model) {
-        List<UserDto> users;
-        users = userService.getUsers();
-        model.addAttribute("users", users);
-        var mv = new ModelAndView("user/user-list");
         return mv;
     }
 
@@ -69,6 +46,29 @@ public class reuseAndRecycleController {
             userService.addNewUser(userDto);
             var mv = new ModelAndView("login/register-success", model.asMap());
             return mv;
+        }
+    }
+
+    @GetMapping("login")
+    public ModelAndView getLogin(Model model) {
+        model.addAttribute("loginForm", new LoginForm());
+        return new ModelAndView("/login/login-form", model.asMap());
+    }
+
+    @PostMapping("login")
+    public ModelAndView postLogin(Model model, LoginForm loginForm) {
+        Optional<UserDto> aUser;
+        System.out.println("in 1");
+        if (loginForm.getEmail() != null) {
+            System.out.println("in 2");
+            aUser = userService.getAUserByEmail(loginForm.getEmail());
+            model.addAttribute("user", aUser);
+            var mv = new ModelAndView("user/user-list", model.asMap());
+            return mv;
+        } else {
+            System.out.println("in 3");
+            model.addAttribute("loginForm", new LoginForm());
+            return new ModelAndView("/login/login-form", model.asMap());
         }
     }
 }
