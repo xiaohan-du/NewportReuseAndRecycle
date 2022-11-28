@@ -50,31 +50,7 @@ public class LoginController {
 
     @GetMapping("login")
     public ModelAndView getLogin(Model model) {
-        System.out.println("getting here");
         model.addAttribute("loginForm", new LoginForm());
         return new ModelAndView("/login/login-form", model.asMap());
-    }
-    @PostMapping("login")
-    public ModelAndView postLogin( LoginForm loginForm, Model model) {
-        System.out.println("1");
-        model.addAttribute("loginForm", loginForm);
-        Optional<UserDto> aUser = userService.getAUserByUsername(loginForm.getUsername());
-        if (aUser.isPresent()) {
-            System.out.println("2");
-            Boolean isPasswordMatch = userService.checkUserPasswordMatch(loginForm.getUsername(), loginForm.getPassword());
-            if (isPasswordMatch) {
-                System.out.println("3");
-                var mv = new ModelAndView("user/user-list", model.asMap());
-                return mv;
-            } else {
-                System.out.println("4");
-                var mv = new ModelAndView("login/login-form", model.asMap());
-                return mv;
-            }
-        } else {
-            System.out.println("5");
-            var mv = new ModelAndView("login/login-form", model.asMap());
-            return mv;
-        }
     }
 }

@@ -40,10 +40,5 @@ public class UserServiceImpl implements UserService{
             return Optional.empty();
         }
     }
-    @Override
-    public Boolean checkUserPasswordMatch(String username, String password) {
-        Boolean isMatch = userRepository.checkUserPasswordMatch(username, password);
-        return isMatch;
-    }
 
 }

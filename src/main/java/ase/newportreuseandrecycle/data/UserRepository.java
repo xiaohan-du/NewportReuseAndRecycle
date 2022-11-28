@@ -9,5 +9,4 @@ public interface UserRepository {
     List<User> getUsers();
     void addNewUser(User aUser);
     Optional<User> getAUserByUsername(String username);
-    Boolean checkUserPasswordMatch(String username, String password);
 }

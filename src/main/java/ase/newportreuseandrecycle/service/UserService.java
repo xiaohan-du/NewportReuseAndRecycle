@@ -10,5 +10,4 @@ public interface UserService {
     void addNewUser(UserDto userDto);
     Optional<UserDto> getAUserByUsername(String username);
 
-    Boolean checkUserPasswordMatch(String username, String password);
 }

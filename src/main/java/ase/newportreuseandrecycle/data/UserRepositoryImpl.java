@@ -52,13 +52,4 @@ public class UserRepositoryImpl implements UserRepository{
         }
     }
 
-    @Override
-    public Boolean checkUserPasswordMatch(String username, String password) {
-        String userPasswordInput = this.getAUserByUsername(username).get().getPassword();
-        if (userPasswordInput == password) {
-            return Boolean.TRUE;
-        } else {
-            return Boolean.FALSE;
-        }
-    }
 }
