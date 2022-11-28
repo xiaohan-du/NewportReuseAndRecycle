@@ -9,4 +9,5 @@ public interface UserRepository {
     List<User> getUsers();
     void addNewUser(User aUser);
     Optional<User> getAUserByEmail(String email);
+    Boolean checkUserPasswordMatch(String email, String password);
 }

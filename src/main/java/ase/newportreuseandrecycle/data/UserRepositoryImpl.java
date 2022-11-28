@@ -30,25 +30,35 @@ public class UserRepositoryImpl implements UserRepository{
 
     @Override
     public List<User> getUsers() {
-        String getUsersSQL = "SELECT * FROM project_user";
+        String getUsersSQL = "SELECT * FROM users";
         return jdbcTemplate.query(getUsersSQL, userRowMapper);
     }
 
     @Override
     public void addNewUser(User aUser) {
-        String addAUSerSQL = "INSERT INTO project_user (id, email, password, first_name, last_name) VALUES (?, ?, ?, ?, ?)";
+        String addAUSerSQL = "INSERT INTO users (id, email, password, first_name, last_name) VALUES (?, ?, ?, ?, ?)";
         jdbcTemplate.update(addAUSerSQL, aUser.getId(), aUser.getEmail(), aUser.getPassword(), aUser.getFirstName(), aUser.getLastName());
     }
 
     @Override
     public Optional<User> getAUserByEmail(String email) {
-        String getAUserByEmailSQL = "SELECT * FROM project_user WHERE email = ?";
+        String getAUserByEmailSQL = "SELECT * FROM users WHERE email = ?";
         Optional<User> aUser;
         try {
             aUser = Optional.of(jdbcTemplate.queryForObject(getAUserByEmailSQL, userRowMapper, email));
             return aUser;
         } catch (IncorrectResultSizeDataAccessException e) {
             return Optional.empty();
+        }
+    }
+
+    @Override
+    public Boolean checkUserPasswordMatch(String email, String password) {
+        String userPasswordInput = this.getAUserByEmail(email).get().getPassword();
+        if (userPasswordInput == password) {
+            return Boolean.TRUE;
+        } else {
+            return Boolean.FALSE;
         }
     }
 }

@@ -1,5 +1,6 @@
 package ase.newportreuseandrecycle.web;
 
+import ase.newportreuseandrecycle.domain.User;
 import ase.newportreuseandrecycle.service.UserDto;
 import ase.newportreuseandrecycle.service.UserService;
 import ase.newportreuseandrecycle.web.forms.LoginForm;
@@ -8,15 +9,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/")
+//@RequestMapping("/")
 public class LoginController {
     private final UserService userService;
     public LoginController(UserService svc) {
@@ -51,24 +50,31 @@ public class LoginController {
 
     @GetMapping("login")
     public ModelAndView getLogin(Model model) {
+        System.out.println("getting here");
         model.addAttribute("loginForm", new LoginForm());
         return new ModelAndView("/login/login-form", model.asMap());
     }
-
-    @PostMapping("login")
-    public ModelAndView postLogin(Model model, LoginForm loginForm) {
-        Optional<UserDto> aUser;
-        System.out.println("in 1");
-        if (loginForm.getEmail() != null) {
-            System.out.println("in 2");
-            aUser = userService.getAUserByEmail(loginForm.getEmail());
-            model.addAttribute("user", aUser);
-            var mv = new ModelAndView("user/user-list", model.asMap());
-            return mv;
+    @PostMapping("daft")
+    public ModelAndView postLogin( LoginForm loginForm, Model model) {
+        System.out.println("1");
+        model.addAttribute("loginForm", loginForm);
+        Optional<UserDto> aUser = userService.getAUserByEmail(loginForm.getEmail());
+        if (aUser.isPresent()) {
+            System.out.println("2");
+            Boolean isPasswordMatch = userService.checkUserPasswordMatch(loginForm.getEmail(), loginForm.getPassword());
+            if (isPasswordMatch) {
+                System.out.println("3");
+                var mv = new ModelAndView("user/user-list", model.asMap());
+                return mv;
+            } else {
+                System.out.println("4");
+                var mv = new ModelAndView("login/login-form", model.asMap());
+                return mv;
+            }
         } else {
-            System.out.println("in 3");
-            model.addAttribute("loginForm", new LoginForm());
-            return new ModelAndView("/login/login-form", model.asMap());
+            System.out.println("5");
+            var mv = new ModelAndView("login/login-form", model.asMap());
+            return mv;
         }
     }
 }

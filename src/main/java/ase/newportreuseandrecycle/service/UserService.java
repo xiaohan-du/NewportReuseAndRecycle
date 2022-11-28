@@ -9,4 +9,6 @@ public interface UserService {
     List<UserDto> getUsers();
     void addNewUser(UserDto userDto);
     Optional<UserDto> getAUserByEmail(String email);
+
+    Boolean checkUserPasswordMatch(String email, String password);
 }
