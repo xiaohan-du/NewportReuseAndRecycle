@@ -1,10 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Contact us</title>
+    <link th:replace="index :: bootstrap-css"/>
 </head>
 <body>
+
+    <div class="container">
+        <h1>Get in touch with us!</h1>
+        <p>
+            Got some feedback for us?  Let us know!
+            Here are some methods of contact you can use for us!
+        </p>
+        <ul>
+            <li>Phone number: 01633 656 656</li>
+            <li>Email: info@newport.gov.uk</li>
+            <li>Address:
+                <span style="white-space: pre;">Newport City Council
+               Civic Centre
+               Godfrey Road
+               Newport
+               South Wales
+               NP20 4UR</span>
+            </li>
+        </ul>
+        <p>Alternatively, send us some anonymous feedback:</p>
+        <form>
+            <div class="col">
+                <div class="row">
+                    <label class="form-label" for="subject">Subject</label>
+                    <input class="form-control" id="subject" placeholder="Subject" aria-placeholder="Subject">
+                </div>
+                <div class="row">
+                    <label class="form-label mt-3" for="main-content">Main content</label>
+                    <textarea class="form-control" id="main-content" placeholder="Description" aria-placeholder="Description"></textarea>
+                </div>
+                <div class="row">
+                    <button type="submit" class="btn btn-primary mt-3">Send feedback</button>
+                </div>
+            </div>
+        </form>
+    </div>
 
 </body>
 </html>
