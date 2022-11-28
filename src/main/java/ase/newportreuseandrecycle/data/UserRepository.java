@@ -8,6 +8,6 @@ import java.util.Optional;
 public interface UserRepository {
     List<User> getUsers();
     void addNewUser(User aUser);
-    Optional<User> getAUserByEmail(String email);
-    Boolean checkUserPasswordMatch(String email, String password);
+    Optional<User> getAUserByUsername(String username);
+    Boolean checkUserPasswordMatch(String username, String password);
 }

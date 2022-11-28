@@ -13,10 +13,10 @@ public class UserAssembler {
     public static UserDto toDto(User user) {
         return new UserDto(
                 user.getId(),
-                user.getEmail(),
+                user.getUsername(),
                 user.getPassword(),
-                user.getFirstName(),
-                user.getLastName()
+                user.getRole(),
+                user.getEnabled()
         );
     }
 }

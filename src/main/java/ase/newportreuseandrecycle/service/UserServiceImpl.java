@@ -24,16 +24,16 @@ public class UserServiceImpl implements UserService{
     public void addNewUser(UserDto userDto) {
         User newUser = new User(
                 userDto.getId(),
-                userDto.getEmail(),
+                userDto.getUsername(),
                 userDto.getPassword(),
-                userDto.getFirstName(),
-                userDto.getLastName()
+                userDto.getRole(),
+                userDto.getEnabled()
         );
         userRepository.addNewUser(newUser);
     }
     @Override
-    public Optional<UserDto> getAUserByEmail(String email) {
-        Optional<User> aUser = userRepository.getAUserByEmail(email);
+    public Optional<UserDto> getAUserByUsername(String username) {
+        Optional<User> aUser = userRepository.getAUserByUsername(username);
         if (aUser.isPresent()) {
             return Optional.of(UserAssembler.toDto(aUser.get()));
         } else {
@@ -41,8 +41,8 @@ public class UserServiceImpl implements UserService{
         }
     }
     @Override
-    public Boolean checkUserPasswordMatch(String email, String password) {
-        Boolean isMatch = userRepository.checkUserPasswordMatch(email, password);
+    public Boolean checkUserPasswordMatch(String username, String password) {
+        Boolean isMatch = userRepository.checkUserPasswordMatch(username, password);
         return isMatch;
     }
 

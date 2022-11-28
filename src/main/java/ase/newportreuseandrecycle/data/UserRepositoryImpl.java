@@ -21,10 +21,10 @@ public class UserRepositoryImpl implements UserRepository{
     private void setUserRowMapper() {
         userRowMapper = (rm, index) -> new User(
                 rm.getInt("id"),
-                rm.getString("email"),
+                rm.getString("username"),
                 rm.getString("password"),
-                rm.getString("first_name"),
-                rm.getString("last_name")
+                rm.getString("role"),
+                rm.getBoolean("enabled")
         );
     }
 
@@ -36,16 +36,16 @@ public class UserRepositoryImpl implements UserRepository{
 
     @Override
     public void addNewUser(User aUser) {
-        String addAUSerSQL = "INSERT INTO users (id, email, password, first_name, last_name) VALUES (?, ?, ?, ?, ?)";
-        jdbcTemplate.update(addAUSerSQL, aUser.getId(), aUser.getEmail(), aUser.getPassword(), aUser.getFirstName(), aUser.getLastName());
+        String addAUSerSQL = "INSERT INTO users (username, password, role, enabled) VALUES (?, ?, ?, ?, ?)";
+        jdbcTemplate.update(addAUSerSQL, aUser.getUsername(), aUser.getPassword(), aUser.getRole(), aUser.getEnabled());
     }
 
     @Override
-    public Optional<User> getAUserByEmail(String email) {
-        String getAUserByEmailSQL = "SELECT * FROM users WHERE email = ?";
+    public Optional<User> getAUserByUsername(String username) {
+        String getAUserByUsernameSQL = "SELECT * FROM users WHERE username = ?";
         Optional<User> aUser;
         try {
-            aUser = Optional.of(jdbcTemplate.queryForObject(getAUserByEmailSQL, userRowMapper, email));
+            aUser = Optional.of(jdbcTemplate.queryForObject(getAUserByUsernameSQL, userRowMapper, username));
             return aUser;
         } catch (IncorrectResultSizeDataAccessException e) {
             return Optional.empty();
@@ -53,8 +53,8 @@ public class UserRepositoryImpl implements UserRepository{
     }
 
     @Override
-    public Boolean checkUserPasswordMatch(String email, String password) {
-        String userPasswordInput = this.getAUserByEmail(email).get().getPassword();
+    public Boolean checkUserPasswordMatch(String username, String password) {
+        String userPasswordInput = this.getAUserByUsername(username).get().getPassword();
         if (userPasswordInput == password) {
             return Boolean.TRUE;
         } else {

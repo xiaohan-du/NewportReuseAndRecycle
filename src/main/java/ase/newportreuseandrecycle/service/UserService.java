@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface UserService {
     List<UserDto> getUsers();
     void addNewUser(UserDto userDto);
-    Optional<UserDto> getAUserByEmail(String email);
+    Optional<UserDto> getAUserByUsername(String username);
 
-    Boolean checkUserPasswordMatch(String email, String password);
+    Boolean checkUserPasswordMatch(String username, String password);
 }

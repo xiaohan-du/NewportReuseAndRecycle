@@ -37,10 +37,10 @@ public class LoginController {
             return new ModelAndView("login/signup-form", model.asMap());
         } else {
             UserDto userDto = new UserDto(signupForm.getId(),
-                    signupForm.getEmail(),
+                    signupForm.getUsername(),
                     passwordEncoder.encode(signupForm.getPassword()),
-                    signupForm.getFirstName(),
-                    signupForm.getLastName()
+                    signupForm.getRole(),
+                    Boolean.FALSE
             );
             userService.addNewUser(userDto);
             var mv = new ModelAndView("login/register-success", model.asMap());
@@ -54,14 +54,14 @@ public class LoginController {
         model.addAttribute("loginForm", new LoginForm());
         return new ModelAndView("/login/login-form", model.asMap());
     }
-    @PostMapping("daft")
+    @PostMapping("login")
     public ModelAndView postLogin( LoginForm loginForm, Model model) {
         System.out.println("1");
         model.addAttribute("loginForm", loginForm);
-        Optional<UserDto> aUser = userService.getAUserByEmail(loginForm.getEmail());
+        Optional<UserDto> aUser = userService.getAUserByUsername(loginForm.getUsername());
         if (aUser.isPresent()) {
             System.out.println("2");
-            Boolean isPasswordMatch = userService.checkUserPasswordMatch(loginForm.getEmail(), loginForm.getPassword());
+            Boolean isPasswordMatch = userService.checkUserPasswordMatch(loginForm.getUsername(), loginForm.getPassword());
             if (isPasswordMatch) {
                 System.out.println("3");
                 var mv = new ModelAndView("user/user-list", model.asMap());

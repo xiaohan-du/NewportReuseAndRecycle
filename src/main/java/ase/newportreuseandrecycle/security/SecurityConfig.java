@@ -20,9 +20,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().passwordEncoder(new BCryptPasswordEncoder())
                 .dataSource(dataSource)
-                .usersByUsernameQuery("select email, password from users where email=?")
-                .authoritiesByUsernameQuery("select username, role from users where username=?")
-        ;
+                .usersByUsernameQuery("SELECT username, password FROM users WHERE username=?")
+                .authoritiesByUsernameQuery("SELECT username, role FROM users WHERE username=?");
     }
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -31,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .usernameParameter("email")
+                .usernameParameter("username")
                 .permitAll();
     }
 }
