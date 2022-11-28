@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head th:replace="fragments/header :: header"></head>
+<body>
 
-
-</head>
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navbar-links">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Home</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -22,17 +19,16 @@
                     <a class="nav-link" href="contact-us">Contact Us</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="#dropdown" aria-expanded="false">
                         News
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/informations">Informations</a></li>
                         <li><a class="dropdown-item" href="/donations">Donations</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="/listings">Listings</a></li>
                         <li><a class="dropdown-item" href="/borrowing">Borrowing</a></li>
                         <li><a class="dropdown-item" href="/drop-Off-Collection-Points">Drop off / Collection points</a></li>
-
 
                     </ul>
                 </li>
@@ -45,5 +41,8 @@
         </div>
     </div>
 
-
 </nav>
+<script crossorigin="anonymous" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        th:fragment="bootstrap-js"></script>
+</body>

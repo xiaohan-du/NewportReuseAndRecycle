@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-  <head>
-    <meta charset="ISO-8859-1">
-    <title>Welcome to Newport Reuse and Recycle</title>
-  </head>
+<head th:replace="fragments/header :: header"></head>
   <body>
+  <nav th:replace="fragments/navbar :: navbar-links"></nav>
     <div class="container text-center">
       <h1>Welcome to Newport Reuse and Recycle</h1>
       <h3><a th:href="@{/user-list}">List of Users</a></h3>
