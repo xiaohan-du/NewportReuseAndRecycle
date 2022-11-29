@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
-  <meta charset="ISO-8859-1">
-  <title>Welcome to Newport Reuse and Recycle</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-</head>
-<body>
-<div class="container">
-  <h1>Welcome to Newport Reuse and Recycle</h1>
+<head th:replace="fragments/header :: header"></head>
+  <body>
+  <nav th:replace="fragments/navbar :: navbar-links"></nav>
+    <div class="container text-center">
+      <h1>Welcome to Newport Reuse and Recycle</h1>
+      <h3><a th:href="@{/user-list}">List of Users</a></h3>
+      <h3><a th:href="@{/register}">Register</a></h3>
+      <h3><a th:href="@{/login}">Login</a></h3>
+    </div>
 
   <hr>
 

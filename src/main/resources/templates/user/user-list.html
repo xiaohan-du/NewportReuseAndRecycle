@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>User List</title>
+
+  <head th:replace="fragments/header :: header"></head>
+    <title>User List</title>
 </head>
 <body>
+<nav th:replace="fragments/navbar :: navbar-links"></nav>
 <div class="container">
   <div>
     <h1>List of Users</h1>
