@@ -5,10 +5,12 @@ import ase.newportreuseandrecycle.domain.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
+
     public UserServiceImpl(UserRepository repo) {
         this.userRepository = repo;
     }
@@ -22,12 +24,21 @@ public class UserServiceImpl implements UserService{
     public void addNewUser(UserDto userDto) {
         User newUser = new User(
                 userDto.getId(),
-                userDto.getEmail(),
+                userDto.getUsername(),
                 userDto.getPassword(),
-                userDto.getFirstName(),
-                userDto.getLastName()
+                userDto.getRole(),
+                userDto.getEnabled()
         );
         userRepository.addNewUser(newUser);
+    }
+    @Override
+    public Optional<UserDto> getAUserByUsername(String username) {
+        Optional<User> aUser = userRepository.getAUserByUsername(username);
+        if (aUser.isPresent()) {
+            return Optional.of(UserAssembler.toDto(aUser.get()));
+        } else {
+            return Optional.empty();
+        }
     }
 
 }

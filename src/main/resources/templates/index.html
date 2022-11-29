@@ -10,7 +10,55 @@
       <h3><a th:href="@{/login}">Login</a></h3>
     </div>
 
-    <p>Click <a th:href="@{/hello}">here</a> to see a greeting.</p>
-    <div th:replace="fragments/footer :: footer-links"></div>
-  </body>
+  <hr>
+
+  <h2>What we're about</h2>
+  <p>Simple.  Helping save the environment.</p>
+
+  <h2>Your part</h2>
+  <p>
+    Your contribution - no matter how big or small - can make a world of difference.
+    We're here to help with renting* out a product, borrowing* a product, and finding repair shops*.
+    Our aim is to extend the end of life (EoL) of as many products as possible.
+  </p>
+
+  <h2>How it helps</h2>
+  <p>
+    This EoL extension will help to cut down on your carbon footprint and reduce the amount of waste
+    you're producing.
+  </p>
+
+  <h3>In practise</h3>
+  <span class="fw-bold">Renting and borrowing</span>
+  <p>
+    The ability to borrow products that aren't in use is a huge bonus.
+    Imagine you have a really sturdy, reliable lawnmower that doesn't get used
+    more than once every other month during the summer months.
+  </p>
+  <p>
+    Now imagine that you can even make money when it's not being used!
+  </p>
+  <p>
+    It's a two-way street - as a loaner, you'll be able to make money whilst
+    helping to save the environment.  As a borrower, you'll be able to cheaply use
+    a product you're after, whilst also saving the environment!
+  </p>
+
+  <span class="fw-bold">Repair shops</span>
+  <p>
+    Got a broken gadget?  Locate your nearest repair shop* and get your gadget repaired!
+    This is a fantastic alternative to just throwing it out and buying a replacement.
+    Often times, getting a repair can be more cost-effective.  If it's a simple fix, you
+    can gain the skills required in order to fix your gadget.  If said gadget breaks again,
+    you'll then bear the knowledge and skillset for fixing the gadget, but this time
+    <b>for free!</b>
+  </p>
+  <h3><a th:href="@{/user-list}">List of Users</a></h3>
+  <h3><a th:href="@{/register}">Register</a></h3>
+  <form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout" />
+  </form>
+</div>
+<div th:replace="fragments/footer :: footer-links"></div>
+</body>
 </html>

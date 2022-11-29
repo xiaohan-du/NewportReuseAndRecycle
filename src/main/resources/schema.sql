@@ -2,19 +2,19 @@ SET MODE MySQL;
 SET IGNORECASE = TRUE;
 
 -- -----------------------------------------------------
--- Table `project_user`
+-- Table `users`
 -- -----------------------------------------------------
 
-DROP TABLE IF EXISTS project_user;
+DROP TABLE IF EXISTS users;
 
 
-CREATE TABLE IF NOT EXISTS project_user
+CREATE TABLE IF NOT EXISTS users
 (
-    id              INTEGER         NOT NULL,
-    email           VARCHAR(45)     NOT NULL,
-    password        VARCHAR(64)     NOT NULL,
-    first_name      VARCHAR(20)     NOT NULL,
-    last_name       VARCHAR(20)     NOT NULL,
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `username` VARCHAR(45) NOT NULL,
+    `password` VARCHAR(64) NOT NULL,
+    `role` VARCHAR(45) NOT NULL,
+    `enabled` BIT DEFAULT NULL,
     PRIMARY KEY (`id`)
     )
     engine = InnoDB;
