@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Contact us</title>
-    <link th:replace="index :: bootstrap-css"/>
+    <head class="header" th:replace="fragments/header :: header">
+    <div class="container"></div>
 </head>
 <body>
-
+<nav th:replace="fragments/navbar :: navbar-links"></nav>
     <div class="container">
         <h1>Get in touch with us!</h1>
         <p>
@@ -42,6 +43,6 @@
             </div>
         </form>
     </div>
-
+<footer th:replace="fragments/footer :: footer-links"></footer>
 </body>
 </html>
