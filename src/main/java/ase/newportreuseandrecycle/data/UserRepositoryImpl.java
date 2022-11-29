@@ -36,8 +36,8 @@ public class UserRepositoryImpl implements UserRepository{
 
     @Override
     public void addNewUser(User aUser) {
-        String addAUSerSQL = "INSERT INTO users (username, password, role, enabled) VALUES (?, ?, ?, ?, ?)";
-        jdbcTemplate.update(addAUSerSQL, aUser.getUsername(), aUser.getPassword(), aUser.getRole(), aUser.getEnabled());
+        String addAUSerSQL = "INSERT INTO users (username, password, role, enabled) VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(addAUSerSQL, aUser.getUsername(), aUser.getPassword(), aUser.getRole(), Boolean.TRUE);
     }
 
     @Override
