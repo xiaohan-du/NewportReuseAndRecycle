@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Optional;
 
 @Controller
-//@RequestMapping("/")
 public class LoginController {
     private final UserService userService;
     public LoginController(UserService svc) {
