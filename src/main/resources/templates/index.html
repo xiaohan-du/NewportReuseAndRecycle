@@ -7,14 +7,6 @@
 </head>
 <body>
 <div class="container">
-  <nav th:fragment="navbar" class="text-center">
-    <h3><a th:href="@{/}">Home</a></h3>
-    <h3><a th:href="@{/user-list}">List of Users</a></h3>
-    <h3><a th:href="@{/register}">Register</a></h3>
-    <h3><a th:href="@{/login}">Login</a></h3>
-    <h3><a th:href="@{/contact-us}">Contact Us</a></h3>
-  </nav>
-
   <h1>Welcome to Newport Reuse and Recycle</h1>
 
   <hr>
@@ -60,9 +52,12 @@
     you'll then bear the knowledge and skillset for fixing the gadget, but this time
     <b>for free!</b>
   </p>
+  <h3><a th:href="@{/user-list}">List of Users</a></h3>
+  <h3><a th:href="@{/register}">Register</a></h3>
+  <form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout" />
+  </form>
 </div>
-
-<p>Click <a th:href="@{/hello}">here</a> to see a greeting.</p>
 <div th:replace="fragments/footer :: footer-links"></div>
 </body>
 </html>

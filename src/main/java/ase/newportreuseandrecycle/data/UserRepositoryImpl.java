@@ -1,11 +1,13 @@
 package ase.newportreuseandrecycle.data;
 
 import ase.newportreuseandrecycle.domain.User;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository{
@@ -19,24 +21,35 @@ public class UserRepositoryImpl implements UserRepository{
     private void setUserRowMapper() {
         userRowMapper = (rm, index) -> new User(
                 rm.getInt("id"),
-                rm.getString("email"),
+                rm.getString("username"),
                 rm.getString("password"),
-                rm.getString("first_name"),
-                rm.getString("last_name")
+                rm.getString("role"),
+                rm.getBoolean("enabled")
         );
     }
 
     @Override
     public List<User> getUsers() {
-        String getUsersSQL = "SELECT * FROM project_user";
+        String getUsersSQL = "SELECT * FROM users";
         return jdbcTemplate.query(getUsersSQL, userRowMapper);
     }
 
     @Override
     public void addNewUser(User aUser) {
-        String addAUSerSQL = "INSERT INTO project_user (id, email, password, first_name, last_name) VALUES (?, ?, ?, ?, ?)";
-        jdbcTemplate.update(addAUSerSQL, aUser.getId(), aUser.getEmail(), aUser.getPassword(), aUser.getFirstName(), aUser.getLastName());
-        System.out.println(aUser.getId());
+        String addAUSerSQL = "INSERT INTO users (username, password, role, enabled) VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(addAUSerSQL, aUser.getUsername(), aUser.getPassword(), aUser.getRole(), Boolean.TRUE);
+    }
+
+    @Override
+    public Optional<User> getAUserByUsername(String username) {
+        String getAUserByUsernameSQL = "SELECT * FROM users WHERE username = ?";
+        Optional<User> aUser;
+        try {
+            aUser = Optional.of(jdbcTemplate.queryForObject(getAUserByUsernameSQL, userRowMapper, username));
+            return aUser;
+        } catch (IncorrectResultSizeDataAccessException e) {
+            return Optional.empty();
+        }
     }
 
 }
