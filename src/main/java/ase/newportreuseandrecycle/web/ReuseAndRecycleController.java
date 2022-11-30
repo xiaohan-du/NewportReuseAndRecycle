@@ -15,6 +15,7 @@ import java.util.List;
 public class ReuseAndRecycleController {
 
     private final UserService userService;
+
     public ReuseAndRecycleController(UserService svc) {
         this.userService = svc;
     }
@@ -39,10 +40,19 @@ public class ReuseAndRecycleController {
         var mv = new ModelAndView("user/user-list");
         return mv;
     }
+
     @GetMapping("contact-us")
     public ModelAndView contactus(Model model) {
         var mv = new ModelAndView("contact-us", model.asMap());
         return mv;
 
     }
+
+    @GetMapping("map")
+    public ModelAndView map(Model model) {
+        var mv = new ModelAndView("map", model.asMap());
+        return mv;
+
+    }
+
 }
