@@ -13,9 +13,11 @@ public class ListingAssembler {
     public static ListingDto toDto(Listing listing) {
         return new ListingDto(
                 listing.getId(),
+                listing.getUserId(),
                 listing.getTitle(),
-                listing.getContent(),
-                listing.getApproved()
+                listing.getDescription(),
+                listing.getPrice(),
+                listing.getImageUrl()
         );
     }
 }

@@ -10,9 +10,11 @@ public class ListingJsonAssembler {
         return ListingJson
                 .of()
                 .id(listingDto.getId())
+                .userId(listingDto.getUserId())
                 .title(listingDto.getTitle())
-                .content(listingDto.getContent())
-                .approved(listingDto.getApproved())
+                .description(listingDto.getDescription())
+                .price(listingDto.getPrice())
+                .imageUrl(listingDto.getImageUrl())
                 .build();
     }
 
