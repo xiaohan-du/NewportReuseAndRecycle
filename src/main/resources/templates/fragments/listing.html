@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:include="header :: header">
+    <meta charset="UTF-8">
 </head>
 <body>
-$END$
+
+<div class="container">
+    <div class="col" th:fragment="listing (title,description,price,location,image)">
+        <img width="128" height="128" th:src="${image}">
+        <p th:text="${title}"></p>
+        <p th:text="${description}"></p>
+        <p th:text="${#numbers.formatCurrency(price)}"></p>
+        <p th:text="${location}"></p>
+    </div>
+</div>
+
 </body>
 </html>
