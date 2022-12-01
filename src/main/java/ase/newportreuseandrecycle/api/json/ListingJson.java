@@ -1,11 +1,13 @@
-package ase.newportreuseandrecycle.service;
+package ase.newportreuseandrecycle.api.json;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
 
 @Value
 @AllArgsConstructor
-public class ListingDto {
+@Builder(builderMethodName = "of")
+public class ListingJson {
     private Integer id;
     private String title;
     private String content;
