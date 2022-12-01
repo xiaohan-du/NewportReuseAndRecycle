@@ -18,3 +18,14 @@ CREATE TABLE IF NOT EXISTS users
     PRIMARY KEY (`id`)
     )
     engine = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS listing
+(
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `title` VARCHAR(45) NOT NULL,
+    `content` VARCHAR(MAX) NOT NULL,
+    `approved` BIT NOT NULL,
+    PRIMARY KEY (`id`)
+    )
+    engine = InnoDB;
