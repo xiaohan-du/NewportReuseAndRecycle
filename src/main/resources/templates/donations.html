@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <meta charset="UTF-8">
+    <title>Hello this is the donation page</title>
+    <head th:replace="fragments/header :: header"></head>
+
+<body>
+
+<nav th:replace="fragments/navbar :: navbar-links"></nav>
+
+<h2>Have you got a product which you hardly use or no longer use?</h2><br>
+
+<h4> Help save the environment starting from today</h4>
+<p>If you have a product which you no longer use, look no further then us
+you can lend, rent and sell this product right here and right away, to someone
+    who needs it more then you, as you know good things that go around come around.</p>
+
+<h4>What does this mean to you ?</h4>
+<p>What this means to you, is that you are also able to borrow, rent and buy things which you require more
+    then others. Is there a point of making a purchase on an item that is only going to be for a one
+    time use. </p>
+
+<h4> Hope you made the correct decision ?</h4>
+
+<p>Click below to access the map with all drop off points</p>
+<h3><a th:href="@{/map}">Locations</a></h3>
+
+
+
+
+
+
+<div th:replace="fragments/footer :: footer-links"></div>
+</body>
+</html>

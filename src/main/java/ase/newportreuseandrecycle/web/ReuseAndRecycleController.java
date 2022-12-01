@@ -66,4 +66,12 @@ public class ReuseAndRecycleController {
 
     }
 
-}
+    @GetMapping("donations")
+    public ModelAndView donations(Model model) {
+        var mv = new ModelAndView("donations", model.asMap());
+        return mv;
+
+    }
+
+    }
+
