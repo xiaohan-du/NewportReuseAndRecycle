@@ -9,21 +9,12 @@
 
     <div class="container">
         <h1>Product listings</h1>
-        <div class="text-center">
+        <div class="text-center" id="listings-grid">
 
-            <!-- Want rows with 3 columns -->
-            <div th:each="r,i : ${#numbers.sequence(0, (products.size / 3) + 1)}" class="row">
-
-                <!-- Check for index out of bound errors -->
-                <div class="col" th:unless="((3 * ${i.index}) + ${j.index}) ge ${products.size}" th:each="c,j : ${#numbers.sequence(0, 2)}">
-
-                    <!-- Generate the listing -->
-                    <div th:replace="fragments/listing :: listing (${products[(3 * i.index) + j.index].title}, ${products[(3 * i.index) + j.index].description}, ${products[(3 * i.index) + j.index].price}, ~{}, ${products[(3 * i.index) + j.index].imageUrl}, ${products[(3 * i.index) + j.index].userId})"></div>
-                </div>
-            </div>
         </div>
     </div>
 
     <div th:replace="fragments/footer :: footer-links"></div>
+    <script async type="text/javascript" th:src="@{/js/listing.js}"></script>
 </body>
 </html>
