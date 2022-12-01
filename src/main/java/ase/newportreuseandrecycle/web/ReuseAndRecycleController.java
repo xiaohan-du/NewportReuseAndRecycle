@@ -58,4 +58,12 @@ public class ReuseAndRecycleController {
         var mv = new ModelAndView("contact-us", model.asMap());
         return mv;
     }
+
+    @GetMapping("map")
+    public ModelAndView map(Model model) {
+        var mv = new ModelAndView("map", model.asMap());
+        return mv;
+
+    }
+
 }
