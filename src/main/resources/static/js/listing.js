@@ -1,5 +1,5 @@
 async function fetchListing() {
-    const response = await fetch("http://localhost:8080/api/listing");
+    const response = await fetch("http://localhost:8080/api/listings/all");
     if (!response.ok) {
         const message = `An error has occured: ${response.status}`;
         throw new Error(message);
@@ -35,22 +35,26 @@ fetchListing().then((listings) => {
             img.width = img.height = "128";
 
             let pTitle = document.createElement("p");
-            pTitle.innerText = listings[curIndex].title;
+            pTitle.innerText = `Title: ${listings[curIndex].title}`;
 
             let pDescription = document.createElement("p");
-            pDescription.innerText = listings[curIndex].description;
+            pDescription.innerText = `Description: ${listings[curIndex].description}`;
 
             let pUserID = document.createElement("p");
-            pUserID.innerText = listings[curIndex].userId;
+            pUserID.innerText = `User ID: ${listings[curIndex].userId}`;
 
             let pPrice = document.createElement("p");
-            pPrice.innerText = listings[curIndex].price;
+            pPrice.innerText = `Price: ${listings[curIndex].price}`;
+
+            let pCategory = document.createElement("p");
+            pCategory.innerText = `Category: ${listings[curIndex].category}`;
 
             col.appendChild(img);
             col.appendChild(pTitle);
             col.appendChild(pDescription);
             col.appendChild(pUserID);
             col.appendChild(pPrice);
+            col.appendChild(pCategory);
 
             row.append(col);
         }

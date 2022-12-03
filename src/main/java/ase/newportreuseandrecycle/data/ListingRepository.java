@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ListingRepository {
     List<Listing> getListings();
+    List<Listing> getListingsByCategory(String category);
 }

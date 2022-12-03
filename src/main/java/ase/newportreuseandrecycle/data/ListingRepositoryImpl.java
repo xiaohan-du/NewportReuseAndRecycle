@@ -20,4 +20,11 @@ public class ListingRepositoryImpl implements ListingRepository{
         jdbcRepo.findAll().forEach(listings::add);
         return listings;
     }
+
+    @Override
+    public List<Listing> getListingsByCategory(String category) {
+        List<Listing> listings = new ArrayList<>();
+        jdbcRepo.findListingsByCategory(category).forEach(listings::add);
+        return listings;
+    }
 }

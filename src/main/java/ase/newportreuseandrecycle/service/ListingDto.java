@@ -13,5 +13,6 @@ public class ListingDto {
     private String description;
     private Double price;  // If price == 0, then it's up as a borrow instead of a rent?
     private String imageUrl;
+    private String category;
     // Location?
 }

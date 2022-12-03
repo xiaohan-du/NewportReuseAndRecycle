@@ -18,4 +18,10 @@ public class ListingServiceImpl implements ListingService{
         List<Listing> listings = listingRepository.getListings();
         return ListingAssembler.toDto(listings);
     }
+
+    @Override
+    public List<ListingDto> getListingsByCategory(String cagtegory) {
+        List<Listing> listings = listingRepository.getListingsByCategory(cagtegory);
+        return ListingAssembler.toDto(listings);
+    }
 }

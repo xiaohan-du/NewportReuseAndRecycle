@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS listing
     description VARCHAR(MAX) NOT NULL,
     price DOUBLE NOT NULL,
     image_url TEXT NOT NULL,
+    category VARCHAR(100) NOT NULL,
     PRIMARY KEY (`id`)
     )
     engine = InnoDB;

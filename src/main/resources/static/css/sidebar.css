@@ -18,8 +18,7 @@ a, a:hover, a:focus {
 }
 
 #sidebar {
-    /* don't forget to add all the previously mentioned styles here too */
-    background: #7386D5;
+    background: #F9E8A9;
     color: #fff;
     transition: all 0.3s;
 }
