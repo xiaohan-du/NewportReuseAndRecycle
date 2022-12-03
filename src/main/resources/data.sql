@@ -1,6 +1,6 @@
 INSERT INTO users (username, password, role, enabled)
-VALUES ('nam',
-        '$2a$10$XptfskLsT1l/bRTLRiiCgejHqOpgXFreUnNUa35gJdCr2v2QbVFzu',
+VALUES ('user',
+        '$2a$12$k5uDRF2hMLDvrWoeHbdD0uEM/gcdECX.Vs5inhhr3dFkR7OeRvP2m',
         'user', 1),
         ('admin',
         '$2a$04$VwoWUzjRYC3eodssFgcO6.HLQXjzOj4p33y4Afmp4hdrONYG4kut2',
