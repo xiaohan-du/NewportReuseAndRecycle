@@ -1,14 +1,19 @@
 package ase.newportreuseandrecycle.api;
 
+import ase.newportreuseandrecycle.api.json.CategoryJson;
+import ase.newportreuseandrecycle.api.json.CategoryJsonAssembler;
 import ase.newportreuseandrecycle.api.json.ListingJson;
 import ase.newportreuseandrecycle.api.json.ListingJsonAssembler;
+import ase.newportreuseandrecycle.service.CategoryDto;
 import ase.newportreuseandrecycle.service.ListingDto;
 import ase.newportreuseandrecycle.service.ListingService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -19,9 +24,20 @@ public class ListingRestController {
         this.listingService = listingService;
     }
 
-    @GetMapping("listing")
-    public ResponseEntity<List<ListingJson>> getAllListings() {
-        List<ListingDto> ListingResponse = listingService.getListings();
-        return ResponseEntity.ok(ListingJsonAssembler.toListingJsonList(ListingResponse));
+    @GetMapping("listings/{category}")
+    public ResponseEntity<List<ListingJson>> getListingsByCategory(@PathVariable String category) {
+        List<ListingDto> listingResponse;
+        if (category.equals("all")) {
+            listingResponse = listingService.getListings();
+        } else {
+            listingResponse = listingService.getListingsByCategory(category);
+        }
+        return ResponseEntity.ok(ListingJsonAssembler.toListingJsonList(listingResponse));
+    }
+
+    @GetMapping("listings/categories")
+    public ResponseEntity<List<CategoryJson>> getCategories() {
+        List<CategoryDto> categroyResponse = listingService.getCategories();
+        return ResponseEntity.ok(CategoryJsonAssembler.toCategoryJsonList(categroyResponse));
     }
 }

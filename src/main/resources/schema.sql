@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS users
     engine = InnoDB;
 
 -- -----------------------------------------------------
--- Table listings
+-- Table listing
 -- -----------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS listing
@@ -32,6 +32,19 @@ CREATE TABLE IF NOT EXISTS listing
     description VARCHAR(MAX) NOT NULL,
     price DOUBLE NOT NULL,
     image_url TEXT NOT NULL,
+    category VARCHAR(100) NOT NULL,
+    PRIMARY KEY (`id`)
+    )
+    engine = InnoDB;
+
+-- -----------------------------------------------------
+-- Table category
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS category
+(
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    category VARCHAR(100) NOT NULL,
     PRIMARY KEY (`id`)
     )
     engine = InnoDB;

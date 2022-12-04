@@ -15,6 +15,7 @@ public class ListingJsonAssembler {
                 .description(listingDto.getDescription())
                 .price(listingDto.getPrice())
                 .imageUrl(listingDto.getImageUrl())
+                .category(listingDto.getCategory())
                 .build();
     }
 

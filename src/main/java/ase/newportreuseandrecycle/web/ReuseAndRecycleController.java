@@ -35,15 +35,6 @@ public class ReuseAndRecycleController {
         return mv;
     }
 
-    @GetMapping("listings")
-    public ModelAndView getListings(Model model) {
-        List<ListingDto> listings;
-        listings = listingService.getListings();
-        model.addAttribute("products", listings);
-        var mv = new ModelAndView("products/listings");
-        return mv;
-    }
-
     @GetMapping("user-list")
     public ModelAndView getUsers(Model model) {
         List<UserDto> users;
