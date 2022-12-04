@@ -36,20 +36,21 @@ const handleSidebar = (btnId) => {
                 img.width = img.height = "128";
 
                 let pTitle = document.createElement("p");
-                pTitle.innerText = listings[curIndex].title;
+                pTitle.innerText = `Title: ${listings[curIndex].title}`;
 
                 let pDescription = document.createElement("p");
-                pDescription.innerText = listings[curIndex].description;
+                pDescription.innerText = `Description: ${listings[curIndex].description}`;
 
                 let pUserID = document.createElement("p");
-                pUserID.innerText = listings[curIndex].userId;
+                pUserID.innerText = `User ID: ${listings[curIndex].userId}`;
 
                 let pPrice = document.createElement("p");
-                pPrice.innerText = listings[curIndex].price;
+                pPrice.innerText = `Price: ${listings[curIndex].price}`;
 
                 let pCategory = document.createElement("p");
-                pCategory.innerText = listings[curIndex].category;
+                pCategory.innerText = `Category: ${listings[curIndex].category}`;
 
+                col.classList.add('text-start');
                 col.appendChild(img);
                 col.appendChild(pTitle);
                 col.appendChild(pDescription);

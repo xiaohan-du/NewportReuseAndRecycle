@@ -49,6 +49,7 @@ fetchListing().then((listings) => {
             let pCategory = document.createElement("p");
             pCategory.innerText = `Category: ${listings[curIndex].category}`;
 
+            col.classList.add('text-start');
             col.appendChild(img);
             col.appendChild(pTitle);
             col.appendChild(pDescription);
