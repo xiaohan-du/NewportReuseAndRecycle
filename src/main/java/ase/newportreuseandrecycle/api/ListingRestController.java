@@ -1,7 +1,10 @@
 package ase.newportreuseandrecycle.api;
 
+import ase.newportreuseandrecycle.api.json.CategoryJson;
+import ase.newportreuseandrecycle.api.json.CategoryJsonAssembler;
 import ase.newportreuseandrecycle.api.json.ListingJson;
 import ase.newportreuseandrecycle.api.json.ListingJsonAssembler;
+import ase.newportreuseandrecycle.service.CategoryDto;
 import ase.newportreuseandrecycle.service.ListingDto;
 import ase.newportreuseandrecycle.service.ListingService;
 import org.springframework.http.ResponseEntity;
@@ -30,5 +33,11 @@ public class ListingRestController {
             listingResponse = listingService.getListingsByCategory(category);
         }
         return ResponseEntity.ok(ListingJsonAssembler.toListingJsonList(listingResponse));
+    }
+
+    @GetMapping("listings/categories")
+    public ResponseEntity<List<CategoryJson>> getCategories() {
+        List<CategoryDto> categroyResponse = listingService.getCategories();
+        return ResponseEntity.ok(CategoryJsonAssembler.toCategoryJsonList(categroyResponse));
     }
 }

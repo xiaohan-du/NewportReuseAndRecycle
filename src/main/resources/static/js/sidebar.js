@@ -9,6 +9,17 @@ async function fetchListingByCategory(category) {
     }
 }
 
+async function fetchCategories() {
+    const response = await fetch('http://localhost:8080/api/listings/categories');
+    if (!response.ok) {
+        const message = `An error has occured: ${response.status}`;
+        throw new Error(message);
+    } else {
+        const categories = await response.json();
+        return categories;
+    }
+}
+
 const handleSidebar = (btnId) => {
     fetchListingByCategory(btnId).then((listings) => {
         const NUM_OF_COLS = 3;
@@ -67,3 +78,25 @@ const handleSidebar = (btnId) => {
 };
 
 handleSidebar();
+
+fetchCategories().then((categories) => {
+    let categoriesList = document.getElementById("sidebar-list");
+    let allBtn = document.createElement("button");
+    allBtn.className = "btn btn-warning w-100 mt-2";
+    allBtn.innerHTML = "All";
+    allBtn.id = 'all';
+    allBtn.addEventListener("click", () => {
+        handleSidebar(allBtn.id);
+    })
+    categoriesList.appendChild(allBtn);
+    categories.map(c => {
+        let btn = document.createElement("button");
+        btn.className = "btn btn-warning w-100 mt-2";
+        btn.innerHTML = c.category;
+        btn.id = c.category;
+        btn.addEventListener("click", () => {
+            handleSidebar(btn.id);
+        })
+        categoriesList.appendChild(btn);
+    });
+});
