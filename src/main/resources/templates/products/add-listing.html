@@ -68,11 +68,10 @@
                         />
                     </div>
                     <div class="row">
-                        <label class="form-label">Category</label>
-                        <input required th:field="*{category}" type="text" list="categories" />
-                        <datalist id="categories">
+                        <label class="form-label" for="categories">Category</label>
+                        <select required th:field="*{category}" id="categories" class="form-select">
                             <option th:each="category : ${categories}" th:text="${category}"></option>
-                        </datalist>
+                        </select>
                     </div>
                 </div>
 
