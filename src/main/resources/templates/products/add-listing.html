@@ -55,16 +55,19 @@
                         </div>
                     </div>
                     <div class="input-group mt-3">
-                        <label class="input-group-text" for="images">Upload images</label>
-                        <input
-                                multiple
-                                class="form-control"
-                                accept="image/png,image/jpeg"
-                                id="images"
-                                name="image"
-                                type="file"
-                        />
+                        <!--                        <label class="input-group-text" for="images">Upload images</label>-->
+                        <!--                        <input-->
+                        <!--                                multiple-->
+                        <!--                                class="form-control"-->
+                        <!--                                accept="image/png,image/jpeg"-->
+                        <!--                                id="images"-->
+                        <!--                                name="image"-->
+                        <!--                                type="file"-->
+                        <!--                        />-->
+                        <label class="form-label" for="image">Image URL</label>
+                        <input type="url" id="image" name="image" class="form-control" />
                     </div>
+                    <p>Need help?  Try using <a href="https://imgur.com/upload">imgur</a>!</p>
                     <div class="row">
                         <label class="form-label" for="categories">Category</label>
                         <select required th:field="*{category}" id="categories" class="form-select">
