@@ -38,27 +38,30 @@ if (window.location.pathname == "/listings") {
         const NUM_OF_COLS = 3;
         let numOfRows = listings.length / NUM_OF_COLS + 1;
 
-        let listingsGridElement = document.getElementById("listings-grid");
+        let initialResults = document.getElementById("initial-listings-grid");
+        let sidebarResults = document.getElementById("sidebar-listings-grid");
+
+        sidebarResults.innerHTML = '';
 
         for (let i = 0; i < numOfRows; i++) {
-            let row = document.createElement("row");
+            let row = document.createElement("div");
             row.className = "row";
 
             for (let j = 0; j < NUM_OF_COLS; j++) {
                 let curIndex = NUM_OF_COLS * i + j;
 
                 if (curIndex == listings.length) {
-                    listingsGridElement.appendChild(row);
+                    initialResults.appendChild(row);
                     return;
                 }
 
-                let col = document.createElement("div");
-                col.className = "col";
+            let col = document.createElement("div");
+            col.className = "col";
 
 
-                    img = document.createElement("img");
-                    img.src = listings[curIndex].imageUrl;
-                    img.height = "128";
+            img = document.createElement("img");
+            img.src = listings[curIndex].imageUrl;
+            img.height = "128";
 
             let pTitle = document.createElement("p");
             pTitle.innerText = `Title: ${listings[curIndex].title}`;
@@ -86,7 +89,7 @@ if (window.location.pathname == "/listings") {
                 row.append(col);
             }
 
-            listingsGridElement.append(row);
+            initialResults.append(row);
         }
     });
 }
