@@ -68,20 +68,10 @@ public class ListingsController {
     }
 
     @PostMapping("add")
-    public ModelAndView postNewListing(ListingForm newListing, @RequestParam("image") MultipartFile file, Model model) {
+    public ModelAndView postNewListing(ListingForm newListing, @RequestParam("image") String url, Model model) {
         String imageUrl = "http://www.clker.com/cliparts/f/Z/G/4/h/Q/no-image-available-hi.png";
-        if (!file.isEmpty()) {
-            StringBuilder fileNames = new StringBuilder();
-            Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, file.getOriginalFilename());
-            fileNames.append(file.getOriginalFilename());
-            try {
-                Files.write(fileNameAndPath, file.getBytes());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            System.out.printf("%s", UPLOAD_DIRECTORY);
-            imageUrl = UPLOAD_DIRECTORY + file.getOriginalFilename();
+        if (!url.isEmpty()) {
+            imageUrl = url;
         }
 
         ListingDto listingDto = new ListingDto(newListing.getId(), newListing.getUserId(), newListing.getTitle(), newListing.getDescription(), newListing.getPrice(), imageUrl, newListing.getCategory());

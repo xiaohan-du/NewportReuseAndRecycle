@@ -25,17 +25,21 @@ const handleSidebar = (btnId) => {
         const NUM_OF_COLS = 3;
         let numOfRows = listings.length / NUM_OF_COLS + 1;
 
-        let listingsGridElement = document.getElementById("listings-grid");
-        listingsGridElement.innerHTML = '';
+        let sidebarResults = document.getElementById("sidebar-listings-grid");
+        let initialResults = document.getElementById("initial-listings-grid");
+
+        initialResults.innerHTML = '';
+        sidebarResults.innerHTML = '';
+
         for (let i = 0; i < numOfRows; i++) {
-            let row = document.createElement("row");
+            let row = document.createElement("div");
             row.className = "row";
 
             for (let j = 0; j < NUM_OF_COLS; j++) {
                 let curIndex = (NUM_OF_COLS * i) + j;
 
                 if (curIndex == listings.length) {
-                    listingsGridElement.appendChild(row);
+                    sidebarResults.appendChild(row);
                     return;
                 }
 
@@ -72,7 +76,7 @@ const handleSidebar = (btnId) => {
                 row.append(col);
             }
 
-            listingsGridElement.append(row);
+            sidebarResults.append(row);
         }
     })
 };
