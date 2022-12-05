@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface ListingRepository {
     List<Listing> getListings();
+    void addNewListing(Listing newListing);
     List<Listing> getListingsByCategory(String category);
     List<Category>  getCategories();
 }

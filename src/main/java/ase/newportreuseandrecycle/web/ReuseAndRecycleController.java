@@ -17,10 +17,9 @@ import java.util.List;
 public class ReuseAndRecycleController {
 
     private final UserService userService;
-    private final ListingService listingService;
-    public ReuseAndRecycleController(UserService svc, ListingService listingService) {
+
+    public ReuseAndRecycleController(UserService svc) {
         this.userService = svc;
-        this.listingService = listingService;
     }
 
     @GetMapping("")
@@ -64,5 +63,4 @@ public class ReuseAndRecycleController {
 
     }
 
-    }
-
+}

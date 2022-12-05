@@ -21,6 +21,20 @@ public class ListingServiceImpl implements ListingService{
     }
 
     @Override
+    public void addListing(ListingDto listingDto) {
+        Listing listing = new Listing(
+                listingDto.getId(),
+                listingDto.getUserId(),
+                listingDto.getTitle(),
+                listingDto.getDescription(),
+                listingDto.getPrice(),
+                listingDto.getImageUrl(),
+                listingDto.getCategory()
+        );
+        listingRepository.addNewListing(listing);
+
+    }
+
     public List<ListingDto> getListingsByCategory(String cagtegory) {
         List<Listing> listings = listingRepository.getListingsByCategory(cagtegory);
         return ListingAssembler.toDto(listings);
