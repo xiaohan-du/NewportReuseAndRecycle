@@ -1,12 +1,36 @@
 async function fetchListing() {
     const response = await fetch("http://localhost:8080/api/listings/all");
     if (!response.ok) {
-        const message = `An error has occured: ${response.status}`;
+        const message = `An error has occurred: ${response.status}`;
         throw new Error(message);
     } else {
         const listings = await response.json();
         return listings;
     }
+}
+
+async function fetchCategories() {
+    const response = await fetch("http://localhost:8080/api/listings/categories");
+    if (!response.ok) {
+        const message = `An error has occurred: ${response.status}`;
+        throw new Error(message);
+    } else {
+        const categories = await response.json();
+        return categories;
+    }
+}
+
+if (window.location.pathname == "/listings/add") {
+    fetchCategories().then((categories) => {
+        let dataList = document.getElementById("categories");
+
+        categories.forEach((category) => {
+            let optionElement = document.createElement("option");
+            optionElement.innerText = category.category;
+
+            dataList.appendChild(optionElement);
+        })
+    })
 }
 
 if (window.location.pathname == "/listings") {
@@ -31,9 +55,10 @@ if (window.location.pathname == "/listings") {
                 let col = document.createElement("div");
                 col.className = "col";
 
-                let img = document.createElement("img");
-                img.src = listings[curIndex].imageUrl;
-                img.height = "128";
+
+                    img = document.createElement("img");
+                    img.src = listings[curIndex].imageUrl;
+                    img.height = "128";
 
             let pTitle = document.createElement("p");
             pTitle.innerText = `Title: ${listings[curIndex].title}`;
@@ -45,7 +70,7 @@ if (window.location.pathname == "/listings") {
             pUserID.innerText = `User ID: ${listings[curIndex].userId}`;
 
             let pPrice = document.createElement("p");
-            pPrice.innerText = `Price: ${listings[curIndex].price}`;
+            pPrice.innerText = `Price: £${listings[curIndex].price.toFixed(2)}`;
 
             let pCategory = document.createElement("p");
             pCategory.innerText = `Category: ${listings[curIndex].category}`;

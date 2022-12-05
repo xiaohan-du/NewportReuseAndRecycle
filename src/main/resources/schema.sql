@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS listing
     title VARCHAR(100) NOT NULL,
     description VARCHAR(MAX) NOT NULL,
     price DOUBLE NOT NULL,
-    image_url TEXT,
+    image_url TEXT default 'http://www.clker.com/cliparts/f/Z/G/4/h/Q/no-image-available-hi.png',
     category VARCHAR(100) NOT NULL,
     PRIMARY KEY (`id`)
     )

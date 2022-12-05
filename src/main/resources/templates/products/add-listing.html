@@ -60,13 +60,19 @@
                         <label class="input-group-text" for="images">Upload images</label>
                         <input
                                 multiple
-                                required
                                 class="form-control"
                                 accept="image/png,image/jpeg"
                                 id="images"
                                 name="image"
                                 type="file"
                         />
+                    </div>
+                    <div class="row">
+                        <label class="form-label">Category</label>
+                        <input required th:field="*{category}" type="text" list="categories" />
+                        <datalist id="categories">
+                            <option th:each="category : ${categories}" th:text="${category}"></option>
+                        </datalist>
                     </div>
                 </div>
 
@@ -76,7 +82,7 @@
                 <button type="reset" class="btn btn-warning mt-4">
                     Reset listing info
                 </button>
-                <a href="..">
+                <a href="/listings">
                     <button type="button" class="btn btn-danger mt-4" >
                         Cancel
                     </button>
@@ -84,7 +90,7 @@
             </form>
         </div>
 
-        <script async type="text/javascript" th:src="@{/js/listing.js}"></script>
+        <script async type="text/javascript" th:src="@{/js/listings.js}"></script>
 
         <div th:replace="fragments/footer :: footer-links"></div>
     </body>

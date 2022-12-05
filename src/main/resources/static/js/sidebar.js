@@ -56,7 +56,7 @@ const handleSidebar = (btnId) => {
                 pUserID.innerText = `User ID: ${listings[curIndex].userId}`;
 
                 let pPrice = document.createElement("p");
-                pPrice.innerText = `Price: ${listings[curIndex].price}`;
+                pPrice.innerText = `Price: £${listings[curIndex].price.toFixed(2)}`;
 
                 let pCategory = document.createElement("p");
                 pCategory.innerText = `Category: ${listings[curIndex].category}`;

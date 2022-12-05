@@ -1,6 +1,7 @@
 package ase.newportreuseandrecycle.web;
 
 
+import ase.newportreuseandrecycle.api.ListingRestController;
 import ase.newportreuseandrecycle.data.UserRepository;
 import ase.newportreuseandrecycle.service.ListingDto;
 import ase.newportreuseandrecycle.service.ListingService;
@@ -53,6 +54,9 @@ public class ListingsController {
             ListingForm listingForm = new ListingForm();
             listingForm.setUserId(userDto.get().getId());
 
+            ListingRestController restController = new ListingRestController(listingService);
+
+//            model.addAttribute("categories", restController.getCategories());
             model.addAttribute("listingForm", listingForm);
             mv = new ModelAndView("products/add-listing", model.asMap());
         }
@@ -65,21 +69,25 @@ public class ListingsController {
 
     @PostMapping("add")
     public ModelAndView postNewListing(ListingForm newListing, @RequestParam("image") MultipartFile file, Model model) {
-        StringBuilder fileNames = new StringBuilder();
-        Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, file.getOriginalFilename());
-        fileNames.append(file.getOriginalFilename());
-        try {
-            Files.write(fileNameAndPath, file.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
+        String imageUrl = "http://www.clker.com/cliparts/f/Z/G/4/h/Q/no-image-available-hi.png";
+        if (!file.isEmpty()) {
+            StringBuilder fileNames = new StringBuilder();
+            Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, file.getOriginalFilename());
+            fileNames.append(file.getOriginalFilename());
+            try {
+                Files.write(fileNameAndPath, file.getBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            System.out.printf("%s", UPLOAD_DIRECTORY);
+            imageUrl = UPLOAD_DIRECTORY + file.getOriginalFilename();
         }
 
-        System.out.printf("%s", UPLOAD_DIRECTORY);
-
-        ListingDto listingDto = new ListingDto(newListing.getId(), newListing.getUserId(), newListing.getTitle(), newListing.getDescription(), newListing.getPrice(), "\\static\\images\\" + file.getOriginalFilename(), newListing.getCategory());
+        ListingDto listingDto = new ListingDto(newListing.getId(), newListing.getUserId(), newListing.getTitle(), newListing.getDescription(), newListing.getPrice(), imageUrl, newListing.getCategory());
         listingService.addListing(listingDto);
 
-        var mv = new ModelAndView("redirect:/listings", model.asMap());
+        var mv = new ModelAndView("redirect:/listings");
         return mv;
     }
 }
