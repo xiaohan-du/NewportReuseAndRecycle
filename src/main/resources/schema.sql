@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS users
     id int(11) NOT NULL AUTO_INCREMENT,
     username VARCHAR(45) NOT NULL,
     password VARCHAR(64) NOT NULL,
-    role VARCHAR(45) NOT NULL,
+    role VARCHAR(5) NOT NULL,  -- use enums (predetermined values) for role ('admin', 'user')
     enabled BIT DEFAULT NULL,
     PRIMARY KEY (`id`)
     )
