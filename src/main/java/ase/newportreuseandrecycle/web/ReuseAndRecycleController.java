@@ -17,10 +17,9 @@ import java.util.List;
 public class ReuseAndRecycleController {
 
     private final UserService userService;
-    private final ListingService listingService;
-    public ReuseAndRecycleController(UserService svc, ListingService listingService) {
+
+    public ReuseAndRecycleController(UserService svc) {
         this.userService = svc;
-        this.listingService = listingService;
     }
 
     @GetMapping("")
@@ -32,15 +31,6 @@ public class ReuseAndRecycleController {
     @GetMapping("hello")
     public ModelAndView helloWorld(Model model) {
         var mv = new ModelAndView("hello", model.asMap());
-        return mv;
-    }
-
-    @GetMapping("listings")
-    public ModelAndView getListings(Model model) {
-        List<ListingDto> listings;
-        listings = listingService.getListings();
-        model.addAttribute("products", listings);
-        var mv = new ModelAndView("products/listings");
         return mv;
     }
 
@@ -73,5 +63,4 @@ public class ReuseAndRecycleController {
 
     }
 
-    }
-
+}

@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS listings;
 CREATE TABLE IF NOT EXISTS users
 (
     id int(11) NOT NULL AUTO_INCREMENT,
-    username VARCHAR(45) NOT NULL,
+    username VARCHAR(45) UNIQUE NOT NULL,
     password VARCHAR(64) NOT NULL,
     role VARCHAR(45) NOT NULL,
     enabled BIT DEFAULT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS listing
     title VARCHAR(100) NOT NULL,
     description VARCHAR(MAX) NOT NULL,
     price DOUBLE NOT NULL,
-    image_url TEXT NOT NULL,
+    image_url TEXT,
     PRIMARY KEY (`id`)
     )
     engine = InnoDB;

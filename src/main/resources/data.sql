@@ -7,8 +7,8 @@ VALUES ('nam',
         'admin', 1);
 
 
-INSERT INTO listing (title, description, price, image_url, user_id)
-VALUES ('test listing 1', 'This is text listing 1 content', 3.99, 'http://pamsdailydish.com/wp-content/uploads/2015/04/Bunch-Bananas-2.jpg', 12345),
-       ('test listing 2', 'This is text listing 2 content', 13.99, 'http://pamsdailydish.com/wp-content/uploads/2015/04/Bunch-Bananas-2.jpg', 12345),
-       ('test listing 3', 'This is text listing 3 content', 200.00, 'http://pamsdailydish.com/wp-content/uploads/2015/04/Bunch-Bananas-2.jpg', 12345),
-       ('test listing 4', 'This is text listing 4 content', 4.50, 'http://pamsdailydish.com/wp-content/uploads/2015/04/Bunch-Bananas-2.jpg', 12345);
+INSERT INTO listing (title, description, price, user_id)
+VALUES ('test listing 1', 'This is text listing 1 content', 3.99, 12345),
+       ('test listing 2', 'This is text listing 2 content', 13.99, 12345),
+       ('test listing 3', 'This is text listing 3 content', 200.00, 12345),
+       ('test listing 4', 'This is text listing 4 content', 4.50, 12345);

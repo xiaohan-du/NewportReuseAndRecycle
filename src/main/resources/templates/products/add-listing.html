@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Add a product listing</title>
+        <head th:include="fragments/header :: header"></head>
+    </head>
+    <body>
+        <div th:replace="fragments/navbar :: navbar-links"></div>
+
+        <div class="container">
+            <h1>Add a new product</h1>
+
+            <form enctype="multipart/form-data" th:method="post" th:object="${listingForm}" th:action="@{add}">
+                <input th:field="*{userId}" style="display: none;" />
+                <div class="row">
+                    <div class="col">
+                        <label for="title" class="form-label">Title</label>
+                        <input
+                            required
+                            id="title"
+                            class="form-control"
+                            type="text"
+                            th:field="*{title}"
+                        />
+                    </div>
+                    <div class="col">
+                        <label for="description" class="form-label"
+                            >Description</label
+                        >
+                        <textarea
+                            required
+                            id="description"
+                            class="form-control"
+                            th:field="*{description}"
+                        ></textarea>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <p>Price</p>
+                    <div class="row">
+                        <div class="col-auto">
+                            <label for="price" class="form-label">£</label>
+                        </div>
+                        <div class="col-1">
+                            <input
+                                required
+                                id="price"
+                                class="form-control"
+                                value="0.00"
+                                min="0"
+                                step="0.01"
+                                type="number"
+                                th:field="*{price}"
+                            />
+                        </div>
+                    </div>
+                    <div class="input-group mt-3">
+                        <label class="input-group-text" for="images">Upload images</label>
+                        <input
+                                multiple
+                                required
+                                class="form-control"
+                                accept="image/png,image/jpeg"
+                                id="images"
+                                name="image"
+                                type="file"
+                        />
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-success mt-4">
+                    Add listing
+                </button>
+                <button type="reset" class="btn btn-warning mt-4">
+                    Reset listing info
+                </button>
+                <a href="..">
+                    <button type="button" class="btn btn-danger mt-4" >
+                        Cancel
+                    </button>
+                </a>
+            </form>
+        </div>
+
+        <script async type="text/javascript" th:src="@{/js/listing.js}"></script>
+
+        <div th:replace="fragments/footer :: footer-links"></div>
+    </body>
+</html>

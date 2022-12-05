@@ -1,17 +1,30 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
-<head th:include="fragments/header :: header">
+<head>
     <meta charset="UTF-8">
     <title>Product Listings</title>
+    <head th:include="fragments/header :: header"></head>
 </head>
 <body>
     <div th:replace="fragments/navbar :: navbar-links"></div>
 
     <div class="container">
-        <h1>Product listings</h1>
-        <div class="text-center" id="listings-grid">
+        <div class="row">
+            <h1>Product listings</h1>
 
+            <div class="col-11">
+                <!-- This will be populated dynamically by `listing.js` -->
+                <div class="text-center" id="listings-grid">
+                </div>
+            </div>
+
+            <div class="col-1">
+                <a href="/listings/add">
+                    <button>Add a listing</button>
+                </a>
+            </div>
         </div>
+
     </div>
 
     <div th:replace="fragments/footer :: footer-links"></div>

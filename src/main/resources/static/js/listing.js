@@ -9,52 +9,54 @@ async function fetchListing() {
     }
 }
 
-fetchListing().then((listings) => {
-    const NUM_OF_COLS = 3;
-    let numOfRows = listings.length / NUM_OF_COLS + 1;
+if (window.location.pathname == "/listings") {
+    fetchListing().then((listings) => {
+        const NUM_OF_COLS = 3;
+        let numOfRows = listings.length / NUM_OF_COLS + 1;
 
-    let listingsGridElement = document.getElementById("listings-grid");
+        let listingsGridElement = document.getElementById("listings-grid");
 
-    for (let i = 0; i < numOfRows; i++) {
-        let row = document.createElement("row");
-        row.className = "row";
+        for (let i = 0; i < numOfRows; i++) {
+            let row = document.createElement("row");
+            row.className = "row";
 
-        for (let j = 0; j < NUM_OF_COLS; j++) {
-            let curIndex = (NUM_OF_COLS * i) + j;
+            for (let j = 0; j < NUM_OF_COLS; j++) {
+                let curIndex = NUM_OF_COLS * i + j;
 
-            if (curIndex == listings.length) {
-                listingsGridElement.appendChild(row);
-                return;
+                if (curIndex == listings.length) {
+                    listingsGridElement.appendChild(row);
+                    return;
+                }
+
+                let col = document.createElement("div");
+                col.className = "col";
+
+                let img = document.createElement("img");
+                img.src = listings[curIndex].imageUrl;
+                img.height = "128";
+
+                let pTitle = document.createElement("p");
+                pTitle.innerText = listings[curIndex].title;
+
+                let pDescription = document.createElement("p");
+                pDescription.innerText = listings[curIndex].description;
+
+                let pUserID = document.createElement("p");
+                pUserID.innerText = listings[curIndex].userId;
+
+                let pPrice = document.createElement("p");
+                pPrice.innerText = `£${listings[curIndex].price.toFixed(2)}`;
+
+                col.appendChild(img);
+                col.appendChild(pTitle);
+                col.appendChild(pDescription);
+                col.appendChild(pUserID);
+                col.appendChild(pPrice);
+
+                row.append(col);
             }
 
-            let col = document.createElement("div");
-            col.className = "col";
-
-            let img = document.createElement("img");
-            img.src = listings[curIndex].imageUrl;
-            img.width = img.height = "128";
-
-            let pTitle = document.createElement("p");
-            pTitle.innerText = listings[curIndex].title;
-
-            let pDescription = document.createElement("p");
-            pDescription.innerText = listings[curIndex].description;
-
-            let pUserID = document.createElement("p");
-            pUserID.innerText = listings[curIndex].userId;
-
-            let pPrice = document.createElement("p");
-            pPrice.innerText = listings[curIndex].price;
-
-            col.appendChild(img);
-            col.appendChild(pTitle);
-            col.appendChild(pDescription);
-            col.appendChild(pUserID);
-            col.appendChild(pPrice);
-
-            row.append(col);
+            listingsGridElement.append(row);
         }
-
-        listingsGridElement.append(row);
-    }
-});
+    });
+}
