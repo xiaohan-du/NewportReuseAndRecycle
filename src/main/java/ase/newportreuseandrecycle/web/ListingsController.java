@@ -76,7 +76,7 @@ public class ListingsController {
 
         System.out.printf("%s", UPLOAD_DIRECTORY);
 
-        ListingDto listingDto = new ListingDto(newListing.getId(), newListing.getUserId(), newListing.getTitle(), newListing.getDescription(), newListing.getPrice(), "\\static\\images\\" + file.getOriginalFilename());
+        ListingDto listingDto = new ListingDto(newListing.getId(), newListing.getUserId(), newListing.getTitle(), newListing.getDescription(), newListing.getPrice(), "\\static\\images\\" + file.getOriginalFilename(), newListing.getCategory());
         listingService.addListing(listingDto);
 
         var mv = new ModelAndView("redirect:/listings", model.asMap());

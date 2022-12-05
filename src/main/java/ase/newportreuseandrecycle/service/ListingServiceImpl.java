@@ -1,6 +1,7 @@
 package ase.newportreuseandrecycle.service;
 
 import ase.newportreuseandrecycle.data.ListingRepository;
+import ase.newportreuseandrecycle.domain.Category;
 import ase.newportreuseandrecycle.domain.Listing;
 import org.springframework.stereotype.Service;
 
@@ -27,9 +28,21 @@ public class ListingServiceImpl implements ListingService{
                 listingDto.getTitle(),
                 listingDto.getDescription(),
                 listingDto.getPrice(),
-                listingDto.getImageUrl()
+                listingDto.getImageUrl(),
+                listingDto.getCategory()
         );
         listingRepository.addNewListing(listing);
 
+    }
+
+    public List<ListingDto> getListingsByCategory(String cagtegory) {
+        List<Listing> listings = listingRepository.getListingsByCategory(cagtegory);
+        return ListingAssembler.toDto(listings);
+    }
+
+    @Override
+    public List<CategoryDto> getCategories() {
+        List<Category> categories = listingRepository.getCategories();
+        return CategoryAssembler.toDto(categories);
     }
 }
