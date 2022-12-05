@@ -1,5 +1,7 @@
 package ase.newportreuseandrecycle.web;
 
+import ase.newportreuseandrecycle.service.ListingDto;
+import ase.newportreuseandrecycle.service.ListingService;
 import ase.newportreuseandrecycle.service.UserDto;
 import ase.newportreuseandrecycle.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import java.util.List;
 public class ReuseAndRecycleController {
 
     private final UserService userService;
+
     public ReuseAndRecycleController(UserService svc) {
         this.userService = svc;
     }
@@ -40,5 +43,24 @@ public class ReuseAndRecycleController {
         return mv;
     }
 
+    @GetMapping("contact-us")
+    public ModelAndView contactus(Model model) {
+        var mv = new ModelAndView("contact-us", model.asMap());
+        return mv;
+    }
+
+    @GetMapping("map")
+    public ModelAndView map(Model model) {
+        var mv = new ModelAndView("map", model.asMap());
+        return mv;
+
+    }
+
+    @GetMapping("donations")
+    public ModelAndView donations(Model model) {
+        var mv = new ModelAndView("donations", model.asMap());
+        return mv;
+
+    }
 
 }
