@@ -8,10 +8,7 @@ import ase.newportreuseandrecycle.service.CategoryDto;
 import ase.newportreuseandrecycle.service.ListingDto;
 import ase.newportreuseandrecycle.service.ListingService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -37,7 +34,7 @@ public class ListingRestController {
 
     @GetMapping("listings/categories")
     public ResponseEntity<List<CategoryJson>> getCategories() {
-        List<CategoryDto> categroyResponse = listingService.getCategories();
-        return ResponseEntity.ok(CategoryJsonAssembler.toCategoryJsonList(categroyResponse));
+        List<CategoryDto> categoryResponse = listingService.getCategories();
+        return ResponseEntity.ok(CategoryJsonAssembler.toCategoryJsonList(categoryResponse));
     }
 }
