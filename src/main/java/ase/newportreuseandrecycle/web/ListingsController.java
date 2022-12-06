@@ -14,10 +14,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -56,7 +53,6 @@ public class ListingsController {
 
             ListingRestController restController = new ListingRestController(listingService);
 
-//            model.addAttribute("categories", restController.getCategories());
             model.addAttribute("listingForm", listingForm);
             mv = new ModelAndView("products/add-listing", model.asMap());
         }
@@ -88,6 +84,25 @@ public class ListingsController {
         listingService.addListing(listingDto);
 
         var mv = new ModelAndView("redirect:/listings");
+        return mv;
+    }
+
+
+    @GetMapping("edit/{id}")
+    public ModelAndView editListing(Model model, @PathVariable Integer id) {
+        System.out.println("in");
+        ListingDto listingDto = listingService.getAListingById(id);
+        ListingForm editForm = new ListingForm(
+                listingDto.getId(),
+                listingDto.getUserId(),
+                listingDto.getTitle(),
+                listingDto.getDescription(),
+                listingDto.getPrice(),
+                listingDto.getImageUrl(),
+                listingDto.getCategory()
+        );
+        model.addAttribute("listingForm", editForm);
+        var mv = new ModelAndView("products/add-listing", model.asMap());
         return mv;
     }
 }

@@ -7,7 +7,7 @@ async function fetchListing() {
         const listings = await response.json();
         return listings;
     }
-}
+};
 
 async function fetchCategories() {
     const response = await fetch("http://localhost:8080/api/listings/categories");
@@ -18,9 +18,29 @@ async function fetchCategories() {
         const categories = await response.json();
         return categories;
     }
+};
+
+async function postEditRequest(id) {
+    const location = window.location.hostname;
+    const settings = {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        }
+    };
+    try {
+        const fetchResponse = await fetch(`http://${location}:8080/api/listings/edit/${id}`, settings);
+        const data = await fetchResponse.json();
+        console.log("in")
+        return data;
+    } catch (e) {
+        return e;
+    }
 }
 
 if (window.location.pathname == "/listings/add") {
+    document.getElementById("main-title").innerHTML = "Add a new product";
     fetchCategories().then((categories) => {
         let dataList = document.getElementById("categories");
 
@@ -31,7 +51,9 @@ if (window.location.pathname == "/listings/add") {
             dataList.appendChild(optionElement);
         })
     })
-}
+} else {
+    document.getElementById("main-title").innerHTML = "Edit product"
+};
 
 if (window.location.pathname == "/listings") {
     fetchListing().then((listings) => {
@@ -55,38 +77,43 @@ if (window.location.pathname == "/listings") {
                 let col = document.createElement("div");
                 col.className = "col";
 
+                img = document.createElement("img");
+                img.src = listings[curIndex].imageUrl;
+                img.height = "128";
 
-                    img = document.createElement("img");
-                    img.src = listings[curIndex].imageUrl;
-                    img.height = "128";
+                let pTitle = document.createElement("p");
+                pTitle.innerText = `Title: ${listings[curIndex].title}`;
 
-            let pTitle = document.createElement("p");
-            pTitle.innerText = `Title: ${listings[curIndex].title}`;
+                let pDescription = document.createElement("p");
+                pDescription.innerText = `Description: ${listings[curIndex].description}`;
 
-            let pDescription = document.createElement("p");
-            pDescription.innerText = `Description: ${listings[curIndex].description}`;
+                let pUserID = document.createElement("p");
+                pUserID.innerText = `User ID: ${listings[curIndex].userId}`;
 
-            let pUserID = document.createElement("p");
-            pUserID.innerText = `User ID: ${listings[curIndex].userId}`;
+                let pPrice = document.createElement("p");
+                pPrice.innerText = `Price: £${listings[curIndex].price.toFixed(2)}`;
 
-            let pPrice = document.createElement("p");
-            pPrice.innerText = `Price: £${listings[curIndex].price.toFixed(2)}`;
+                let pCategory = document.createElement("p");
+                pCategory.innerText = `Category: ${listings[curIndex].category}`;
 
-            let pCategory = document.createElement("p");
-            pCategory.innerText = `Category: ${listings[curIndex].category}`;
+                let editBtn = document.createElement("button");
+                editBtn.innerText = "Edit";
 
-            col.classList.add('text-start');
-            col.appendChild(img);
-            col.appendChild(pTitle);
-            col.appendChild(pDescription);
-            col.appendChild(pUserID);
-            col.appendChild(pPrice);
-            col.appendChild(pCategory);
+                editBtn.addEventListener("click", () => {
+                    window.location.replace(`/listings/edit/${listings[curIndex].id}`);
+                })
+                col.classList.add('text-start', 'm-2');
+                col.appendChild(img);
+                col.appendChild(pTitle);
+                col.appendChild(pDescription);
+                col.appendChild(pUserID);
+                col.appendChild(pPrice);
+                col.appendChild(pCategory);
+                col.appendChild(editBtn);
 
                 row.append(col);
             }
-
             listingsGridElement.append(row);
         }
     });
-}
+};

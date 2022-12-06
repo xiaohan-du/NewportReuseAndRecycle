@@ -7,12 +7,15 @@ import ase.newportreuseandrecycle.api.json.ListingJsonAssembler;
 import ase.newportreuseandrecycle.service.CategoryDto;
 import ase.newportreuseandrecycle.service.ListingDto;
 import ase.newportreuseandrecycle.service.ListingService;
+import ase.newportreuseandrecycle.web.forms.ListingForm;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
 import java.util.List;
 
@@ -39,5 +42,12 @@ public class ListingRestController {
     public ResponseEntity<List<CategoryJson>> getCategories() {
         List<CategoryDto> categroyResponse = listingService.getCategories();
         return ResponseEntity.ok(CategoryJsonAssembler.toCategoryJsonList(categroyResponse));
+    }
+
+    @PostMapping("/listings/edit/{id}")
+    public void editListing(ListingForm newListing, @PathVariable Integer id) {
+        ListingDto newListingDto = new ListingDto(newListing.getId(), newListing.getUserId(), newListing.getTitle(), newListing.getDescription(), newListing.getPrice(), newListing.getImageUrl(), newListing.getCategory());
+        listingService.deleteListingById(id);
+        listingService.addListing(newListingDto);
     }
 }
