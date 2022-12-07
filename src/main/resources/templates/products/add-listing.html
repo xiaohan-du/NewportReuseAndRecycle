@@ -55,15 +55,6 @@
                         </div>
                     </div>
                     <div class="input-group mt-3">
-                        <!--                        <label class="input-group-text" for="images">Upload images</label>-->
-                        <!--                        <input-->
-                        <!--                                multiple-->
-                        <!--                                class="form-control"-->
-                        <!--                                accept="image/png,image/jpeg"-->
-                        <!--                                id="images"-->
-                        <!--                                name="image"-->
-                        <!--                                type="file"-->
-                        <!--                        />-->
                         <label class="form-label" for="image">Image URL</label>
                         <input type="url" id="image" name="image" class="form-control" />
                     </div>
@@ -77,10 +68,10 @@
                 </div>
 
                 <button type="submit" class="btn btn-success mt-4">
-                    Add listing
+                    Confirm
                 </button>
                 <button type="reset" class="btn btn-warning mt-4">
-                    Reset listing info
+                    Reset
                 </button>
                 <a href="/listings">
                     <button type="button" class="btn btn-danger mt-4" >
@@ -91,7 +82,7 @@
         </div>
 
         <script async type="text/javascript" th:src="@{/js/listings.js}"></script>
-
+        <script async type="text/javascript" th:src="@{/js/add-listing.js}"></script>
         <div th:replace="fragments/footer :: footer-links"></div>
     </body>
 </html>
