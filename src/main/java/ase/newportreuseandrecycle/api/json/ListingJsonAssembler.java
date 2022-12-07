@@ -8,15 +8,16 @@ import java.util.stream.Collectors;
 public class ListingJsonAssembler {
     public static ListingJson toListingJson(ListingDto listingDto) {
         return ListingJson
-                .of()
-                .id(listingDto.getId())
-                .userId(listingDto.getUserId())
-                .title(listingDto.getTitle())
-                .description(listingDto.getDescription())
-                .price(listingDto.getPrice())
-                .imageUrl(listingDto.getImageUrl())
-                .category(listingDto.getCategory())
-                .build();
+            .of()
+            .id(listingDto.getId())
+            .userId(listingDto.getUserId())
+            .title(listingDto.getTitle())
+            .description(listingDto.getDescription())
+            .price(listingDto.getPrice())
+            .imageUrl(listingDto.getImageUrl())
+            .category(listingDto.getCategory())
+            .collectionOrDelivery(listingDto.getCollectionOrDelivery())
+            .build();
     }
 
     public static List<ListingJson> toListingJsonList(List<ListingDto> listingDtoList) {

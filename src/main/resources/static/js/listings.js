@@ -78,6 +78,9 @@ if (window.location.pathname == "/listings") {
             let pCategory = document.createElement("p");
             pCategory.innerText = `Category: ${listings[curIndex].category}`;
 
+            let pCollectionOrDelivery = document.createElement("p");
+            pCategory.innerText = `Collection or delivery: ${listings[curIndex].collectionOrDelivery}`;
+
             col.classList.add('text-start');
             col.appendChild(img);
             col.appendChild(pTitle);
@@ -85,7 +88,7 @@ if (window.location.pathname == "/listings") {
             col.appendChild(pUserID);
             col.appendChild(pPrice);
             col.appendChild(pCategory);
-
+            col.appendChild(pCollectionOrDelivery);
                 row.append(col);
             }
 

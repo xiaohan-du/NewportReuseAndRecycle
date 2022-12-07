@@ -18,7 +18,8 @@ public class ListingAssembler {
                 listing.getDescription(),
                 listing.getPrice(),
                 listing.getImageUrl(),
-                listing.getCategory()
+                listing.getCategory(),
+                listing.getCollectionOrDelivery()
         );
     }
 }

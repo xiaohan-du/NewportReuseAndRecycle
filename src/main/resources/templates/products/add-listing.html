@@ -69,10 +69,30 @@
                     </div>
                     <p>Need help?  Try using <a href="https://imgur.com/upload">imgur</a>!</p>
                     <div class="row">
-                        <label class="form-label" for="categories">Category</label>
-                        <select required th:field="*{category}" id="categories" class="form-select">
-                            <option th:each="category : ${categories}" th:text="${category}"></option>
-                        </select>
+                        <div class="col">
+                            <label class="form-label" for="categories">Category</label>
+                            <select required th:field="*{category}" id="categories" class="form-select">
+                                <option th:each="category : ${categories}" th:text="${category}"></option>
+                            </select>
+                        </div>
+
+                        <div class="col">
+                            <p>What is the preferred method of selling?</p>
+
+                            <label class="form-check-label" for="collect">Collection</label>
+                            <input type="radio" class="form-check-input" id="collect" value="Collection" name="collection-or-delivery" th:field="*{collectionOrDelivery}" />
+
+                            <br />
+
+                            <label class="form-check-label" for="deliver">Delivery</label>
+                            <input type="radio" class="form-check-input" id="deliver" value="Delivery" name="collection-or-delivery" th:field="*{collectionOrDelivery}" />
+
+                            <br />
+
+                            <label class="form-check-label" for="both">Both</label>
+                            <input type="radio" class="form-check-input" id="both" value="Both" name="collection-or-delivery" th:field="*{collectionOrDelivery}" />
+                        </div>
+
                     </div>
                 </div>
 
@@ -90,7 +110,7 @@
             </form>
         </div>
 
-        <script async type="text/javascript" th:src="@{/js/listings.js}"></script>
+        <script type="text/javascript" th:src="@{/js/listings.js}"></script>
 
         <div th:replace="fragments/footer :: footer-links"></div>
     </body>

@@ -29,8 +29,8 @@ public class ListingRepositoryImpl implements ListingRepository{
 
     @Override
     public void addNewListing(Listing aListing) {
-        String addAListingSQL = "INSERT INTO listing (user_id, title, description, price, image_url, category) VALUES (?, ?, ?, ?, ?, ?)";
-        listingJdbcTemplate.update(addAListingSQL, aListing.getUserId(), aListing.getTitle(), aListing.getDescription(), aListing.getPrice(), aListing.getImageUrl(), aListing.getCategory());
+        String addAListingSQL = "INSERT INTO listing (user_id, title, description, price, image_url, category, collection_or_delivery) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        listingJdbcTemplate.update(addAListingSQL, aListing.getUserId(), aListing.getTitle(), aListing.getDescription(), aListing.getPrice(), aListing.getImageUrl(), aListing.getCategory(), aListing.getCollectionOrDelivery());
     }
 
     public List<Listing> getListingsByCategory(String category) {

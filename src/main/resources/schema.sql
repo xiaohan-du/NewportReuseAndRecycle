@@ -32,8 +32,10 @@ CREATE TABLE IF NOT EXISTS listing
     title VARCHAR(100) NOT NULL,
     description VARCHAR(MAX) NOT NULL,
     price DOUBLE NOT NULL,
-    image_url TEXT default 'http://www.clker.com/cliparts/f/Z/G/4/h/Q/no-image-available-hi.png',
+    image_url TEXT DEFAULT 'http://www.clker.com/cliparts/f/Z/G/4/h/Q/no-image-available-hi.png',
     category VARCHAR(100) NOT NULL,
+    location VARCHAR(256) DEFAULT NULL,
+    collection_or_delivery VARCHAR(10) DEFAULT 'both',
     PRIMARY KEY (`id`)
     )
     engine = InnoDB;

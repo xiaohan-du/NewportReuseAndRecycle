@@ -65,6 +65,9 @@ const handleSidebar = (btnId) => {
                 let pCategory = document.createElement("p");
                 pCategory.innerText = `Category: ${listings[curIndex].category}`;
 
+                let pCollectionOrDelivery = document.createElement("p");
+                pCategory.innerText = `Collection or delivery: ${listings[curIndex].collectionOrDelivery}`;
+
                 col.classList.add('text-start');
                 col.appendChild(img);
                 col.appendChild(pTitle);
@@ -72,6 +75,7 @@ const handleSidebar = (btnId) => {
                 col.appendChild(pUserID);
                 col.appendChild(pPrice);
                 col.appendChild(pCategory);
+                col.appendChild(pCollectionOrDelivery);
 
                 row.append(col);
             }
