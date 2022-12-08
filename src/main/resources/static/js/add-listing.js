@@ -48,7 +48,6 @@ let submitBtn = document.getElementById("confirmBtn");
 if (window.location.href.indexOf("/listings/edit") > -1) {
     const listUrl = getUrlParts(window.location.href).pathname;
     const listId = listUrl.replace('/listings/edit/','');
-    let response;
     submitBtn.addEventListener("click", () => {
         postEditRequest(listId).then((response) => {
             if (response.status = 200) {
