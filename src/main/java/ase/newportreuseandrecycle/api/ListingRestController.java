@@ -44,11 +44,15 @@ public class ListingRestController {
         return ResponseEntity.ok(CategoryJsonAssembler.toCategoryJsonList(categroyResponse));
     }
 
-    @PostMapping("/listings/edit/{id}")
-    public void editListing(ListingForm newListing, @PathVariable Integer id, Model model) {
-        ListingDto newListingDto = new ListingDto(newListing.getId(), newListing.getUserId(), newListing.getTitle(), newListing.getDescription(), newListing.getPrice(), newListing.getImageUrl(), newListing.getCategory());
+    @PostMapping("listings/edit/{id}")
+//    public String editListing(ListingForm newListing, @PathVariable Integer id, Model model) {
+    public void editListing(ListingForm listingForm, @PathVariable Integer id, Model model) {
+        System.out.println(listingForm);
+        ListingDto newListingDto = new ListingDto(listingForm.getId(), listingForm.getUserId(), listingForm.getTitle(), listingForm.getDescription(), listingForm.getPrice(), listingForm.getImageUrl(), listingForm.getCategory());
         model.addAttribute("submitURL", String.format("edit/%s", id));
+        System.out.println(listingForm);
         listingService.deleteListingById(id);
         listingService.addListing(newListingDto);
+//        return ":redirect/listings";
     }
 }
