@@ -11,8 +11,6 @@ public interface UserRepository {
     void addNewUser(User aUser);
 
     Optional<User> getAUserByUsername(String username);
-
-
-
 }
+
 

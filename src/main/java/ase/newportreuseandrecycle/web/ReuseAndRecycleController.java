@@ -32,7 +32,6 @@ public class ReuseAndRecycleController {
         return "index";
     }
 
-
     @GetMapping("hello")
     public ModelAndView helloWorld(Model model) {
         var mv = new ModelAndView("hello", model.asMap());
