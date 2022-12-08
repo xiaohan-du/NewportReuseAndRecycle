@@ -7,6 +7,12 @@ import java.util.Optional;
 
 public interface UserRepository {
     List<User> getUsers();
+
     void addNewUser(User aUser);
+
     Optional<User> getAUserByUsername(String username);
+
+
+
 }
+
