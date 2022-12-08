@@ -21,6 +21,9 @@ async function fetchCategories() {
 }
 
 if (window.location.pathname == "/listings/add") {
+    let titleElement = document.getElementById("title");
+    titleElement.focus();
+
     fetchCategories().then((categories) => {
         let dataList = document.getElementById("categories");
 
