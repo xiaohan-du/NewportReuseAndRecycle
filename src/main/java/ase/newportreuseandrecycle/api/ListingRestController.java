@@ -44,7 +44,7 @@ public class ListingRestController {
         return ResponseEntity.ok(CategoryJsonAssembler.toCategoryJsonList(categroyResponse));
     }
 
-    @PostMapping("/listings/edit/{id}")
+    @PostMapping("listings/edit/{id}")
     public void editListing(ListingForm newListing, @PathVariable Integer id, Model model) {
         ListingDto newListingDto = new ListingDto(newListing.getId(), newListing.getUserId(), newListing.getTitle(), newListing.getDescription(), newListing.getPrice(), newListing.getImageUrl(), newListing.getCategory());
         model.addAttribute("submitURL", String.format("edit/%s", id));

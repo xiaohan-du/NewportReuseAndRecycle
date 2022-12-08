@@ -89,6 +89,7 @@ public class ListingsController {
                 listingDto.getCategory()
         );
         model.addAttribute("listingForm", editForm);
+        model.addAttribute("submitURL", String.format("api/listings/edit/%s", id));
         var mv = new ModelAndView("products/add-listing", model.asMap());
         return mv;
     }
