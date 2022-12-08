@@ -51,3 +51,18 @@ CREATE TABLE IF NOT EXISTS category
     PRIMARY KEY (`id`)
     )
     engine = InnoDB;
+
+-- -----------------------------------------------------
+-- Table listing_locations
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS listing_locations
+(
+    listing_id INT(11) NOT NULL,
+    latitude DOUBLE NOT NULL,
+    longitude DOUBLE NOT NULL
+    PRIMARY KEY (`listing_id`)
+    )
+    engine = InnoDB;
+
+
