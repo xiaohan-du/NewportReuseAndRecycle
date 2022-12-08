@@ -20,25 +20,6 @@ async function fetchCategories() {
     }
 };
 
-async function postEditRequest(id) {
-    const location = window.location.hostname;
-    const settings = {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-        }
-    };
-    try {
-        const fetchResponse = await fetch(`http://${location}:8080/api/listings/edit/${id}`, settings);
-        const data = await fetchResponse.json();
-        console.log("in")
-        return data;
-    } catch (e) {
-        return e;
-    }
-};
-
 if (window.location.pathname == "/listings/add") {
     fetchCategories().then((categories) => {
         let dataList = document.getElementById("categories");
@@ -47,7 +28,6 @@ if (window.location.pathname == "/listings/add") {
             optionElement.innerText = category.category;
             dataList.appendChild(optionElement);
         });
-        console.log(dataList)
     });
     const categoryDropdown = document.getElementById("categories");
     const selectElement = (id, valueToSelect) => {

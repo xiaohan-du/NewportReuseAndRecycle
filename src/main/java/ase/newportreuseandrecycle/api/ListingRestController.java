@@ -46,6 +46,7 @@ public class ListingRestController {
 
     @PostMapping("/listings/edit/{id}")
     public void editListing(ListingForm newListing, @PathVariable Integer id) {
+        System.out.println("123123123123");
         ListingDto newListingDto = new ListingDto(newListing.getId(), newListing.getUserId(), newListing.getTitle(), newListing.getDescription(), newListing.getPrice(), newListing.getImageUrl(), newListing.getCategory());
         listingService.deleteListingById(id);
         listingService.addListing(newListingDto);
