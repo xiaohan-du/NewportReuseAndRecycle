@@ -10,9 +10,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class UserRepositoryImpl implements UserRepository{
+public class UserRepositoryImpl implements UserRepository {
     private final JdbcTemplate jdbcTemplate;
     private RowMapper<User> userRowMapper;
+
     public UserRepositoryImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
         setUserRowMapper();
@@ -51,5 +52,4 @@ public class UserRepositoryImpl implements UserRepository{
             return Optional.empty();
         }
     }
-
 }

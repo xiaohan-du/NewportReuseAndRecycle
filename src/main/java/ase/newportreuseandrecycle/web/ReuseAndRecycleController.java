@@ -4,12 +4,14 @@ import ase.newportreuseandrecycle.service.ListingDto;
 import ase.newportreuseandrecycle.service.ListingService;
 import ase.newportreuseandrecycle.service.UserDto;
 import ase.newportreuseandrecycle.service.UserService;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.mail.AuthenticationFailedException;
 import java.util.List;
 
 @Controller
@@ -23,9 +25,11 @@ public class ReuseAndRecycleController {
     }
 
     @GetMapping("")
-    public ModelAndView index(Model model) {
-        var mv = new ModelAndView("index", model.asMap());
-        return mv;
+    public String index(Authentication authentication) {
+        var authorities = (authentication.getAuthorities().stream().toList());
+        if (authorities.get(0).getAuthority().equalsIgnoreCase("admin"))
+            return "admin/admin";
+        return "index";
     }
 
     @GetMapping("hello")
