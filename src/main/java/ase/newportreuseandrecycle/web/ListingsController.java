@@ -72,7 +72,4 @@ public class ListingsController {
         var mv = new ModelAndView("redirect:/listings");
         return mv;
     }
-
-
 }
-

@@ -7,5 +7,4 @@ public interface UserService {
     List<UserDto> getUsers();
     void addNewUser(UserDto userDto);
     Optional<UserDto> getUserByUsername(String username);
-
 }

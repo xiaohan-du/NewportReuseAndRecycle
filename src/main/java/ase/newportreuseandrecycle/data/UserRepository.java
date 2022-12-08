@@ -12,5 +12,3 @@ public interface UserRepository {
 
     Optional<User> getAUserByUsername(String username);
 }
-
-
