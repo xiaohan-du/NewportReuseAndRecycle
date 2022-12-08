@@ -11,7 +11,7 @@
         <div class="container">
             <h1 id="main-title"></h1>
 
-            <form enctype="multipart/form-data" th:method="post" th:object="${listingForm}" th:action="@{edit/{id} (id=${listingForm.id})}">
+            <form enctype="multipart/form-data" th:method="post" th:object="${listingForm}" th:action="@{{url} (url=${submitURL})}">
                 <input th:field="*{userId}" style="display: none;" />
                 <div class="row">
                     <div class="col">
