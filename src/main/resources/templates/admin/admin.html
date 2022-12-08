@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
     <head th:replace="fragments/header :: header">
-    <meta charset="UTF-8">
-    <title> This is the admin Page</title>
+        <meta charset="UTF-8">
+        <title> This is the admin Page</title>
     </head>
-    <h1>Hello Admin</h1>
 
-<h3><a th:href="@{/user-list}">List of Users</a></h3>
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Logout" />
-</form>
-<body>
-</body>
-    <div th:replace="fragments/footer :: footer-links"></div>
+    <body>
+        <h1>Hello Admin</h1>
+        <h3><a th:href="@{/user-list}">List of Users</a></h3>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Logout" />
+        </form>
+        <div th:replace="fragments/footer :: footer-links"></div>
+    </body>
 </html>
