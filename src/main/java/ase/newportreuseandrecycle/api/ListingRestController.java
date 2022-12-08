@@ -46,7 +46,7 @@ public class ListingRestController {
 
     @PostMapping("/listings/edit/{id}")
     public void editListing(ListingForm newListing, @PathVariable Integer id) {
-        ListingDto newListingDto = new ListingDto(newListing.getId(), newListing.getUserId(), newListing.getTitle(), newListing.getDescription(), newListing.getPrice(), newListing.getImageUrl(), newListing.getCategory());
+        ListingDto newListingDto = new ListingDto(6, 6, "123", "12311", 22.0, "https://en.wikipedia.org/wiki/Image#/media/File:Image_created_with_a_mobile_phone.png", "food");
         listingService.deleteListingById(id);
         listingService.addListing(newListingDto);
     }
