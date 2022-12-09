@@ -50,7 +50,7 @@ const handleSidebar = (btnId) => {
                 pLatitude.innerText = `Latitude: ${listings[curIndex].latitude}`;
 
                 let pLongitude = document.createElement("div");
-                pLongitude.innerText = `Longitude: ${listings[curIndex].pLongitude}`;
+                pLongitude.innerText = `Longitude: ${listings[curIndex].longitude}`;
 
                 col.classList.add("text-start");
                 col.appendChild(img);
