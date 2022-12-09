@@ -65,7 +65,9 @@ public class ListingsController {
             imageUrl = url;
         }
 
-        ListingDto listingDto = new ListingDto(newListing.getId(), newListing.getUserId(), newListing.getTitle(), newListing.getDescription(), newListing.getPrice(), imageUrl, newListing.getCategory(), newListing.getCollectionOrDelivery(), newListing.getLatitude(), newListing.getLongitude());
+        ListingDto listingDto = new ListingDto(newListing.getId(), newListing.getUserId(), newListing.getTitle(),
+                newListing.getDescription(), newListing.getPrice(), imageUrl, newListing.getCategory(),
+                newListing.getCollectionOrDelivery(), newListing.getLatitude(), newListing.getLongitude());
         listingService.addListing(listingDto);
         model.addAttribute("submitURL", "add");
         var mv = new ModelAndView("redirect:/listings");
@@ -82,8 +84,10 @@ public class ListingsController {
                 listingDto.getDescription(),
                 listingDto.getPrice(),
                 listingDto.getImageUrl(),
-                listingDto.getCategory()
-        );
+                listingDto.getCategory(),
+                listingDto.getCollectionOrDelivery(),
+                listingDto.getLatitude(),
+                listingDto.getLongitude());
         model.addAttribute("listingForm", editForm);
         model.addAttribute("submitURL", String.format("/api/listings/edit/%s", id));
         var mv = new ModelAndView("products/add-listing", model.asMap());
