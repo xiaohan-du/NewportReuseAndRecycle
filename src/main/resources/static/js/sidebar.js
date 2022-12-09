@@ -20,7 +20,6 @@ const handleSidebar = (btnId) => {
                 }
 
                 let col = document.createElement("div");
-                col.className = "col-4 card";
 
                 let img = document.createElement("img");
                 img.src = listings[curIndex].imageUrl;
@@ -53,6 +52,15 @@ const handleSidebar = (btnId) => {
                 pLongitude.innerText = `Longitude: ${listings[curIndex].longitude}`;
 
                 col.classList.add("text-start");
+                let editBtn = document.createElement("button");
+                editBtn.innerText = "Edit";
+
+                editBtn.addEventListener("click", () => {
+                    window.location.replace(`/listings/edit/${listings[curIndex].id}`);
+                });
+
+                col.classList.add('text-start', 'p-2', 'col-4', 'card');
+                
                 col.appendChild(img);
                 col.appendChild(pTitle);
                 col.appendChild(pDescription);
@@ -62,7 +70,8 @@ const handleSidebar = (btnId) => {
                 col.appendChild(pCollectionOrDelivery);
                 col.appendChild(pLatitude);
                 col.appendChild(pLongitude);
-
+                col.appendChild(editBtn);
+                
                 row.append(col);
             }
 

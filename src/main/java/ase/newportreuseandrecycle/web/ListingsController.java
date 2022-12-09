@@ -1,6 +1,5 @@
 package ase.newportreuseandrecycle.web;
 
-
 import ase.newportreuseandrecycle.api.ListingRestController;
 import ase.newportreuseandrecycle.service.ListingDto;
 import ase.newportreuseandrecycle.service.ListingService;
@@ -12,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,7 +49,6 @@ public class ListingsController {
 
             ListingRestController restController = new ListingRestController(listingService);
 
-//            model.addAttribute("categories", restController.getCategories());
             model.addAttribute("listingForm", listingForm);
             mv = new ModelAndView("products/add-listing", model.asMap());
         } else {
@@ -68,8 +67,26 @@ public class ListingsController {
 
         ListingDto listingDto = new ListingDto(newListing.getId(), newListing.getUserId(), newListing.getTitle(), newListing.getDescription(), newListing.getPrice(), imageUrl, newListing.getCategory(), newListing.getCollectionOrDelivery(), newListing.getLatitude(), newListing.getLongitude());
         listingService.addListing(listingDto);
-
+        model.addAttribute("submitURL", "add");
         var mv = new ModelAndView("redirect:/listings");
+        return mv;
+    }
+
+    @GetMapping("edit/{id}")
+    public ModelAndView editListing(Model model, @PathVariable Integer id) {
+        ListingDto listingDto = listingService.getAListingById(id);
+        ListingForm editForm = new ListingForm(
+                listingDto.getId(),
+                listingDto.getUserId(),
+                listingDto.getTitle(),
+                listingDto.getDescription(),
+                listingDto.getPrice(),
+                listingDto.getImageUrl(),
+                listingDto.getCategory()
+        );
+        model.addAttribute("listingForm", editForm);
+        model.addAttribute("submitURL", String.format("/api/listings/edit/%s", id));
+        var mv = new ModelAndView("products/add-listing", model.asMap());
         return mv;
     }
 }

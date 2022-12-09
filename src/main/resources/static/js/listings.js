@@ -4,11 +4,9 @@ if (window.location.pathname == "/listings/add") {
 
     fetchCategories().then((categories) => {
         let dataList = document.getElementById("categories");
-
         categories.forEach((category) => {
             let optionElement = document.createElement("option");
             optionElement.innerText = category.category;
-
             dataList.appendChild(optionElement);
         });
     });

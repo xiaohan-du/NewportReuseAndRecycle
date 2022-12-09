@@ -33,6 +33,7 @@ public class ListingRepositoryImpl implements ListingRepository{
         listingJdbcTemplate.update(addAListingSQL, aListing.getUserId(), aListing.getTitle(), aListing.getDescription(), aListing.getPrice(), aListing.getImageUrl(), aListing.getCategory(), aListing.getCollectionOrDelivery(), aListing.getLatitude(), aListing.getLongitude());
     }
 
+    @Override
     public List<Listing> getListingsByCategory(String category) {
         List<Listing> listings = new ArrayList<>();
         listingJdbcRepo.findListingsByCategory(category).forEach(listings::add);
@@ -40,9 +41,19 @@ public class ListingRepositoryImpl implements ListingRepository{
     }
 
     @Override
+    public Listing getAListById(Integer id) {
+        return listingJdbcRepo.findListingById(id);
+    }
+
+    @Override
     public List<Category> getCategories() {
         List<Category> categories = new ArrayList<>();
         categoryJdbcRepo.findAll().forEach(categories::add);
         return categories;
+    }
+
+    @Override
+    public void deleteListingById(Integer id) {
+        listingJdbcRepo.deleteById(id);
     }
 }

@@ -2,10 +2,12 @@ package ase.newportreuseandrecycle.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 
 @Data
 @AllArgsConstructor
 public class Listing {
+    @Id
     private Integer id;
     private Integer userId;
     private String title;

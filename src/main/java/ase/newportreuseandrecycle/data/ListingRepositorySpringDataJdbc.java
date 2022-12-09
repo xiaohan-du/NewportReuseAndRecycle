@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ListingRepositorySpringDataJdbc extends CrudRepository<Listing, Integer>{
     List<Listing> findListingsByCategory(String category);
+    Listing findListingById(Integer id);
 }
