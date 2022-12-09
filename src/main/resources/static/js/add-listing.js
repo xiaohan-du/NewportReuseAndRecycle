@@ -58,3 +58,6 @@ if (window.location.href.indexOf("/listings/edit") > -1) {
         });
     });
 };
+
+let imageField = document.getElementById("image");
+imageField.value = "";
