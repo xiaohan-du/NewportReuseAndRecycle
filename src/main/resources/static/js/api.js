@@ -36,3 +36,23 @@ async function fetchListingByCategory(category) {
         return listings;
     }
 }
+
+async function postEditRequest(id) {
+    const location = window.location.hostname;
+    const settings = {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+    };
+    try {
+        const fetchResponse = await fetch(
+            `http://${location}:8080/api/listings/edit/${id}`,
+            settings
+        );
+        return fetchResponse;
+    } catch (e) {
+        return e;
+    }
+}

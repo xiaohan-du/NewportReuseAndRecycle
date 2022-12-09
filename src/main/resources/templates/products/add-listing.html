@@ -13,8 +13,12 @@
         <div class="container">
             <h1 id="main-title"></h1>
 
-            <form th:method="post" th:object="${listingForm}" th:action="@{{url} (url=${submitURL})}">
-                <input th:field="*{userId}" style="display: none;" />
+            <form
+                th:method="post"
+                th:object="${listingForm}"
+                th:action="@{{url} (url=${submitURL})}"
+            >
+                <input th:field="*{userId}" style="display: none" />
                 <div class="row">
                     <div class="col">
                         <label for="title" class="form-label">Title</label>
@@ -232,12 +236,14 @@
                     </div>
                 </div>
 
-                <button type="submit"  id="confirmBtn" class="btn btn-primary mt-4">
+                <button
+                    type="submit"
+                    id="confirmBtn"
+                    class="btn btn-primary mt-4"
+                >
                     Confirm
                 </button>
-                <button type="reset" class="btn btn-warning mt-4">
-                    Reset
-                </button>
+                <button type="reset" class="btn btn-warning mt-4">Reset</button>
                 <a href="/listings">
                     <button type="button" class="btn btn-danger mt-4">
                         Cancel
@@ -247,6 +253,7 @@
         </div>
 
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1kqGLTqeYfGRpye5MMzepDONxxVxBJrQ&libraries=places"></script>
+        <script type="text/javascript" th:src="@{/js/add-listing.js}"></script>
         <script type="text/javascript" th:src="@{/js/listings.js}"></script>
         <script type="text/javascript" th:src="@{/js/location.js}"></script>
 
