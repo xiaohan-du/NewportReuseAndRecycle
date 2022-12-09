@@ -19,7 +19,9 @@ public class ListingAssembler {
                 listing.getPrice(),
                 listing.getImageUrl(),
                 listing.getCategory(),
-                listing.getCollectionOrDelivery()
+                listing.getCollectionOrDelivery(),
+                listing.getLatitude(),
+                listing.getLongitude()
         );
     }
 }

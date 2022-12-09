@@ -25,15 +25,17 @@ function showMap(lat, long) {
     let locationRow = document.getElementById("location");
 
     // Populate the map's attributes
-    let locationFrame = document.createElement("img");
-    locationFrame.src = `https://maps.googleapis.com/maps/api/staticmap?size=256x256&zoom=17&scale=2&center=${lat},${long}&markers=color:red|${lat},${long}&key=${API_KEY}`;
-    locationFrame.height = locationFrame.width = 256;
+    let locationImage = document.createElement("img");
+    locationImage.src = `https://maps.googleapis.com/maps/api/staticmap?size=256x256&zoom=17&scale=2&center=${lat},${long}&markers=color:red|${lat},${long}&key=${API_KEY}`;
+    locationImage.height = locationImage.width = 256;
 
-    locationRow.replaceChildren(locationFrame);
+    let latitude = document.getElementById("latitude");
+    let longitude = document.getElementById("longitude");
 
-    setTimeout(() => {
-        alert(`LAT: ${lat}\nLONG: ${long}`);
-    }, 1000);
+    latitude.value = lat;
+    longitude.value = long;
+
+    locationRow.replaceChildren(locationImage);
 }
 
 function showError(err) {

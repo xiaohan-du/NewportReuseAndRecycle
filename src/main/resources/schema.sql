@@ -34,8 +34,9 @@ CREATE TABLE IF NOT EXISTS listing
     price DOUBLE NOT NULL,
     image_url TEXT DEFAULT 'http://www.clker.com/cliparts/f/Z/G/4/h/Q/no-image-available-hi.png',
     category VARCHAR(100) NOT NULL,
-    location VARCHAR(256) DEFAULT NULL,
     collection_or_delivery VARCHAR(10) DEFAULT 'both',
+    latitude DOUBLE NOT NULL,
+    longitude DOUBLE NOT NULL,
     PRIMARY KEY (`id`)
     )
     engine = InnoDB;
@@ -51,18 +52,3 @@ CREATE TABLE IF NOT EXISTS category
     PRIMARY KEY (`id`)
     )
     engine = InnoDB;
-
--- -----------------------------------------------------
--- Table listing_locations
--- -----------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS listing_locations
-(
-    listing_id INT(11) NOT NULL,
-    latitude DOUBLE NOT NULL,
-    longitude DOUBLE NOT NULL
-    PRIMARY KEY (`listing_id`)
-    )
-    engine = InnoDB;
-
-

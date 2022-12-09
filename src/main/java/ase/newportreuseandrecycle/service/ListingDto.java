@@ -14,5 +14,6 @@ public class ListingDto {
     private String imageUrl;
     private String category;
     private String collectionOrDelivery;
-    // Location?
+    private Double latitude;
+    private Double longitude;
 }

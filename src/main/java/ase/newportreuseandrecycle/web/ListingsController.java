@@ -74,7 +74,7 @@ public class ListingsController {
             imageUrl = url;
         }
 
-        ListingDto listingDto = new ListingDto(newListing.getId(), newListing.getUserId(), newListing.getTitle(), newListing.getDescription(), newListing.getPrice(), imageUrl, newListing.getCategory(), newListing.getCollectionOrDelivery());
+        ListingDto listingDto = new ListingDto(newListing.getId(), newListing.getUserId(), newListing.getTitle(), newListing.getDescription(), newListing.getPrice(), imageUrl, newListing.getCategory(), newListing.getCollectionOrDelivery(), newListing.getLatitude(), newListing.getLongitude());
         listingService.addListing(listingDto);
 
         var mv = new ModelAndView("redirect:/listings");

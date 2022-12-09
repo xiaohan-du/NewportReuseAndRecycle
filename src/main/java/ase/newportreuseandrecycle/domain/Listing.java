@@ -14,4 +14,6 @@ public class Listing {
     private String imageUrl;
     private String category;
     private String collectionOrDelivery;
+    private Double latitude;
+    private Double longitude;
 }
