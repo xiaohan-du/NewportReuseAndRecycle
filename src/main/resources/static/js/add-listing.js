@@ -16,7 +16,11 @@ const getUrlParts = (url) => {
     };
 };
 
+let imageField = document.getElementById("image");
+imageField.value = "";
+
 let submitBtn = document.getElementById("confirmBtn");
+
 if (window.location.href.indexOf("/listings/edit") > -1) {
     const listUrl = getUrlParts(window.location.href).pathname;
     const listId = listUrl.replace("/listings/edit/", "");
