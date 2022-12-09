@@ -1,10 +1,13 @@
 package ase.newportreuseandrecycle.web;
 
-import ase.newportreuseandrecycle.domain.User;
 import ase.newportreuseandrecycle.service.UserDto;
 import ase.newportreuseandrecycle.service.UserService;
+import ase.newportreuseandrecycle.web.forms.ListingForm;
 import ase.newportreuseandrecycle.web.forms.LoginForm;
 import ase.newportreuseandrecycle.web.forms.UserSignupForm;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +20,7 @@ import java.util.Optional;
 @Controller
 public class LoginController {
     private final UserService userService;
+
     public LoginController(UserService svc) {
         this.userService = svc;
     }
@@ -44,6 +48,7 @@ public class LoginController {
             userService.addNewUser(userDto);
             var mv = new ModelAndView("login/register-success", model.asMap());
             return mv;
+
         }
     }
 
@@ -52,4 +57,5 @@ public class LoginController {
         model.addAttribute("loginForm", new LoginForm());
         return new ModelAndView("/login/login-form", model.asMap());
     }
+
 }
