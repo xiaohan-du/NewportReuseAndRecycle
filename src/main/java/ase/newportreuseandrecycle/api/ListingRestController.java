@@ -11,9 +11,6 @@ import ase.newportreuseandrecycle.web.forms.ListingForm;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
@@ -45,14 +42,16 @@ public class ListingRestController {
     }
 
     @PostMapping("listings/edit/{id}")
-//    public String editListing(ListingForm newListing, @PathVariable Integer id, Model model) {
     public void editListing(ListingForm listingForm, @PathVariable Integer id, Model model) {
-        System.out.println(listingForm);
-        ListingDto newListingDto = new ListingDto(listingForm.getId(), listingForm.getUserId(), listingForm.getTitle(), listingForm.getDescription(), listingForm.getPrice(), listingForm.getImageUrl(), listingForm.getCategory());
+        ListingDto newListingDto;
+        if (listingForm.getImageUrl() == null || listingForm.getImageUrl().isEmpty()) {
+            String imageUrl = "http://www.clker.com/cliparts/f/Z/G/4/h/Q/no-image-available-hi.png";
+            newListingDto = new ListingDto(listingForm.getId(), listingForm.getUserId(), listingForm.getTitle(), listingForm.getDescription(), listingForm.getPrice(), imageUrl, listingForm.getCategory());
+        } else {
+            newListingDto = new ListingDto(listingForm.getId(), listingForm.getUserId(), listingForm.getTitle(), listingForm.getDescription(), listingForm.getPrice(), listingForm.getImageUrl(), listingForm.getCategory());
+        }
         model.addAttribute("submitURL", String.format("edit/%s", id));
-        System.out.println(listingForm);
         listingService.deleteListingById(id);
         listingService.addListing(newListingDto);
-//        return ":redirect/listings";
     }
 }

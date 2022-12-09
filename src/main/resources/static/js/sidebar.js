@@ -65,14 +65,21 @@ const handleSidebar = (btnId) => {
                 let pCategory = document.createElement("p");
                 pCategory.innerText = `Category: ${listings[curIndex].category}`;
 
-                col.classList.add('text-start');
+                let editBtn = document.createElement("button");
+                editBtn.innerText = "Edit";
+
+                editBtn.addEventListener("click", () => {
+                    window.location.replace(`/listings/edit/${listings[curIndex].id}`);
+                });
+
+                col.classList.add('text-start', 'p-2');
                 col.appendChild(img);
                 col.appendChild(pTitle);
                 col.appendChild(pDescription);
                 col.appendChild(pUserID);
                 col.appendChild(pPrice);
                 col.appendChild(pCategory);
-
+                col.appendChild(editBtn);
                 row.append(col);
             }
 

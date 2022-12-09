@@ -74,7 +74,7 @@ if (window.location.pathname == "/listings") {
                     window.location.replace(`/listings/edit/${listings[curIndex].id}`);
                 });
 
-                col.classList.add('text-start');
+                col.classList.add('text-start', 'p-2');
                 col.appendChild(img);
                 col.appendChild(pTitle);
                 col.appendChild(pDescription);
