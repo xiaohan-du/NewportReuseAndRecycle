@@ -16,9 +16,6 @@ const getUrlParts = (url) => {
     };
 };
 
-let imageField = document.getElementById("image");
-imageField.value = "";
-
 let submitBtn = document.getElementById("confirmBtn");
 
 if (window.location.href.indexOf("/listings/edit") > -1) {
@@ -33,4 +30,7 @@ if (window.location.href.indexOf("/listings/edit") > -1) {
             }
         });
     });
-}
+};
+
+let imageField = document.getElementById("image");
+imageField.value = "";
