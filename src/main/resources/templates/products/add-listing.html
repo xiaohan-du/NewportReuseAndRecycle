@@ -2,16 +2,16 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8" />
-        <title>Add a product listing</title>
+        <title>Product listing form</title>
         <head th:include="fragments/header :: header"></head>
     </head>
     <body>
         <div th:replace="fragments/navbar :: navbar-links"></div>
 
         <div class="container">
-            <h1>Add a new product</h1>
+            <h1 id="main-title"></h1>
 
-            <form enctype="multipart/form-data" th:method="post" th:object="${listingForm}" th:action="@{add}">
+            <form th:method="post" th:object="${listingForm}" th:action="@{{url} (url=${submitURL})}">
                 <input th:field="*{userId}" style="display: none;" />
                 <div class="row">
                     <div class="col">
@@ -50,20 +50,12 @@
                                 min="0"
                                 step="0.01"
                                 type="number"
+                                name="price"
                                 th:field="*{price}"
                             />
                         </div>
                     </div>
                     <div class="input-group mt-3">
-                        <!--                        <label class="input-group-text" for="images">Upload images</label>-->
-                        <!--                        <input-->
-                        <!--                                multiple-->
-                        <!--                                class="form-control"-->
-                        <!--                                accept="image/png,image/jpeg"-->
-                        <!--                                id="images"-->
-                        <!--                                name="image"-->
-                        <!--                                type="file"-->
-                        <!--                        />-->
                         <label class="form-label" for="image">Image URL</label>
                         <input type="url" id="image" name="image" class="form-control" />
                     </div>
@@ -76,11 +68,11 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-success mt-4">
-                    Add listing
+                <button type="submit"  id="confirmBtn" class="btn btn-primary mt-4">
+                    Confirm
                 </button>
                 <button type="reset" class="btn btn-warning mt-4">
-                    Reset listing info
+                    Reset
                 </button>
                 <a href="/listings">
                     <button type="button" class="btn btn-danger mt-4" >
@@ -90,8 +82,8 @@
             </form>
         </div>
 
-        <script async type="text/javascript" th:src="@{/js/listings.js}"></script>
-
+        <script type="text/javascript" th:src="@{/js/listings.js}"></script>
+        <script type="text/javascript" th:src="@{/js/add-listing.js}"></script>
         <div th:replace="fragments/footer :: footer-links"></div>
     </body>
 </html>
