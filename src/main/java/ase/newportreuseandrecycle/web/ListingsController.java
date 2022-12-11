@@ -47,30 +47,14 @@ public class ListingsController {
             ListingForm listingForm = new ListingForm();
             listingForm.setUserId(userDto.get().getId());
 
-            ListingRestController restController = new ListingRestController(listingService);
-
+            model.addAttribute("submitURL", "/api/listings/add");
             model.addAttribute("listingForm", listingForm);
             mv = new ModelAndView("products/add-listing", model.asMap());
         } else {
+            // TODO: ADD ERROR FALLBACK
             mv = new ModelAndView("products/listing", model.asMap());
         }
 
-        return mv;
-    }
-
-    @PostMapping("add")
-    public ModelAndView postNewListing(ListingForm newListing, @RequestParam("image") String url, Model model) {
-        String imageUrl = "http://www.clker.com/cliparts/f/Z/G/4/h/Q/no-image-available-hi.png";
-        if (!url.isEmpty()) {
-            imageUrl = url;
-        }
-
-        ListingDto listingDto = new ListingDto(newListing.getId(), newListing.getUserId(), newListing.getTitle(),
-                newListing.getDescription(), newListing.getPrice(), imageUrl, newListing.getCategory(),
-                newListing.getCollectionOrDelivery(), newListing.getLatitude(), newListing.getLongitude());
-        listingService.addListing(listingDto);
-        model.addAttribute("submitURL", "add");
-        var mv = new ModelAndView("redirect:/listings");
         return mv;
     }
 

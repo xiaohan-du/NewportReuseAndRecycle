@@ -4,6 +4,7 @@ import ase.newportreuseandrecycle.api.json.CategoryJson;
 import ase.newportreuseandrecycle.api.json.CategoryJsonAssembler;
 import ase.newportreuseandrecycle.api.json.ListingJson;
 import ase.newportreuseandrecycle.api.json.ListingJsonAssembler;
+import ase.newportreuseandrecycle.api.json.ListingJson.ListingJsonBuilder;
 import ase.newportreuseandrecycle.service.CategoryDto;
 import ase.newportreuseandrecycle.service.ListingDto;
 import ase.newportreuseandrecycle.service.ListingService;
@@ -12,7 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("api")
@@ -21,6 +25,26 @@ public class ListingRestController {
 
     public ListingRestController(ListingService listingService) {
         this.listingService = listingService;
+    }
+
+    @PostMapping("listings/add")
+    public ResponseEntity<ListingJson> addNewListing(ListingForm newListing, Model model,
+            HttpServletResponse response) throws IOException {
+
+        String imageUrl = "http://www.clker.com/cliparts/f/Z/G/4/h/Q/no-image-available-hi.png";
+
+        if (!newListing.getImageUrl().isBlank()) {
+            imageUrl = newListing.getImageUrl();
+        }
+
+        ListingDto listingDto = new ListingDto(newListing.getId(), newListing.getUserId(), newListing.getTitle(),
+                newListing.getDescription(), newListing.getPrice(), imageUrl, newListing.getCategory(),
+                newListing.getCollectionOrDelivery(), newListing.getLatitude(), newListing.getLongitude());
+
+        listingService.addListing(listingDto);
+        response.sendRedirect("/listings");
+
+        return ResponseEntity.ok(ListingJsonAssembler.toListingJson(listingDto));
     }
 
     @GetMapping("listings/{category}")
