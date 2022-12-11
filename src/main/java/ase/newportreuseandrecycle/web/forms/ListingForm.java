@@ -15,4 +15,7 @@ public class ListingForm {
     private Double price;
     private String imageUrl;
     private String category;
+    private String collectionOrDelivery;
+    private Double latitude;
+    private Double longitude;
 }
