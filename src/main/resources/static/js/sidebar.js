@@ -51,16 +51,18 @@ const handleSidebar = (btnId) => {
                 let pLongitude = document.createElement("div");
                 pLongitude.innerText = `Longitude: ${listings[curIndex].longitude}`;
 
-                col.classList.add("text-start");
                 let editBtn = document.createElement("button");
                 editBtn.innerText = "Edit";
+                editBtn.classList.add("btn", "btn-secondary", "mt-4");
 
                 editBtn.addEventListener("click", () => {
-                    window.location.replace(`/listings/edit/${listings[curIndex].id}`);
+                    window.location.replace(
+                        `/listings/edit/${listings[curIndex].id}`
+                    );
                 });
 
-                col.classList.add('text-start', 'p-2', 'col-4', 'card');
-                
+                col.classList.add("text-start", "p-2", "col-4", "card");
+
                 col.appendChild(img);
                 col.appendChild(pTitle);
                 col.appendChild(pDescription);
@@ -71,7 +73,7 @@ const handleSidebar = (btnId) => {
                 col.appendChild(pLatitude);
                 col.appendChild(pLongitude);
                 col.appendChild(editBtn);
-                
+
                 row.append(col);
             }
 
