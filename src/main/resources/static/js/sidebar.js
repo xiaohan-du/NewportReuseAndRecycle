@@ -44,7 +44,7 @@ const handleSidebar = (btnId) => {
                 pCategory.innerText = `Category: ${listings[curIndex].category}`;
 
                 let pCollectionOrDelivery = document.createElement("p");
-                pCategory.innerText = `Collection or delivery: ${listings[curIndex].collectionOrDelivery}`;
+                pCollectionOrDelivery.innerText = `Collection or delivery: ${listings[curIndex].collectionOrDelivery}`;
 
                 let pLatitude = document.createElement("div");
                 pLatitude.innerText = `Latitude: ${listings[curIndex].latitude}`;
