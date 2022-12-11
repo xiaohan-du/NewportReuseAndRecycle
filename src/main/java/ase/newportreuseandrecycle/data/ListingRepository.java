@@ -2,8 +2,6 @@ package ase.newportreuseandrecycle.data;
 
 import ase.newportreuseandrecycle.domain.Category;
 import ase.newportreuseandrecycle.domain.Listing;
-
-
 import java.util.List;
 
 public interface ListingRepository {
