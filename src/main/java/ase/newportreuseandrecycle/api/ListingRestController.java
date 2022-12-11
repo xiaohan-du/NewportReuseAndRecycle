@@ -64,10 +64,14 @@ public class ListingRestController {
         return ResponseEntity.ok(CategoryJsonAssembler.toCategoryJsonList(categoryResponse));
     }
 
-    @PostMapping("listings/edit/{id}")
-    public void editListing(ListingForm listingForm, @PathVariable Integer id, Model model) {
+    @PutMapping("listings/edit/{id}")
+    public ResponseEntity<ListingJson> editListing(ListingForm listingForm, @PathVariable Integer id, Model model, HttpServletResponse response) throws IOException {
         ListingDto newListingDto;
         String imageUrl = listingForm.getImageUrl();
+
+        if (id != listingForm.getId()) {
+            response.sendError(0, "Mismatching listing IDs");
+        }
 
         if (imageUrl == null || imageUrl.isEmpty()) {
             imageUrl = "http://www.clker.com/cliparts/f/Z/G/4/h/Q/no-image-available-hi.png";
@@ -86,7 +90,13 @@ public class ListingRestController {
                 listingForm.getLongitude());
 
         model.addAttribute("submitURL", String.format("edit/%s", id));
-        listingService.deleteListingById(id);
-        listingService.addListing(newListingDto);
+
+        listingService.updateListingById(id, newListingDto);
+
+        response.sendRedirect("/listings");
+
+        ListingJson listingJson = ListingJsonAssembler.toListingJson(newListingDto);
+
+        return ResponseEntity.ok(listingJson);
     }
 }

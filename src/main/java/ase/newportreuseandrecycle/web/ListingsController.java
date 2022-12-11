@@ -47,6 +47,7 @@ public class ListingsController {
             ListingForm listingForm = new ListingForm();
             listingForm.setUserId(userDto.get().getId());
 
+            model.addAttribute("methodType", "post");
             model.addAttribute("submitURL", "/api/listings/add");
             model.addAttribute("listingForm", listingForm);
             mv = new ModelAndView("products/add-listing", model.asMap());
@@ -72,6 +73,8 @@ public class ListingsController {
                 listingDto.getCollectionOrDelivery(),
                 listingDto.getLatitude(),
                 listingDto.getLongitude());
+                
+        model.addAttribute("methodType", "put");
         model.addAttribute("listingForm", editForm);
         model.addAttribute("submitURL", String.format("/api/listings/edit/%s", id));
         var mv = new ModelAndView("products/add-listing", model.asMap());

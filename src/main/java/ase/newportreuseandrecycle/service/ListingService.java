@@ -9,4 +9,5 @@ public interface ListingService {
     List<CategoryDto> getCategories();
     ListingDto getAListingById(Integer id);
     void deleteListingById(Integer id);
+    void updateListingById(Integer id, ListingDto newListingDto);
 }

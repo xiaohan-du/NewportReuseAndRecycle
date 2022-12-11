@@ -14,7 +14,7 @@
             <h1 id="main-title"></h1>
 
             <form
-                th:method="post"
+                th:method="${methodType}"
                 th:object="${listingForm}"
                 th:action="@{{url} (url=${submitURL})}"
             >

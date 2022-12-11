@@ -56,4 +56,10 @@ public class ListingRepositoryImpl implements ListingRepository{
     public void deleteListingById(Integer id) {
         listingJdbcRepo.deleteById(id);
     }
+
+    @Override
+    public void updateListingById(Integer id, Listing listing) {
+        String updateAListing = "UPDATE listing SET user_id=?, title=?, description=?, price=?, image_url=?, category=?, collection_or_delivery=?, latitude=?, longitude=? WHERE id=?;";
+        listingJdbcTemplate.update(updateAListing, listing.getUserId(), listing.getTitle(), listing.getDescription(), listing.getPrice(), listing.getImageUrl(), listing.getCategory(), listing.getCollectionOrDelivery(), listing.getLatitude(), listing.getLongitude(), listing.getId());
+    }
 }

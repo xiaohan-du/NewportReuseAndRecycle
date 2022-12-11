@@ -58,4 +58,22 @@ public class ListingServiceImpl implements ListingService{
     public ListingDto getAListingById(Integer id) {
         return ListingAssembler.toDto(listingRepository.getAListById(id));
     }
+
+    @Override
+    public void updateListingById(Integer id, ListingDto listingDto) {
+        Listing listing = new Listing(
+                listingDto.getId(),
+                listingDto.getUserId(),
+                listingDto.getTitle(),
+                listingDto.getDescription(),
+                listingDto.getPrice(),
+                listingDto.getImageUrl(),
+                listingDto.getCategory(),
+                listingDto.getCollectionOrDelivery(),
+                listingDto.getLatitude(),
+                listingDto.getLongitude()
+        );
+
+        listingRepository.updateListingById(id, listing);
+    }
 }
