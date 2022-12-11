@@ -101,5 +101,29 @@ fetchCategories().then((categories) => {
             handleSidebar(btn.id);
         });
         categoriesList.appendChild(btn);
+
+
+
+        let hiddenInputUserId = document.createElement("input");
+        hiddenInputUserId.name = `userid`;
+        hiddenInputUserId.setAttribute(`value`, `${listings[curIndex].userId}`);
+        hiddenInputUserId.hidden = true;
+
+        let reason = document.createElement("input");
+        reason.name = "reason";
+        reason.setAttribute(`placeholder`, "Reason For Report");
+        reason.setAttribute(`type`, "text");
+
+        let reportButton = document.createElement("input");
+        reportButton.value = "Report";
+        reportButton.type = "submit";
+        reason.required = true;
+
+
+        form.appendChild(hiddenInputListingId);
+        form.appendChild(hiddenInputUserId);
+        form.appendChild(reason);
+        form.appendChild(reportButton);
+        row.append(col);
     });
 });

@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ReportForm {
     private int id;
-    private int userid;
-    private int listingid;
+    private int userId;
+    private int listingId;
     private String reason;
 
 }

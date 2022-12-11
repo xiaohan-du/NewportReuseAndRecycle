@@ -66,22 +66,6 @@ if (window.location.pathname == "/listings") {
                 hiddenInputListingId.setAttribute(`value`, `${listings[curIndex].id}`);
                 hiddenInputListingId.hidden = true;
 
-                let hiddenInputUserId = document.createElement("input");
-                hiddenInputUserId.name = `userid`;
-                hiddenInputUserId.setAttribute(`value`, `${listings[curIndex].userId}`);
-                hiddenInputUserId.hidden = true;
-
-                let reason = document.createElement("input");
-                reason.name = "reason";
-                reason.setAttribute(`placeholder`, "Reason For Report");
-                reason.setAttribute(`type`, "text");
-
-                let reportButton = document.createElement("input");
-                reportButton.value = "Report";
-                reportButton.type = "submit";
-                reason.required = true;
-
-
 
                 col.classList.add('text-start');
             col.appendChild(img);
@@ -91,11 +75,7 @@ if (window.location.pathname == "/listings") {
             col.appendChild(pPrice);
             col.appendChild(pCategory);
             col.appendChild(form);
-                form.appendChild(hiddenInputListingId);
-                form.appendChild(hiddenInputUserId);
-                form.appendChild(reason);
-                form.appendChild(reportButton);
-                row.append(col);
+
             }
 
             initialResults.append(row);

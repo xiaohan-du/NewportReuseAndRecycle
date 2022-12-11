@@ -3,8 +3,6 @@ package ase.newportreuseandrecycle.web;
 import ase.newportreuseandrecycle.api.ListingRestController;
 import ase.newportreuseandrecycle.data.ListingRepository;
 import ase.newportreuseandrecycle.data.ReportRepository;
-import ase.newportreuseandrecycle.domain.Listing;
-import ase.newportreuseandrecycle.domain.Report;
 import ase.newportreuseandrecycle.service.*;
 import ase.newportreuseandrecycle.web.forms.ListingForm;
 import ase.newportreuseandrecycle.web.forms.ReportForm;
@@ -13,14 +11,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-
 import java.util.Optional;
 
 @Controller
@@ -88,7 +83,7 @@ public class ListingsController {
 
     @PostMapping("addReport")
     public ModelAndView addNewReport(ReportForm newReport) {
-        ReportDto reportDto = new ReportDto(newReport.getId(), newReport.getUserid(), newReport.getListingid(), newReport.getReason());
+        ReportDto reportDto = new ReportDto(newReport.getId(), newReport.getUserId(), newReport.getListingId(), newReport.getReason());
         reportService.addReport(reportDto);
 
         var mv = new ModelAndView("redirect:/listings");
