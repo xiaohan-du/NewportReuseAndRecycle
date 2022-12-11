@@ -3,7 +3,7 @@ package ase.newportreuseandrecycle.data;
 import ase.newportreuseandrecycle.domain.Category;
 import ase.newportreuseandrecycle.domain.Listing;
 
-import javax.swing.*;
+
 import java.util.List;
 
 public interface ListingRepository {

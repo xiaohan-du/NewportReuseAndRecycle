@@ -15,7 +15,3 @@ public class ReportForm {
     private String reason;
 
 }
-//    public reportForm (int id, int userid,String reason) {
-//        this(id, userid, reason, Boolean.FALSE);
-//    }
-//}
