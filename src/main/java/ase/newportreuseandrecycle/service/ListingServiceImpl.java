@@ -6,6 +6,7 @@ import ase.newportreuseandrecycle.domain.Listing;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 @Service
 public class ListingServiceImpl implements ListingService{
     private final ListingRepository listingRepository;
@@ -18,6 +19,16 @@ public class ListingServiceImpl implements ListingService{
     public List<ListingDto> getListings() {
         List<Listing> listings = listingRepository.getListings();
         return ListingAssembler.toDto(listings);
+    }
+
+    @Override
+    public Optional<ListingDto> getAListingById(Integer id) {
+        Optional<Listing> listing = listingRepository.getAListingById(id);
+        if (listing.isPresent()) {
+            return Optional.of(ListingAssembler.toDto(listing.get()));
+        } else {
+            return Optional.empty();
+        }
     }
 
     @Override

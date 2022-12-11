@@ -63,6 +63,10 @@ const handleSidebar = (btnId) => {
                 col.appendChild(pLatitude);
                 col.appendChild(pLongitude);
 
+                col.addEventListener("click", () => {
+                    window.location.href = `/listings/${listings[curIndex].id}`;
+                });
+
                 row.append(col);
             }
 

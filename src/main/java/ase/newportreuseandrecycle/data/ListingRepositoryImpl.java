@@ -2,11 +2,14 @@ package ase.newportreuseandrecycle.data;
 
 import ase.newportreuseandrecycle.domain.Category;
 import ase.newportreuseandrecycle.domain.Listing;
+
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ListingRepositoryImpl implements ListingRepository{
@@ -25,6 +28,17 @@ public class ListingRepositoryImpl implements ListingRepository{
         List<Listing> listings = new ArrayList<>();
         listingJdbcRepo.findAll().forEach(listings::add);
         return listings;
+    }
+
+    @Override
+    public Optional<Listing> getAListingById(Integer id) {
+        Optional<Listing> aListing;
+        try {
+            aListing = listingJdbcRepo.findById(id);
+            return aListing;
+        } catch (IncorrectResultSizeDataAccessException e) {
+            return Optional.empty();
+        }
     }
 
     @Override

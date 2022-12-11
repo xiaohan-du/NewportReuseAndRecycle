@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,6 +40,21 @@ public class ListingsController {
     public ListingsController(ListingService listingSvc, UserService userSvc) {
         this.listingService = listingSvc;
         this.userService = userSvc;
+    }
+
+    @GetMapping("{id}")
+    public ModelAndView getListing(Model model, @PathVariable Integer id) {
+        ModelAndView mv;
+
+        Optional<ListingDto> listingDto = listingService.getAListingById(id);
+
+        if (listingDto.isPresent()) {
+            model.addAttribute( "listing", listingDto.get());
+            mv = new ModelAndView("products/individual-listing", model.asMap());
+        } else {
+            mv = new ModelAndView("error", model.asMap());
+        }
+        return mv;
     }
 
     @GetMapping("add")
