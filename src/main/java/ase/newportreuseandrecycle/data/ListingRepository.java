@@ -11,5 +11,6 @@ public interface ListingRepository {
     void addNewListing(Listing newListing);
     List<Listing> getListingsByCategory(String category);
     List<Category>  getCategories();
-
+    Listing getAListById(Integer id);
+    void deleteListingById(Integer id);
 }

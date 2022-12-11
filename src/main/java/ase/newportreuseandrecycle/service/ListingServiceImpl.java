@@ -29,12 +29,20 @@ public class ListingServiceImpl implements ListingService{
                 listingDto.getDescription(),
                 listingDto.getPrice(),
                 listingDto.getImageUrl(),
-                listingDto.getCategory()
+                listingDto.getCategory(),
+                listingDto.getCollectionOrDelivery(),
+                listingDto.getLatitude(),
+                listingDto.getLongitude()
         );
         listingRepository.addNewListing(listing);
 
     }
 
+    @Override
+    public void deleteListingById(Integer id) {
+        listingRepository.deleteListingById(id);
+    }
+    @Override
     public List<ListingDto> getListingsByCategory(String cagtegory) {
         List<Listing> listings = listingRepository.getListingsByCategory(cagtegory);
         return ListingAssembler.toDto(listings);
@@ -44,5 +52,10 @@ public class ListingServiceImpl implements ListingService{
     public List<CategoryDto> getCategories() {
         List<Category> categories = listingRepository.getCategories();
         return CategoryAssembler.toDto(categories);
+    }
+
+    @Override
+    public ListingDto getAListingById(Integer id) {
+        return ListingAssembler.toDto(listingRepository.getAListById(id));
     }
 }

@@ -1,33 +1,12 @@
-async function fetchListing() {
-    const response = await fetch("http://localhost:8080/api/listings/all");
-    if (!response.ok) {
-        const message = `An error has occurred: ${response.status}`;
-        throw new Error(message);
-    } else {
-        const listings = await response.json();
-        return listings;
-    }
-}
-
-async function fetchCategories() {
-    const response = await fetch("http://localhost:8080/api/listings/categories");
-    if (!response.ok) {
-        const message = `An error has occurred: ${response.status}`;
-        throw new Error(message);
-    } else {
-        const categories = await response.json();
-        return categories;
-    }
-}
-
 if (window.location.pathname == "/listings/add") {
+    let titleElement = document.getElementById("title");
+    titleElement.focus();
+
     fetchCategories().then((categories) => {
         let dataList = document.getElementById("categories");
-
         categories.forEach((category) => {
             let optionElement = document.createElement("option");
             optionElement.innerText = category.category;
-
             dataList.appendChild(optionElement);
         })
     })

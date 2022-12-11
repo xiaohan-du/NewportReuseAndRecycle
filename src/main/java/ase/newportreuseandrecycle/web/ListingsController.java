@@ -1,6 +1,5 @@
 package ase.newportreuseandrecycle.web;
 
-
 import ase.newportreuseandrecycle.api.ListingRestController;
 import ase.newportreuseandrecycle.data.ListingRepository;
 import ase.newportreuseandrecycle.data.ReportRepository;
@@ -15,6 +14,10 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -58,7 +61,6 @@ public class ListingsController {
 
             ListingRestController restController = new ListingRestController(listingService);
 
-//            model.addAttribute("categories", restController.getCategories());
             model.addAttribute("listingForm", listingForm);
             mv = new ModelAndView("products/add-listing", model.asMap());
         } else {
@@ -75,9 +77,11 @@ public class ListingsController {
             imageUrl = url;
         }
 
-        ListingDto listingDto = new ListingDto(newListing.getId(), newListing.getUserId(), newListing.getTitle(), newListing.getDescription(), newListing.getPrice(), imageUrl, newListing.getCategory());
+        ListingDto listingDto = new ListingDto(newListing.getId(), newListing.getUserId(), newListing.getTitle(),
+                newListing.getDescription(), newListing.getPrice(), imageUrl, newListing.getCategory(),
+                newListing.getCollectionOrDelivery(), newListing.getLatitude(), newListing.getLongitude());
         listingService.addListing(listingDto);
-
+        model.addAttribute("submitURL", "add");
         var mv = new ModelAndView("redirect:/listings");
         return mv;
     }
