@@ -9,9 +9,9 @@ public class Report {
     private Integer listingId;
     private String reason;
 
-    public Report(Integer id, Integer userid, Integer listingId, String reason) {
+    public Report(Integer id, Integer userId, Integer listingId, String reason) {
         this.id = id;
-        this.userId = userid;
+        this.userId = userId;
         this.listingId = listingId;
         this.reason = reason;
     }
