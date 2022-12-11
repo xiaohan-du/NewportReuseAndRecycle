@@ -43,7 +43,7 @@ const handleSidebar = (btnId) => {
                 pCategory.innerText = `Category: ${listings[curIndex].category}`;
 
                 let pCollectionOrDelivery = document.createElement("p");
-                pCategory.innerText = `Collection or delivery: ${listings[curIndex].collectionOrDelivery}`;
+                pCollectionOrDelivery.innerText = `Collection or delivery: ${listings[curIndex].collectionOrDelivery}`;
 
                 let pLatitude = document.createElement("div");
                 pLatitude.innerText = `Latitude: ${listings[curIndex].latitude}`;
@@ -73,6 +73,10 @@ const handleSidebar = (btnId) => {
                 col.appendChild(pLatitude);
                 col.appendChild(pLongitude);
                 col.appendChild(editBtn);
+
+                col.addEventListener("click", () => {
+                    window.location.href = `/listings/${listings[curIndex].id}`;
+                });
 
                 row.append(col);
             }
