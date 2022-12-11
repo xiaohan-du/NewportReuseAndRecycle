@@ -29,7 +29,10 @@ public class ListingServiceImpl implements ListingService{
                 listingDto.getDescription(),
                 listingDto.getPrice(),
                 listingDto.getImageUrl(),
-                listingDto.getCategory()
+                listingDto.getCategory(),
+                listingDto.getCollectionOrDelivery(),
+                listingDto.getLatitude(),
+                listingDto.getLongitude()
         );
         listingRepository.addNewListing(listing);
 

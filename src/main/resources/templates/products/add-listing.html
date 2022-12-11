@@ -2,7 +2,9 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8" />
-        <title>Product listing form</title>
+        <title>Add a product listing</title>
+        <link rel="stylesheet" th:href="@{/css/location.css}" />
+        <script type="text/javascript" th:src="@{/js/api.js}"></script>
         <head th:include="fragments/header :: header"></head>
     </head>
     <body>
@@ -11,8 +13,12 @@
         <div class="container">
             <h1 id="main-title"></h1>
 
-            <form th:method="post" th:object="${listingForm}" th:action="@{{url} (url=${submitURL})}">
-                <input th:field="*{userId}" style="display: none;" />
+            <form
+                th:method="post"
+                th:object="${listingForm}"
+                th:action="@{{url} (url=${submitURL})}"
+            >
+                <input th:field="*{userId}" style="display: none" />
                 <div class="row">
                     <div class="col">
                         <label for="title" class="form-label">Title</label>
@@ -25,7 +31,9 @@
                         />
                     </div>
                     <div class="col">
-                        <label for="description" class="form-label">Description</label>
+                        <label for="description" class="form-label"
+                            >Description</label
+                        >
                         <textarea
                             required
                             id="description"
@@ -57,33 +65,199 @@
                     </div>
                     <div class="input-group mt-3">
                         <label class="form-label" for="image">Image URL</label>
-                        <input type="url" id="image" name="image" class="form-control" th:field="*{imageUrl}" />
+                        <input
+                            type="url"
+                            id="image"
+                            name="image"
+                            class="form-control"
+                            th:field="*{imageUrl}"
+                        />
                     </div>
-                    <p>Need help?  Try using <a href="https://imgur.com/upload">imgur</a>!</p>
+                    <p>
+                        Need help? Try using
+                        <a href="https://imgur.com/upload">imgur</a>!
+                    </p>
                     <div class="row">
-                        <label class="form-label" for="categories">Category</label>
-                        <select required th:field="*{category}" id="categories" class="form-select">
-                            <option th:each="category : ${categories}" th:text="${category}"></option>
-                        </select>
+                        <div class="col">
+                            <label class="form-label" for="categories"
+                                >Category</label
+                            >
+                            <select
+                                required
+                                th:field="*{category}"
+                                id="categories"
+                                class="form-select"
+                            >
+                                <option
+                                    th:each="category : ${categories}"
+                                    th:text="${category}"
+                                ></option>
+                            </select>
+                        </div>
+
+                        <div class="col">
+                            <p>What is the preferred method of selling?</p>
+
+                            <label class="form-check-label" for="collect"
+                                >Collection</label
+                            >
+                            <input
+                                required
+                                type="radio"
+                                class="form-check-input"
+                                id="collect"
+                                value="Collection"
+                                name="collection-or-delivery"
+                                th:field="*{collectionOrDelivery}"
+                            />
+
+                            <br />
+
+                            <label class="form-check-label" for="deliver"
+                                >Delivery</label
+                            >
+                            <input
+                                required
+                                type="radio"
+                                class="form-check-input"
+                                id="deliver"
+                                value="Delivery"
+                                name="collection-or-delivery"
+                                th:field="*{collectionOrDelivery}"
+                            />
+
+                            <br />
+
+                            <label class="form-check-label" for="both"
+                                >Both</label
+                            >
+                            <input
+                                required
+                                type="radio"
+                                class="form-check-input"
+                                id="both"
+                                value="Both"
+                                name="collection-or-delivery"
+                                th:field="*{collectionOrDelivery}"
+                            />
+                        </div>
                     </div>
                 </div>
 
-                <button type="submit"  id="confirmBtn" class="btn btn-primary mt-4">
+                <div class="row">
+                    <h2>Listing address</h2>
+                    <h4>* means required field</h4>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <label for="ship-address">Line 1*</label>
+                                <input
+                                    required
+                                    id="ship-address"
+                                    name="ship-address"
+                                    class="form-control"
+                                    autocomplete="off"
+                                />
+                            </div>
+
+                            <div class="col">
+                                <label for="address2">Line 2</label>
+                                <input
+                                    id="address2"
+                                    name="address2"
+                                    class="form-control"
+                                />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <label for="postal_town" class="form-label"
+                                    >City*</label
+                                >
+                                <input
+                                    id="postal_town"
+                                    name="postal_town"
+                                    class="form-control"
+                                    required
+                                />
+                            </div>
+
+                            <div class="col">
+                                <label for="state" class="form-label">
+                                    State/Province*
+                                </label>
+                                <input
+                                    id="state"
+                                    name="state"
+                                    class="form-control"
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <label for="postcode" class="form-label">
+                                    Postal code*
+                                </label>
+                                <input
+                                    id="postcode"
+                                    name="postcode"
+                                    class="form-control"
+                                    required
+                                />
+                            </div>
+
+                            <div class="col">
+                                <label for="country" class="form-label">
+                                    Country/Region*
+                                </label>
+                                <input
+                                    id="country"
+                                    name="country"
+                                    class="form-control"
+                                    required
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div id="location"></div>
+                        <input
+                            id="latitude"
+                            th:field="*{latitude}"
+                            style="display: none"
+                        />
+                        <input
+                            id="longitude"
+                            th:field="*{longitude}"
+                            style="display: none"
+                        />
+                    </div>
+                </div>
+
+                <button
+                    type="submit"
+                    id="confirmBtn"
+                    class="btn btn-primary mt-4"
+                >
                     Confirm
                 </button>
-                <button type="reset" class="btn btn-warning mt-4">
-                    Reset
-                </button>
+                <button type="reset" class="btn btn-warning mt-4">Reset</button>
                 <a href="/listings">
-                    <button type="button" class="btn btn-danger mt-4" >
+                    <button type="button" class="btn btn-danger mt-4">
                         Cancel
                     </button>
                 </a>
             </form>
         </div>
 
-        <script type="text/javascript" th:src="@{/js/listings.js}"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1kqGLTqeYfGRpye5MMzepDONxxVxBJrQ&libraries=places"></script>
         <script type="text/javascript" th:src="@{/js/add-listing.js}"></script>
+        <script type="text/javascript" th:src="@{/js/listings.js}"></script>
+        <script type="text/javascript" th:src="@{/js/location.js}"></script>
+
         <div th:replace="fragments/footer :: footer-links"></div>
     </body>
 </html>

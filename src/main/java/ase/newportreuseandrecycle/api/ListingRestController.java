@@ -18,6 +18,7 @@ import java.util.List;
 @RequestMapping("api")
 public class ListingRestController {
     private ListingService listingService;
+
     public ListingRestController(ListingService listingService) {
         this.listingService = listingService;
     }
@@ -35,19 +36,31 @@ public class ListingRestController {
 
     @GetMapping("listings/categories")
     public ResponseEntity<List<CategoryJson>> getCategories() {
-        List<CategoryDto> categroyResponse = listingService.getCategories();
-        return ResponseEntity.ok(CategoryJsonAssembler.toCategoryJsonList(categroyResponse));
+        List<CategoryDto> categoryResponse = listingService.getCategories();
+        return ResponseEntity.ok(CategoryJsonAssembler.toCategoryJsonList(categoryResponse));
     }
 
     @PostMapping("listings/edit/{id}")
     public void editListing(ListingForm listingForm, @PathVariable Integer id, Model model) {
         ListingDto newListingDto;
-        if (listingForm.getImageUrl() == null || listingForm.getImageUrl().isEmpty()) {
-            String imageUrl = "http://www.clker.com/cliparts/f/Z/G/4/h/Q/no-image-available-hi.png";
-            newListingDto = new ListingDto(listingForm.getId(), listingForm.getUserId(), listingForm.getTitle(), listingForm.getDescription(), listingForm.getPrice(), imageUrl, listingForm.getCategory());
-        } else {
-            newListingDto = new ListingDto(listingForm.getId(), listingForm.getUserId(), listingForm.getTitle(), listingForm.getDescription(), listingForm.getPrice(), listingForm.getImageUrl(), listingForm.getCategory());
+        String imageUrl = listingForm.getImageUrl();
+
+        if (imageUrl == null || imageUrl.isEmpty()) {
+            imageUrl = "http://www.clker.com/cliparts/f/Z/G/4/h/Q/no-image-available-hi.png";
         }
+
+        newListingDto = new ListingDto(
+                listingForm.getId(),
+                listingForm.getUserId(),
+                listingForm.getTitle(),
+                listingForm.getDescription(),
+                listingForm.getPrice(),
+                imageUrl,
+                listingForm.getCategory(),
+                listingForm.getCollectionOrDelivery(),
+                listingForm.getLatitude(),
+                listingForm.getLongitude());
+
         model.addAttribute("submitURL", String.format("edit/%s", id));
         listingService.deleteListingById(id);
         listingService.addListing(newListingDto);

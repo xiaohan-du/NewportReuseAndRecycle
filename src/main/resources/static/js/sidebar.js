@@ -1,50 +1,25 @@
-async function fetchListingByCategory(category) {
-    const response = await fetch(`http://localhost:8080/api/listings/${category}`);
-    if (!response.ok) {
-        const message = `An error has occured: ${response.status}`;
-        throw new Error(message);
-    } else {
-        const listings = await response.json();
-        return listings;
-    }
-}
-
-async function fetchCategories() {
-    const response = await fetch('http://localhost:8080/api/listings/categories');
-    if (!response.ok) {
-        const message = `An error has occured: ${response.status}`;
-        throw new Error(message);
-    } else {
-        const categories = await response.json();
-        return categories;
-    }
-}
-
 const handleSidebar = (btnId) => {
     fetchListingByCategory(btnId).then((listings) => {
         const NUM_OF_COLS = 3;
         let numOfRows = listings.length / NUM_OF_COLS + 1;
 
-        let sidebarResults = document.getElementById("sidebar-listings-grid");
-        let initialResults = document.getElementById("initial-listings-grid");
+        let results = document.getElementById("listings-grid");
 
-        initialResults.innerHTML = '';
-        sidebarResults.innerHTML = '';
+        results.innerHTML = "";
 
         for (let i = 0; i < numOfRows; i++) {
             let row = document.createElement("div");
             row.className = "row";
 
             for (let j = 0; j < NUM_OF_COLS; j++) {
-                let curIndex = (NUM_OF_COLS * i) + j;
+                let curIndex = NUM_OF_COLS * i + j;
 
                 if (curIndex == listings.length) {
-                    sidebarResults.appendChild(row);
+                    results.appendChild(row);
                     return;
                 }
 
                 let col = document.createElement("div");
-                col.className = "col";
 
                 let img = document.createElement("img");
                 img.src = listings[curIndex].imageUrl;
@@ -60,11 +35,23 @@ const handleSidebar = (btnId) => {
                 pUserID.innerText = `User ID: ${listings[curIndex].userId}`;
 
                 let pPrice = document.createElement("p");
-                pPrice.innerText = `Price: £${listings[curIndex].price.toFixed(2)}`;
+                pPrice.innerText = `Price: £${listings[curIndex].price.toFixed(
+                    2
+                )}`;
 
                 let pCategory = document.createElement("p");
                 pCategory.innerText = `Category: ${listings[curIndex].category}`;
 
+                let pCollectionOrDelivery = document.createElement("p");
+                pCategory.innerText = `Collection or delivery: ${listings[curIndex].collectionOrDelivery}`;
+
+                let pLatitude = document.createElement("div");
+                pLatitude.innerText = `Latitude: ${listings[curIndex].latitude}`;
+
+                let pLongitude = document.createElement("div");
+                pLongitude.innerText = `Longitude: ${listings[curIndex].longitude}`;
+
+                col.classList.add("text-start");
                 let editBtn = document.createElement("button");
                 editBtn.innerText = "Edit";
 
@@ -72,20 +59,25 @@ const handleSidebar = (btnId) => {
                     window.location.replace(`/listings/edit/${listings[curIndex].id}`);
                 });
 
-                col.classList.add('text-start', 'p-2');
+                col.classList.add('text-start', 'p-2', 'col-4', 'card');
+                
                 col.appendChild(img);
                 col.appendChild(pTitle);
                 col.appendChild(pDescription);
                 col.appendChild(pUserID);
                 col.appendChild(pPrice);
                 col.appendChild(pCategory);
+                col.appendChild(pCollectionOrDelivery);
+                col.appendChild(pLatitude);
+                col.appendChild(pLongitude);
                 col.appendChild(editBtn);
+                
                 row.append(col);
             }
 
-            sidebarResults.append(row);
+            results.append(row);
         }
-    })
+    });
 };
 
 handleSidebar();
@@ -95,19 +87,19 @@ fetchCategories().then((categories) => {
     let allBtn = document.createElement("button");
     allBtn.className = "btn btn-warning w-100 mt-2";
     allBtn.innerHTML = "All";
-    allBtn.id = 'all';
+    allBtn.id = "all";
     allBtn.addEventListener("click", () => {
         handleSidebar(allBtn.id);
-    })
+    });
     categoriesList.appendChild(allBtn);
-    categories.map(c => {
+    categories.map((c) => {
         let btn = document.createElement("button");
         btn.className = "btn btn-warning w-100 mt-2";
         btn.innerHTML = c.category;
         btn.id = c.category;
         btn.addEventListener("click", () => {
             handleSidebar(btn.id);
-        })
+        });
         categoriesList.appendChild(btn);
     });
 });
