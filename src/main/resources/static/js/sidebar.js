@@ -65,6 +65,35 @@ const handleSidebar = (btnId) => {
                 let pCategory = document.createElement("p");
                 pCategory.innerText = `Category: ${listings[curIndex].category}`;
 
+                let form = document.createElement("form");
+                let returnUrl = window.location.protocol + "//" + window.location.host + `/listings/addReport`;
+                form.action = returnUrl;
+                form.method = "Post";
+                let hiddenInputListingId = document.createElement("input");
+                hiddenInputListingId.name = `listingid`;
+                hiddenInputListingId.setAttribute(`value`,`${listings[curIndex].id}`);
+                hiddenInputListingId.hidden = true;
+
+                let hiddenInputUserId = document.createElement("input");
+                hiddenInputUserId.name = `userid`;
+                hiddenInputUserId.setAttribute(`value`,`${listings[curIndex].userId}`);
+                hiddenInputUserId.hidden = true;
+
+                let reason = document.createElement("input");
+
+                reason.name="reason"; // Here just make sure the user is inputting something.
+                reason.setAttribute (`placeholder`,"Reason for report");
+
+
+                reason.setAttribute(`type`,"text");
+
+                let reportButton = document.createElement("input");
+                reportButton.value = "Report";
+                reportButton.type = "submit";
+
+
+
+
                 col.classList.add('text-start');
                 col.appendChild(img);
                 col.appendChild(pTitle);
@@ -72,7 +101,11 @@ const handleSidebar = (btnId) => {
                 col.appendChild(pUserID);
                 col.appendChild(pPrice);
                 col.appendChild(pCategory);
-
+                col.appendChild(form);
+                form.appendChild(hiddenInputListingId);
+                form.appendChild(hiddenInputUserId);
+                form.appendChild(reason);
+                form.appendChild(reportButton);
                 row.append(col);
             }
 

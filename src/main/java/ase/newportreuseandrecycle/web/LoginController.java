@@ -4,6 +4,7 @@ import ase.newportreuseandrecycle.service.UserDto;
 import ase.newportreuseandrecycle.service.UserService;
 import ase.newportreuseandrecycle.web.forms.ListingForm;
 import ase.newportreuseandrecycle.web.forms.LoginForm;
+import ase.newportreuseandrecycle.web.forms.ReportForm;
 import ase.newportreuseandrecycle.web.forms.UserSignupForm;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -56,6 +57,12 @@ public class LoginController {
     public ModelAndView getLogin(Model model) {
         model.addAttribute("loginForm", new LoginForm());
         return new ModelAndView("/login/login-form", model.asMap());
+    }
+
+    @GetMapping("report")
+    public ModelAndView getReport(Model model) {
+        model.addAttribute("reportForm", new ReportForm());
+        return new ModelAndView("/login/report-form", model.asMap());
     }
 
 }
