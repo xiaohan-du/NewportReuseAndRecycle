@@ -1,14 +1,16 @@
 package ase.newportreuseandrecycle.service;
 
-import java.util.List;
-import java.util.Optional;
+import ase.newportreuseandrecycle.service.message.CategoryRequest;
+import ase.newportreuseandrecycle.service.message.CategoryResponse;
+import ase.newportreuseandrecycle.service.message.ListingRequest;
+import ase.newportreuseandrecycle.service.message.ListingResponse;
 
 public interface ListingService {
-    List<ListingDto> getListings();
-    Optional<ListingDto> getAListingById(Integer id);
+    ListingResponse getListings(ListingRequest listingRequest);
     void addListing(ListingDto newListing);
-    List<ListingDto> getListingsByCategory(String category);
-    List<CategoryDto> getCategories();
+    ListingResponse getListingsByCategory(ListingRequest listingRequest, String category);
+    CategoryResponse getCategories(CategoryRequest categoryRequest);
+    ListingResponse getAListingById(ListingRequest listingRequest, Integer id);
     void deleteListingById(Integer id);
     void updateListingById(Integer id, ListingDto newListingDto);
 }

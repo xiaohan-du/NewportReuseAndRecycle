@@ -1,5 +1,6 @@
 package ase.newportreuseandrecycle.web;
 
+import ase.newportreuseandrecycle.api.ListingRestController;
 import ase.newportreuseandrecycle.data.ListingRepository;
 import ase.newportreuseandrecycle.data.ReportRepository;
 import ase.newportreuseandrecycle.service.*;
@@ -81,9 +82,10 @@ public class ListingsController {
     }
 
     @GetMapping("edit/{id}")
-    public ModelAndView editListing(Model model, @PathVariable Integer id) {
-        ListingDto listingDto = listingService.getAListingById(id).get();
-
+    public ModelAndView editListing(ListingRequest listingRequest, Model model, @PathVariable Integer id) {
+        ListingResponse listingResponse = listingService.getAListingById(listingRequest, id);
+        ListingDto listingDto = listingResponse.getListing();
+        
         ListingForm editForm = new ListingForm(
                 listingDto.getId(),
                 listingDto.getUserId(),

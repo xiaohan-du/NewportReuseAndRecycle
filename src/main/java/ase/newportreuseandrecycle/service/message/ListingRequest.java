@@ -1,16 +1,16 @@
-package ase.newportreuseandrecycle.domain;
-
-import org.springframework.data.annotation.Id;
+package ase.newportreuseandrecycle.service.message;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Builder;
+import lombok.Value;
+import org.springframework.data.annotation.Id;
 
-@Data
+@Value
 @AllArgsConstructor
-public class Listing {
+@Builder(builderMethodName = "of")
+public class ListingRequest {
     @Id
     private Integer id;
-    
     private Integer userId;
     private String title;
     private String description;
