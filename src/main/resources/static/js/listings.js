@@ -13,3 +13,10 @@ if (window.location.pathname == "/listings/add") {
         });
     });
 }
+
+if (window.location.pathname.startsWith("/listings/")) {
+    let latInput = document.getElementById("latitude");
+    let longInput = document.getElementById("longitude");
+
+    showMap(latInput.value, longInput.value);
+}

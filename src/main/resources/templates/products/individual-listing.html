@@ -13,7 +13,7 @@
         <div class="container" th:object="${listing}">
             <div class="row mt-4">
                 <div class="col-3">
-                    <img width="256" alt="Image" th:src="*{imageUrl}">
+                    <img width="256" alt="Image" th:src="*{imageUrl}" />
                 </div>
                 <div class="col-9">
                     <h1 th:text="*{title}"></h1>
@@ -25,28 +25,41 @@
                 <div class="col">
                     <h4>Price</h4>
                     <span th:text="*{#numbers.formatCurrency(price)}"></span>
-                    
-                    <p>This product is available for
-                        <span th:text="*{collectionOrDelivery}"  th:if="*{collectionOrDelivery} != 'both'"></span>
+
+                    <p>
+                        This product is available for
+                        <span
+                            th:text="*{collectionOrDelivery}"
+                            th:if="*{collectionOrDelivery} != 'both'"
+                        ></span>
                         <span th:if="*{collectionOrDelivery} == 'both'">
                             collection and delivery!
                         </span>
                     </p>
                 </div>
                 <div class="col">
-
+                    <div id="location"></div>
+                    <input
+                        id="latitude"
+                        th:field="*{latitude}"
+                        style="display: none"
+                    />
+                    <input
+                        id="longitude"
+                        th:field="*{longitude}"
+                        style="display: none"
+                    />
                 </div>
             </div>
 
-            <div
-            
             <a href="/listings">
                 <button class="btn btn-warning">Back</button>
             </a>
         </div>
 
-        <script type="text/javascript" th:src="@{/js/listings.js}"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1kqGLTqeYfGRpye5MMzepDONxxVxBJrQ&libraries=places"></script>
         <script type="text/javascript" th:src="@{/js/location.js}"></script>
+        <script type="text/javascript" th:src="@{/js/listings.js}"></script>
         <div th:replace="fragments/footer :: footer-links"></div>
     </body>
 </html>
