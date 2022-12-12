@@ -102,4 +102,12 @@ public class ListingRestController {
 
         return ResponseEntity.ok(listingJson);
     }
+
+    @GetMapping("listings/user/{userId}")
+    public ResponseEntity<List<ListingJson>> getListingsByUserId(@PathVariable Integer userId) {
+        ListingRequest listingRequest = ListingRequest.of().build();
+        ListingResponse listingResponse = listingService.getListingsByUserId(listingRequest, userId);
+
+        return ResponseEntity.ok(ListingJsonAssembler.toListingJsonList(listingResponse.getListings()));
+    }
 }

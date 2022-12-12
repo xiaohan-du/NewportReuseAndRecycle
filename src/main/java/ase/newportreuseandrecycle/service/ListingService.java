@@ -13,4 +13,5 @@ public interface ListingService {
     ListingResponse getAListingById(ListingRequest listingRequest, Integer id);
     void deleteListingById(Integer id);
     void updateListingById(Integer id, ListingDto newListingDto);
+    ListingResponse getListingsByUserId(ListingRequest listingRequest, Integer userId);
 }

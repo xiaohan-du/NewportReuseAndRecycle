@@ -14,4 +14,5 @@ public interface ListingRepository {
     Optional<Listing> getAListById(Integer id);
     void deleteListingById(Integer id);
     void updateListingById(Integer id, Listing listing);
+    List<Listing> getListingsByUserId(Integer userId);
 }
