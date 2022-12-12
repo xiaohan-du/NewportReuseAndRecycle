@@ -12,4 +12,5 @@ public interface ListingService {
     CategoryResponse getCategories(CategoryRequest categoryRequest);
     ListingResponse getAListingById(ListingRequest listingRequest, Integer id);
     void deleteListingById(Integer id);
+    void updateListingById(Integer id, ListingDto newListingDto);
 }

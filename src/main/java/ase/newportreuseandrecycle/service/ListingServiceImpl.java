@@ -10,6 +10,7 @@ import ase.newportreuseandrecycle.service.message.ListingResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 @Service
 public class ListingServiceImpl implements ListingService{
     private final ListingRepository listingRepository;
@@ -39,6 +40,16 @@ public class ListingServiceImpl implements ListingService{
     }
 
     @Override
+    public Optional<ListingDto> getAListingById(Integer id) {
+        Optional<Listing> listing = listingRepository.getAListingById(id);
+        if (listing.isPresent()) {
+            return Optional.of(ListingAssembler.toDto(listing.get()));
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    @Override
     public void addListing(ListingDto listingDto) {
         Listing listing = new Listing(
                 listingDto.getId(),
@@ -60,6 +71,7 @@ public class ListingServiceImpl implements ListingService{
     public void deleteListingById(Integer id) {
         listingRepository.deleteListingById(id);
     }
+
     @Override
     public ListingResponse getListingsByCategory(ListingRequest listingRequest, String category) {
         List<ListingDto> listingsDto = getListingDto(category);
@@ -82,12 +94,20 @@ public class ListingServiceImpl implements ListingService{
     }
 
     @Override
-    public ListingResponse getAListingById(ListingRequest listingRequest, Integer id) {
-        ListingDto listingDto = ListingAssembler.toDto(listingRepository.getAListById(id));
-        return ListingResponse
-                .of()
-                .listingRequest(listingRequest)
-                .listing(listingDto)
-                .build();
+    public void updateListingById(Integer id, ListingDto listingDto) {
+        Listing listing = new Listing(
+                listingDto.getId(),
+                listingDto.getUserId(),
+                listingDto.getTitle(),
+                listingDto.getDescription(),
+                listingDto.getPrice(),
+                listingDto.getImageUrl(),
+                listingDto.getCategory(),
+                listingDto.getCollectionOrDelivery(),
+                listingDto.getLatitude(),
+                listingDto.getLongitude()
+        );
+
+        listingRepository.updateListingById(id, listing);
     }
 }

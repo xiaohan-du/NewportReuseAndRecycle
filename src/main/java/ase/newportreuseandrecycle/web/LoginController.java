@@ -2,20 +2,14 @@ package ase.newportreuseandrecycle.web;
 
 import ase.newportreuseandrecycle.service.UserDto;
 import ase.newportreuseandrecycle.service.UserService;
-import ase.newportreuseandrecycle.web.forms.ListingForm;
 import ase.newportreuseandrecycle.web.forms.LoginForm;
 import ase.newportreuseandrecycle.web.forms.UserSignupForm;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Optional;
 
 @Controller
 public class LoginController {
@@ -59,3 +53,4 @@ public class LoginController {
     }
 
 }
+

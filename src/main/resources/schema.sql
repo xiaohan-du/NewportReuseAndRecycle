@@ -4,6 +4,7 @@ SET IGNORECASE = TRUE;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS listings;
 DROP TABLE IF EXISTS category;
+DROP TABLE IF EXISTS report;
 
 
 -- -----------------------------------------------------
@@ -49,6 +50,21 @@ CREATE TABLE IF NOT EXISTS category
 (
     id INT(11) NOT NULL AUTO_INCREMENT,
     category VARCHAR(100) NOT NULL,
+    PRIMARY KEY (`id`)
+    )
+    engine = InnoDB;
+
+-- -----------------------------------------------------
+-- Table report
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS report
+(
+
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    user_id INT(11) NOT NULL,
+    listing_id INT(11) NOT NULL,
+    reason VARCHAR(100) NOT NULL,
     PRIMARY KEY (`id`)
     )
     engine = InnoDB;

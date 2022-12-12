@@ -37,10 +37,11 @@ async function fetchListingByCategory(category) {
     }
 }
 
+// Currently not being used anywhere
 async function postEditRequest(id) {
     const location = window.location.hostname;
     const settings = {
-        method: "POST",
+        method: "PUT",
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",

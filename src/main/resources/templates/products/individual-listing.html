@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <title th:text="${listing.title}"></title>
+        <link rel="stylesheet" th:href="@{/css/location.css}" />
+        <script type="text/javascript" th:src="@{/js/api.js}"></script>
+        <head th:include="fragments/header :: header"></head>
+    </head>
+    <body>
+        <div th:replace="fragments/navbar :: navbar-links"></div>
+
+        <div class="container" th:object="${listing}">
+            <div class="row mt-4">
+                <div class="col-3">
+                    <img width="256" alt="Image" th:src="*{imageUrl}" />
+                </div>
+                <div class="col-9">
+                    <h1 th:text="*{title}"></h1>
+                    <p th:text="*{description}"></p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <h4>Price</h4>
+                    <span th:text="*{#numbers.formatCurrency(price)}"></span>
+
+                    <p>
+                        This product is available for
+                        <span
+                            th:text="*{collectionOrDelivery}"
+                            th:if="*{collectionOrDelivery} != 'both'"
+                        ></span>
+                        <span th:if="*{collectionOrDelivery} == 'both'">
+                            collection and delivery!
+                        </span>
+                    </p>
+                </div>
+                <div class="col">
+                    <div id="location"></div>
+                    <input
+                        id="latitude"
+                        th:field="*{latitude}"
+                        style="display: none"
+                    />
+                    <input
+                        id="longitude"
+                        th:field="*{longitude}"
+                        style="display: none"
+                    />
+                </div>
+            </div>
+
+            <a href="/listings">
+                <button class="btn btn-warning">Back</button>
+            </a>
+        </div>
+
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1kqGLTqeYfGRpye5MMzepDONxxVxBJrQ&libraries=places"></script>
+        <script type="text/javascript" th:src="@{/js/location.js}"></script>
+        <script type="text/javascript" th:src="@{/js/listings.js}"></script>
+        <div th:replace="fragments/footer :: footer-links"></div>
+    </body>
+</html>
