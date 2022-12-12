@@ -40,13 +40,18 @@ public class ListingServiceImpl implements ListingService{
     }
 
     @Override
-    public Optional<ListingDto> getAListingById(Integer id) {
-        Optional<Listing> listing = listingRepository.getAListingById(id);
+    public ListingResponse getAListingById(ListingRequest listingRequest, Integer id) {
+        Optional<Listing> listing = listingRepository.getAListById(id);
+        ListingDto listingDto = null;
         if (listing.isPresent()) {
-            return Optional.of(ListingAssembler.toDto(listing.get()));
-        } else {
-            return Optional.empty();
+            listingDto = ListingAssembler.toDto(listing.get());
         }
+        
+        return ListingResponse
+                .of()
+                .listingRequest(listingRequest)
+                .listingDto(listingDto)
+                .build();
     }
 
     @Override

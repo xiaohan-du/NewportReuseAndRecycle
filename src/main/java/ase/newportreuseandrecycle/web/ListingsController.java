@@ -1,9 +1,10 @@
 package ase.newportreuseandrecycle.web;
 
-import ase.newportreuseandrecycle.api.ListingRestController;
 import ase.newportreuseandrecycle.data.ListingRepository;
 import ase.newportreuseandrecycle.data.ReportRepository;
 import ase.newportreuseandrecycle.service.*;
+import ase.newportreuseandrecycle.service.message.ListingRequest;
+import ase.newportreuseandrecycle.service.message.ListingResponse;
 import ase.newportreuseandrecycle.web.forms.ListingForm;
 import ase.newportreuseandrecycle.web.forms.ReportForm;
 import org.springframework.security.core.Authentication;
@@ -42,13 +43,14 @@ public class ListingsController {
     }
 
     @GetMapping("{id}")
-    public ModelAndView getListing(Model model, @PathVariable Integer id) {
+    public ModelAndView getListing(ListingRequest listingRequest, Model model, @PathVariable Integer id) {
         ModelAndView mv;
 
-        Optional<ListingDto> listingDto = listingService.getAListingById(id);
+        ListingResponse listingResponse = listingService.getAListingById(listingRequest, id);
+        ListingDto listingDto = listingResponse.getListingDto();
 
-        if (listingDto.isPresent()) {
-            model.addAttribute( "listing", listingDto.get());
+        if (listingResponse.isListingPresent()) {
+            model.addAttribute( "listing", listingDto);
             mv = new ModelAndView("products/individual-listing", model.asMap());
         } else {
             mv = new ModelAndView("error", model.asMap());
@@ -84,7 +86,7 @@ public class ListingsController {
     @GetMapping("edit/{id}")
     public ModelAndView editListing(ListingRequest listingRequest, Model model, @PathVariable Integer id) {
         ListingResponse listingResponse = listingService.getAListingById(listingRequest, id);
-        ListingDto listingDto = listingResponse.getListing();
+        ListingDto listingDto = listingResponse.getListingDto();
         
         ListingForm editForm = new ListingForm(
                 listingDto.getId(),

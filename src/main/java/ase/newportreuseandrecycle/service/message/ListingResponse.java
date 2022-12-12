@@ -13,5 +13,8 @@ import java.util.List;
 public class ListingResponse {
     private final ListingRequest listingRequest;
     private List<ListingDto> listings;
-    private ListingDto listing;
+    private ListingDto listingDto;
+    public Boolean isListingPresent() {
+        return listingDto != null;
+    }
 }

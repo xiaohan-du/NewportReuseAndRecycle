@@ -55,7 +55,7 @@ public class ListingRepositoryImpl implements ListingRepository{
     }
 
     @Override
-    public Listing getAListById(Integer id) {
+    public Optional<Listing> getAListById(Integer id) {
         return listingJdbcRepo.findListingById(id);
     }
 

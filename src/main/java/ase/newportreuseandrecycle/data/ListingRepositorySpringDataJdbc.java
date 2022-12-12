@@ -4,8 +4,9 @@ import ase.newportreuseandrecycle.domain.Listing;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ListingRepositorySpringDataJdbc extends CrudRepository<Listing, Integer>{
     List<Listing> findListingsByCategory(String category);
-    Listing findListingById(Integer id);
+    Optional<Listing> findListingById(Integer id);
 }
