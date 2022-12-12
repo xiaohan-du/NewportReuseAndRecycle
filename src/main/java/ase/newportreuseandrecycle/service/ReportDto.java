@@ -8,7 +8,7 @@ import lombok.Value;
 public class ReportDto {
 
         private Integer id;
-        private Integer userid;
-        private Integer listingid;
+        private Integer userId;
+        private Integer listingId;
         private String reason;
 }

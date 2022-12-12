@@ -91,11 +91,6 @@ const handleSidebar = (btnId) => {
 
                 let editAnchor = document.createElement("a");
                 editAnchor.href = `/listings/edit/${listings[curIndex].id}`;
-                // editBtn.addEventListener("click", () => {
-                //     window.location.replace(
-
-                //     );
-                // });
 
                 container.classList.add("text-start", "p-2", "col-4", "card");
 
@@ -126,7 +121,7 @@ const handleSidebar = (btnId) => {
         }
     });
 };
-
+L
 handleSidebar();
 
 fetchCategories().then((categories) => {

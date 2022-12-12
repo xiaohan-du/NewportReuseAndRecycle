@@ -1,8 +1,6 @@
 package ase.newportreuseandrecycle.service;
 
-import ase.newportreuseandrecycle.data.ListingRepository;
 import ase.newportreuseandrecycle.data.ReportRepository;
-import ase.newportreuseandrecycle.domain.Listing;
 import ase.newportreuseandrecycle.domain.Report;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +15,8 @@ public class ReportServiceImpl implements ReportService{
     public void addReport(ReportDto reportDto) {
         Report report = new Report(
                 reportDto.getId(),
-                reportDto.getUserid(),
-                reportDto.getListingid(),
+                reportDto.getUserId(),
+                reportDto.getListingId(),
                 reportDto.getReason()
         );
         reportRepository.addNewReport(report);

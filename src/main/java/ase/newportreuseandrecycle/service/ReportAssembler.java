@@ -16,6 +16,6 @@ public class ReportAssembler {
                 report.getUserId(),
                 report.getListingId(),
                 report.getReason()
-                );
+        );
     }
 }
