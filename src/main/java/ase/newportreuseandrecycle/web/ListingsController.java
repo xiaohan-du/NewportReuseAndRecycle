@@ -5,6 +5,8 @@ import ase.newportreuseandrecycle.service.ListingDto;
 import ase.newportreuseandrecycle.service.ListingService;
 import ase.newportreuseandrecycle.service.UserDto;
 import ase.newportreuseandrecycle.service.UserService;
+import ase.newportreuseandrecycle.service.message.ListingRequest;
+import ase.newportreuseandrecycle.service.message.ListingResponse;
 import ase.newportreuseandrecycle.web.forms.ListingForm;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -47,8 +49,6 @@ public class ListingsController {
             ListingForm listingForm = new ListingForm();
             listingForm.setUserId(userDto.get().getId());
 
-            ListingRestController restController = new ListingRestController(listingService);
-
             model.addAttribute("listingForm", listingForm);
             mv = new ModelAndView("products/add-listing", model.asMap());
         } else {
@@ -75,8 +75,9 @@ public class ListingsController {
     }
 
     @GetMapping("edit/{id}")
-    public ModelAndView editListing(Model model, @PathVariable Integer id) {
-        ListingDto listingDto = listingService.getAListingById(id);
+    public ModelAndView editListing(ListingRequest listingRequest, Model model, @PathVariable Integer id) {
+        ListingResponse listingResponse = listingService.getAListingById(listingRequest, id);
+        ListingDto listingDto = listingResponse.getListing();
         ListingForm editForm = new ListingForm(
                 listingDto.getId(),
                 listingDto.getUserId(),

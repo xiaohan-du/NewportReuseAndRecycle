@@ -4,9 +4,11 @@ import ase.newportreuseandrecycle.api.json.CategoryJson;
 import ase.newportreuseandrecycle.api.json.CategoryJsonAssembler;
 import ase.newportreuseandrecycle.api.json.ListingJson;
 import ase.newportreuseandrecycle.api.json.ListingJsonAssembler;
-import ase.newportreuseandrecycle.service.CategoryDto;
-import ase.newportreuseandrecycle.service.ListingDto;
-import ase.newportreuseandrecycle.service.ListingService;
+import ase.newportreuseandrecycle.service.*;
+import ase.newportreuseandrecycle.service.message.CategoryRequest;
+import ase.newportreuseandrecycle.service.message.CategoryResponse;
+import ase.newportreuseandrecycle.service.message.ListingRequest;
+import ase.newportreuseandrecycle.service.message.ListingResponse;
 import ase.newportreuseandrecycle.web.forms.ListingForm;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -25,19 +27,21 @@ public class ListingRestController {
 
     @GetMapping("listings/{category}")
     public ResponseEntity<List<ListingJson>> getListingsByCategory(@PathVariable String category) {
-        List<ListingDto> listingResponse;
+        ListingResponse listingResponse;
+        ListingRequest listingRequest = ListingRequest.of().build();
         if (category.equals("all")) {
-            listingResponse = listingService.getListings();
+            listingResponse = listingService.getListings(listingRequest);
         } else {
-            listingResponse = listingService.getListingsByCategory(category);
+            listingResponse = listingService.getListingsByCategory(listingRequest, category);
         }
-        return ResponseEntity.ok(ListingJsonAssembler.toListingJsonList(listingResponse));
+        return ResponseEntity.ok(ListingJsonAssembler.toListingJsonList(listingResponse.getListings()));
     }
 
     @GetMapping("listings/categories")
     public ResponseEntity<List<CategoryJson>> getCategories() {
-        List<CategoryDto> categoryResponse = listingService.getCategories();
-        return ResponseEntity.ok(CategoryJsonAssembler.toCategoryJsonList(categoryResponse));
+        CategoryRequest categoryRequest = CategoryRequest.of().build();
+        CategoryResponse categoryResponse = listingService.getCategories(categoryRequest);
+        return ResponseEntity.ok(CategoryJsonAssembler.toCategoryJsonList(categoryResponse.getCategories()));
     }
 
     @PostMapping("listings/edit/{id}")
