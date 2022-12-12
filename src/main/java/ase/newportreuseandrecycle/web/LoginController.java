@@ -11,6 +11,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
+
 @Controller
 public class LoginController {
     private final UserService userService;
@@ -21,13 +23,13 @@ public class LoginController {
 
     @GetMapping("register")
     public ModelAndView register(Model model) {
-        model.addAttribute("user", new UserSignupForm());
+        model.addAttribute("signupForm", new UserSignupForm());
         var mv = new ModelAndView("login/signup-form", model.asMap());
         return mv;
     }
 
     @PostMapping("process_register")
-    public ModelAndView processRegister(UserSignupForm signupForm, BindingResult bindingResult, Model model) {
+    public ModelAndView processRegister(@Valid UserSignupForm signupForm, BindingResult bindingResult, Model model) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(System.out::println);

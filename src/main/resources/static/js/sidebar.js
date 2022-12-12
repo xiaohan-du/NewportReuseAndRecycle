@@ -79,7 +79,8 @@ const handleSidebar = (btnId) => {
                 let reportButton = document.createElement("input");
                 reportButton.value = "Report";
                 reportButton.type = "submit";
-                reason.required = true;
+
+                // reason.required = true;
 
                 let editBtn = document.createElement("button");
                 editBtn.innerText = "Edit";
