@@ -54,6 +54,8 @@ const handleSidebar = (btnId) => {
                 pLongitude.innerText = `Longitude: ${listings[curIndex].longitude}`;
 
                 let form = document.createElement("form");
+                form.method = "post";
+                form.action = "/listings/addReport";
 
                 let hiddenInputUserId = document.createElement("input");
                 hiddenInputUserId.name = `userid`;
