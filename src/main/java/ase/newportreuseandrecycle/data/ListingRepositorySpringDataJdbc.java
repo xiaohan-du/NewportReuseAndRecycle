@@ -9,5 +9,5 @@ import java.util.Optional;
 public interface ListingRepositorySpringDataJdbc extends CrudRepository<Listing, Integer>{
     List<Listing> findListingsByCategory(String category);
     Optional<Listing> findListingById(Integer id);
-    Iterable<Listing> findListingsByUserId(Integer userId);
+    List<Listing> findListingsByUserId(Integer userId);
 }
