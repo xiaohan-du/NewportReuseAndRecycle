@@ -3,9 +3,14 @@ package ase.newportreuseandrecycle.service;
 import ase.newportreuseandrecycle.data.ListingRepository;
 import ase.newportreuseandrecycle.domain.Category;
 import ase.newportreuseandrecycle.domain.Listing;
+import ase.newportreuseandrecycle.service.message.CategoryRequest;
+import ase.newportreuseandrecycle.service.message.CategoryResponse;
+import ase.newportreuseandrecycle.service.message.ListingRequest;
+import ase.newportreuseandrecycle.service.message.ListingResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 @Service
 public class ListingServiceImpl implements ListingService{
     private final ListingRepository listingRepository;
@@ -13,11 +18,40 @@ public class ListingServiceImpl implements ListingService{
     public ListingServiceImpl(ListingRepository repo) {
         this.listingRepository = repo;
     }
+    private List<ListingDto> getListingDto(String category) {
+        List<Listing> listings;
+        if (category.isEmpty()) {
+            listings = listingRepository.getListings();
+        } else {
+            listings = listingRepository.getListingsByCategory(category);
+        }
+        List<ListingDto> listingsDto = ListingAssembler.toDto(listings);
+        return listingsDto;
+    }
 
     @Override
-    public List<ListingDto> getListings() {
-        List<Listing> listings = listingRepository.getListings();
-        return ListingAssembler.toDto(listings);
+    public ListingResponse getListings(ListingRequest listingRequest) {
+        List<ListingDto> listingsDto = getListingDto("");
+        return ListingResponse
+                .of()
+                .listingRequest(listingRequest)
+                .listings(listingsDto)
+                .build();
+    }
+
+    @Override
+    public ListingResponse getAListingById(ListingRequest listingRequest, Integer id) {
+        Optional<Listing> listing = listingRepository.getAListById(id);
+        ListingDto listingDto = null;
+        if (listing.isPresent()) {
+            listingDto = ListingAssembler.toDto(listing.get());
+        }
+        
+        return ListingResponse
+                .of()
+                .listingRequest(listingRequest)
+                .listingDto(listingDto)
+                .build();
     }
 
     @Override
@@ -29,20 +63,56 @@ public class ListingServiceImpl implements ListingService{
                 listingDto.getDescription(),
                 listingDto.getPrice(),
                 listingDto.getImageUrl(),
-                listingDto.getCategory()
+                listingDto.getCategory(),
+                listingDto.getCollectionOrDelivery(),
+                listingDto.getLatitude(),
+                listingDto.getLongitude()
         );
         listingRepository.addNewListing(listing);
 
     }
 
-    public List<ListingDto> getListingsByCategory(String cagtegory) {
-        List<Listing> listings = listingRepository.getListingsByCategory(cagtegory);
-        return ListingAssembler.toDto(listings);
+    @Override
+    public void deleteListingById(Integer id) {
+        listingRepository.deleteListingById(id);
     }
 
     @Override
-    public List<CategoryDto> getCategories() {
+    public ListingResponse getListingsByCategory(ListingRequest listingRequest, String category) {
+        List<ListingDto> listingsDto = getListingDto(category);
+        return ListingResponse
+                .of()
+                .listingRequest(listingRequest)
+                .listings(listingsDto)
+                .build();
+    }
+
+    @Override
+    public CategoryResponse getCategories(CategoryRequest categoryRequest) {
         List<Category> categories = listingRepository.getCategories();
-        return CategoryAssembler.toDto(categories);
+        List<CategoryDto> categoriesDto = CategoryAssembler.toDto(categories);
+        return CategoryResponse
+                .of()
+                .categoryRequest(categoryRequest)
+                .categories(categoriesDto)
+                .build();
+    }
+
+    @Override
+    public void updateListingById(Integer id, ListingDto listingDto) {
+        Listing listing = new Listing(
+                listingDto.getId(),
+                listingDto.getUserId(),
+                listingDto.getTitle(),
+                listingDto.getDescription(),
+                listingDto.getPrice(),
+                listingDto.getImageUrl(),
+                listingDto.getCategory(),
+                listingDto.getCollectionOrDelivery(),
+                listingDto.getLatitude(),
+                listingDto.getLongitude()
+        );
+
+        listingRepository.updateListingById(id, listing);
     }
 }

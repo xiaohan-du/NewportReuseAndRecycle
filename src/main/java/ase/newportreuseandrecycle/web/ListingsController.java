@@ -1,30 +1,22 @@
 package ase.newportreuseandrecycle.web;
 
-
-import ase.newportreuseandrecycle.api.ListingRestController;
-import ase.newportreuseandrecycle.data.UserRepository;
-import ase.newportreuseandrecycle.service.ListingDto;
-import ase.newportreuseandrecycle.service.ListingService;
-import ase.newportreuseandrecycle.service.UserDto;
-import ase.newportreuseandrecycle.service.UserService;
+import ase.newportreuseandrecycle.data.ListingRepository;
+import ase.newportreuseandrecycle.data.ReportRepository;
+import ase.newportreuseandrecycle.service.*;
+import ase.newportreuseandrecycle.service.message.ListingRequest;
+import ase.newportreuseandrecycle.service.message.ListingResponse;
 import ase.newportreuseandrecycle.web.forms.ListingForm;
+import ase.newportreuseandrecycle.web.forms.ReportForm;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Optional;
 
 @Controller
@@ -32,13 +24,38 @@ import java.util.Optional;
 public class ListingsController {
 
     private final ListingService listingService;
+
+    private final ListingRepository listingRepository;
+    private final ReportRepository reportRepository;
+
+    private final ReportService reportService;
+
     private final UserService userService;
 
     private static String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/src/main/resources/static/images";
 
-    public ListingsController(ListingService listingSvc, UserService userSvc) {
+    public ListingsController(ListingService listingSvc, ListingRepository listingRepository, UserService userSvc, ReportRepository reportRepository, ReportService reportSvc) {
         this.listingService = listingSvc;
+        this.listingRepository = listingRepository;
         this.userService = userSvc;
+        this.reportRepository = reportRepository;
+        this.reportService = reportSvc;
+    }
+
+    @GetMapping("{id}")
+    public ModelAndView getListing(ListingRequest listingRequest, Model model, @PathVariable Integer id) {
+        ModelAndView mv;
+
+        ListingResponse listingResponse = listingService.getAListingById(listingRequest, id);
+        ListingDto listingDto = listingResponse.getListingDto();
+
+        if (listingResponse.isListingPresent()) {
+            model.addAttribute( "listing", listingDto);
+            mv = new ModelAndView("products/individual-listing", model.asMap());
+        } else {
+            mv = new ModelAndView("error", model.asMap());
+        }
+        return mv;
     }
 
     @GetMapping("add")
@@ -46,7 +63,7 @@ public class ListingsController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) auth.getPrincipal();
 
-        Optional<UserDto> userDto = this.userService.getAUserByUsername(user.getUsername());
+        Optional<UserDto> userDto = this.userService.getUserByUsername(user.getUsername());
 
         ModelAndView mv;
 
@@ -54,40 +71,51 @@ public class ListingsController {
             ListingForm listingForm = new ListingForm();
             listingForm.setUserId(userDto.get().getId());
 
-            ListingRestController restController = new ListingRestController(listingService);
-
-//            model.addAttribute("categories", restController.getCategories());
+            model.addAttribute("methodType", "post");
+            model.addAttribute("submitURL", "/api/listings/add");
             model.addAttribute("listingForm", listingForm);
             mv = new ModelAndView("products/add-listing", model.asMap());
-        }
-        else {
+        } else {
+            // TODO: ADD ERROR FALLBACK
             mv = new ModelAndView("products/listing", model.asMap());
         }
 
         return mv;
     }
 
-    @PostMapping("add")
-    public ModelAndView postNewListing(ListingForm newListing, @RequestParam("image") MultipartFile file, Model model) {
-        String imageUrl = "http://www.clker.com/cliparts/f/Z/G/4/h/Q/no-image-available-hi.png";
-        if (!file.isEmpty()) {
-            StringBuilder fileNames = new StringBuilder();
-            Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, file.getOriginalFilename());
-            fileNames.append(file.getOriginalFilename());
-            try {
-                Files.write(fileNameAndPath, file.getBytes());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    @GetMapping("edit/{id}")
+    public ModelAndView editListing(ListingRequest listingRequest, Model model, @PathVariable Integer id) {
+        ListingResponse listingResponse = listingService.getAListingById(listingRequest, id);
+        ListingDto listingDto = listingResponse.getListingDto();
+        
+        ListingForm editForm = new ListingForm(
+                listingDto.getId(),
+                listingDto.getUserId(),
+                listingDto.getTitle(),
+                listingDto.getDescription(),
+                listingDto.getPrice(),
+                listingDto.getImageUrl(),
+                listingDto.getCategory(),
+                listingDto.getCollectionOrDelivery(),
+                listingDto.getLatitude(),
+                listingDto.getLongitude());
+                
+        model.addAttribute("methodType", "put");
+        model.addAttribute("listingForm", editForm);
+        model.addAttribute("submitURL", String.format("/api/listings/edit/%s", id));
+        var mv = new ModelAndView("products/add-listing", model.asMap());
 
-            System.out.printf("%s", UPLOAD_DIRECTORY);
-            imageUrl = UPLOAD_DIRECTORY + file.getOriginalFilename();
-        }
+        return mv;
+    }
 
-        ListingDto listingDto = new ListingDto(newListing.getId(), newListing.getUserId(), newListing.getTitle(), newListing.getDescription(), newListing.getPrice(), imageUrl, newListing.getCategory());
-        listingService.addListing(listingDto);
+    @PostMapping("addReport")
+    public ModelAndView addNewReport(ReportForm newReport) {
+        ReportDto reportDto = new ReportDto(newReport.getId(), newReport.getUserId(), newReport.getListingId(), newReport.getReason());
+        reportService.addReport(reportDto);
 
         var mv = new ModelAndView("redirect:/listings");
         return mv;
     }
+
 }
+

@@ -16,6 +16,9 @@ public class ListingJsonAssembler {
                 .price(listingDto.getPrice())
                 .imageUrl(listingDto.getImageUrl())
                 .category(listingDto.getCategory())
+                .collectionOrDelivery(listingDto.getCollectionOrDelivery())
+                .latitude(listingDto.getLatitude())
+                .longitude(listingDto.getLongitude())
                 .build();
     }
 

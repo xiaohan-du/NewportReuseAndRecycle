@@ -1,0 +1,9 @@
+.card {
+    padding: 3px;
+    border-radius: 10px;
+}
+
+.card:hover {
+    background-color: lightgrey;
+    cursor: pointer;
+}
