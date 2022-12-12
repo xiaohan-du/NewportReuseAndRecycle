@@ -19,6 +19,8 @@ const handleSidebar = (btnId) => {
                     return;
                 }
 
+                let container = document.createElement("div");
+
                 let col = document.createElement("div");
 
                 let img = document.createElement("img");
@@ -51,17 +53,51 @@ const handleSidebar = (btnId) => {
                 let pLongitude = document.createElement("div");
                 pLongitude.innerText = `Longitude: ${listings[curIndex].longitude}`;
 
+                let form = document.createElement("form");
+
+                let hiddenInputUserId = document.createElement("input");
+                hiddenInputUserId.name = `userid`;
+                hiddenInputUserId.setAttribute(
+                    `value`,
+                    `${listings[curIndex].userId}`
+                );
+                hiddenInputUserId.hidden = true;
+
+                let hiddenInputListingId = document.createElement("input");
+                hiddenInputListingId.name = `listingid`;
+                hiddenInputListingId.setAttribute(
+                    `value`,
+                    `${listings[curIndex].id}`
+                );
+                hiddenInputListingId.hidden = true;
+
+                let reason = document.createElement("input");
+                reason.name = "reason";
+                reason.setAttribute(`placeholder`, "Reason For Report");
+                reason.setAttribute(`type`, "text");
+
+                let reportButton = document.createElement("input");
+                reportButton.value = "Report";
+                reportButton.type = "submit";
+                reason.required = true;
+
                 let editBtn = document.createElement("button");
                 editBtn.innerText = "Edit";
                 editBtn.classList.add("btn", "btn-secondary", "mt-4");
 
-                editBtn.addEventListener("click", () => {
-                    window.location.replace(
-                        `/listings/edit/${listings[curIndex].id}`
-                    );
+                col.addEventListener("click", (e) => {
+                    window.location.href = `/listings/${listings[curIndex].id}`;
                 });
 
-                col.classList.add("text-start", "p-2", "col-4", "card");
+                let editAnchor = document.createElement("a");
+                editAnchor.href = `/listings/edit/${listings[curIndex].id}`;
+                // editBtn.addEventListener("click", () => {
+                //     window.location.replace(
+
+                //     );
+                // });
+
+                container.classList.add("text-start", "p-2", "col-4", "card");
 
                 col.appendChild(img);
                 col.appendChild(pTitle);
@@ -72,13 +108,18 @@ const handleSidebar = (btnId) => {
                 col.appendChild(pCollectionOrDelivery);
                 col.appendChild(pLatitude);
                 col.appendChild(pLongitude);
-                col.appendChild(editBtn);
+                container.append(col);
 
-                col.addEventListener("click", () => {
-                    window.location.href = `/listings/${listings[curIndex].id}`;
-                });
+                editAnchor.appendChild(editBtn);
+                container.appendChild(editAnchor);
 
-                row.append(col);
+                form.appendChild(hiddenInputListingId);
+                form.appendChild(hiddenInputUserId);
+                form.appendChild(reason);
+                form.appendChild(reportButton);
+                container.appendChild(form);
+
+                row.append(container);
             }
 
             results.append(row);

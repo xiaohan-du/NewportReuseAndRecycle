@@ -9,7 +9,6 @@ public interface ListingService {
     void addListing(ListingDto newListing);
     List<ListingDto> getListingsByCategory(String category);
     List<CategoryDto> getCategories();
-    ListingDto getAListingById(Integer id);
     void deleteListingById(Integer id);
     void updateListingById(Integer id, ListingDto newListingDto);
 }

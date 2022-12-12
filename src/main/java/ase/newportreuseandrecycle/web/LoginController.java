@@ -4,6 +4,7 @@ import ase.newportreuseandrecycle.service.UserDto;
 import ase.newportreuseandrecycle.service.UserService;
 import ase.newportreuseandrecycle.web.forms.ListingForm;
 import ase.newportreuseandrecycle.web.forms.LoginForm;
+import ase.newportreuseandrecycle.web.forms.ReportForm;
 import ase.newportreuseandrecycle.web.forms.UserSignupForm;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -59,3 +60,4 @@ public class LoginController {
     }
 
 }
+
