@@ -4,7 +4,6 @@ import ase.newportreuseandrecycle.api.json.CategoryJson;
 import ase.newportreuseandrecycle.api.json.CategoryJsonAssembler;
 import ase.newportreuseandrecycle.api.json.ListingJson;
 import ase.newportreuseandrecycle.api.json.ListingJsonAssembler;
-import ase.newportreuseandrecycle.api.json.ListingJson.ListingJsonBuilder;
 import ase.newportreuseandrecycle.service.CategoryDto;
 import ase.newportreuseandrecycle.service.ListingDto;
 import ase.newportreuseandrecycle.service.ListingService;

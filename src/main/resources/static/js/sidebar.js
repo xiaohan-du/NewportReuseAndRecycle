@@ -121,7 +121,7 @@ const handleSidebar = (btnId) => {
         }
     });
 };
-L
+
 handleSidebar();
 
 fetchCategories().then((categories) => {

@@ -1,7 +1,5 @@
 package ase.newportreuseandrecycle.web;
 
-import ase.newportreuseandrecycle.service.ListingDto;
-import ase.newportreuseandrecycle.service.ListingService;
 import ase.newportreuseandrecycle.service.UserDto;
 import ase.newportreuseandrecycle.service.UserService;
 import org.springframework.security.core.Authentication;
@@ -11,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.mail.AuthenticationFailedException;
 import java.util.List;
 
 @Controller
