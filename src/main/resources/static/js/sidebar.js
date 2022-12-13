@@ -7,6 +7,8 @@ const handleSidebar = (btnId) => {
 
         results.innerHTML = "";
 
+        let minlength;
+        let maxlength;
         for (let i = 0; i < numOfRows; i++) {
             let row = document.createElement("div");
             row.className = "row";
@@ -58,7 +60,7 @@ const handleSidebar = (btnId) => {
                 form.action = "/listings/addReport";
 
                 let hiddenInputUserId = document.createElement("input");
-                hiddenInputUserId.name = `userid`;
+                hiddenInputUserId.name = `userId`;
                 hiddenInputUserId.setAttribute(
                     `value`,
                     `${listings[curIndex].userId}`
@@ -66,7 +68,7 @@ const handleSidebar = (btnId) => {
                 hiddenInputUserId.hidden = true;
 
                 let hiddenInputListingId = document.createElement("input");
-                hiddenInputListingId.name = `listingid`;
+                hiddenInputListingId.name = `listingId`;
                 hiddenInputListingId.setAttribute(
                     `value`,
                     `${listings[curIndex].id}`
@@ -76,12 +78,20 @@ const handleSidebar = (btnId) => {
                 let reason = document.createElement("input");
                 reason.name = "reason";
                 reason.setAttribute(`placeholder`, "Reason For Report");
-                reason.setAttribute(`type`, "text");
-
+                reason.setAttribute(`type`, "text")
                 let reportButton = document.createElement("input");
                 reportButton.value = "Report";
                 reportButton.type = "submit";
                 reason.required = true;
+                reason.minLength = 6;
+                reason.maxLength = 50;
+                reason.title = "Insert a Reason"
+                reason.pattern = ("^[a-zA-Z ]+$");
+                // reason.pattern = ("[a-zA-Z_]+");
+
+
+
+
 
                 let editBtn = document.createElement("button");
                 editBtn.innerText = "Edit";
