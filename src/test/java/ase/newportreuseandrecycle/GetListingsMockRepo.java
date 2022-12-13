@@ -13,6 +13,8 @@ import java.util.List;
 
 import static org.mockito.BDDMockito.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.doNothing;
+
 import java.util.Optional;
 
 @SpringBootTest
@@ -71,5 +73,17 @@ public class GetListingsMockRepo {
         var listingResponse = listingService.getAListingById(listingRequest, 1);
         // THEN
         assertEquals(1, listingResponse.getListingDto().getId());
+    }
+
+    @Test
+    public void shouldAddAListingToRepo() {
+        // GIVEN
+        Listing l5 = new Listing(5, 1, "test title 1", "test description 1", 1.99, "http://www.clker.com/cliparts/f/Z/G/4/h/Q/no-image-available-hi.png", "test category 1", "collection", 11.11, 22.22);
+        doNothing().when(listingRepository).addNewListing(l5);
+        ListingRequest listingRequest = ListingRequest.of().build();
+        // WHEN
+        var listingResponse = listingService.getAListingById(listingRequest, 5);
+        // THEN
+        assertEquals(5, listingResponse.getListingDto().getId());
     }
 }

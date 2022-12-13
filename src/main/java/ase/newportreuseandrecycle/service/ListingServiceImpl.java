@@ -72,7 +72,6 @@ public class ListingServiceImpl implements ListingService{
                 listingDto.getLongitude()
         );
         listingRepository.addNewListing(listing);
-
     }
 
     @Override
