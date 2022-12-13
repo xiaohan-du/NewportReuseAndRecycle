@@ -8,8 +8,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.thymeleaf.spring5.expression.Fields;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -30,10 +35,16 @@ public class LoginController {
 
     @PostMapping("process_register")
     public ModelAndView processRegister(@Valid UserSignupForm signupForm, BindingResult bindingResult, Model model) {
+        ModelAndView mv;
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        if (bindingResult.hasErrors()) {
-            bindingResult.getAllErrors().forEach(System.out::println);
-            return new ModelAndView("login/signup-form", model.asMap());
+        if (bindingResult.hasErrors()) {    
+            bindingResult.getAllErrors().forEach(System.out::print);
+            System.out.println(signupForm);
+            System.out.println(bindingResult.getAllErrors());
+
+            // model.addAttribute("signupForm", signupForm);
+            System.out.println(model.asMap());
+            mv = new ModelAndView("login/signup-form", model.asMap());
         } else {
             UserDto userDto = new UserDto(signupForm.getId(),
                     signupForm.getUsername(),
@@ -42,10 +53,9 @@ public class LoginController {
                     Boolean.FALSE
             );
             userService.addNewUser(userDto);
-            var mv = new ModelAndView("login/register-success", model.asMap());
-            return mv;
-
+            mv = new ModelAndView("login/register-success", model.asMap());
         }
+        return mv;
     }
 
     @GetMapping("login")
