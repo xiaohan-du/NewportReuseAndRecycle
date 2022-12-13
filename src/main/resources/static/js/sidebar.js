@@ -54,6 +54,8 @@ const handleSidebar = (btnId) => {
                 pLongitude.innerText = `Longitude: ${listings[curIndex].longitude}`;
 
                 let form = document.createElement("form");
+                form.method = "post";
+                form.action = "/listings/addReport";
 
                 let hiddenInputUserId = document.createElement("input");
                 hiddenInputUserId.name = `userId`;
@@ -84,8 +86,6 @@ const handleSidebar = (btnId) => {
                 reason.maxLength = 50;
                 reason.title = "Insert a Reason"
                 reason.pattern = ("^[a-zA-Z ]+$");
-
-
 
                 let editBtn = document.createElement("button");
                 editBtn.innerText = "Edit";
