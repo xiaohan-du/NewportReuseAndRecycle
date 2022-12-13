@@ -2,6 +2,7 @@ package ase.newportreuseandrecycle;
 
 import ase.newportreuseandrecycle.data.ListingRepository;
 import ase.newportreuseandrecycle.domain.Listing;
+import ase.newportreuseandrecycle.service.ListingAssembler;
 import ase.newportreuseandrecycle.service.ListingDto;
 import ase.newportreuseandrecycle.service.ListingService;
 import ase.newportreuseandrecycle.service.message.CategoryRequest;
@@ -22,7 +23,6 @@ public class ListingsRealService {
     private ListingRepository listingRepository;
 
     private String testCategory = "food";
-    private Integer testExistingId = 4;
     private Integer testNewId = 5;
 
     @Test
@@ -62,8 +62,8 @@ public class ListingsRealService {
     public void shouldAddAListingToRepo() {
         // GIVEN
         Listing l5 = new Listing(testNewId, 1, "test title 1", "test description 1", 1.99, "http://www.clker.com/cliparts/f/Z/G/4/h/Q/no-image-available-hi.png", "test category 1", "collection", 11.11, 22.22);
-        listingRepository.addNewListing(l5);
         ListingRequest listingRequest = ListingRequest.of().build();
+        listingService.addListing(ListingAssembler.toDto(l5));
         // WHEN
         var listingResponse = listingService.getAListingById(listingRequest, testNewId);
         // THEN
@@ -85,9 +85,9 @@ public class ListingsRealService {
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     public void shouldDeleteListingById() {
         // GIVEN
-        listingRepository.deleteListingById(testExistingId);
         ListingRequest listingRequest = ListingRequest.of().build();
         // WHEN
+        listingService.deleteListingById(1);
         var listingResponse = listingService.getListings(listingRequest);
         // THEN
         assertEquals(3, listingResponse.getListings().size());

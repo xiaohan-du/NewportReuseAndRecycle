@@ -75,6 +75,16 @@ public class ListingsMockRepo {
     }
 
     @Test
+    public void shouldGetEmptyListingByInvalidId() {
+        // GIVEN
+        Integer invalidId = 0;
+        // WHEN
+        Optional<Listing> aListing = listingRepository.getAListingById(invalidId);
+        // THEN
+        assertEquals(Optional.empty(), aListing);
+    }
+
+    @Test
     public void shouldGetListingsByCategory() {
         // GIVEN
         Listing l1 = new Listing(
