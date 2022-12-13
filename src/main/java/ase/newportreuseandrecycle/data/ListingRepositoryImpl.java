@@ -44,7 +44,6 @@ public class ListingRepositoryImpl implements ListingRepository{
     @Override
     public void addNewListing(Listing aListing) {
         String addAListingSQL = "INSERT INTO listing (user_id, title, description, price, image_url, category, collection_or_delivery, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        System.out.println("****************************" + addAListingSQL);
         listingJdbcTemplate.update(addAListingSQL, aListing.getUserId(), aListing.getTitle(), aListing.getDescription(), aListing.getPrice(), aListing.getImageUrl(), aListing.getCategory(), aListing.getCollectionOrDelivery(), aListing.getLatitude(), aListing.getLongitude());
     }
 
