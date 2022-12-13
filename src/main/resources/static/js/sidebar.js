@@ -56,7 +56,7 @@ const handleSidebar = (btnId) => {
                 let form = document.createElement("form");
 
                 let hiddenInputUserId = document.createElement("input");
-                hiddenInputUserId.name = `userid`;
+                hiddenInputUserId.name = `userId`;
                 hiddenInputUserId.setAttribute(
                     `value`,
                     `${listings[curIndex].userId}`
@@ -64,7 +64,7 @@ const handleSidebar = (btnId) => {
                 hiddenInputUserId.hidden = true;
 
                 let hiddenInputListingId = document.createElement("input");
-                hiddenInputListingId.name = `listingid`;
+                hiddenInputListingId.name = `listingId`;
                 hiddenInputListingId.setAttribute(
                     `value`,
                     `${listings[curIndex].id}`
@@ -80,6 +80,12 @@ const handleSidebar = (btnId) => {
                 reportButton.value = "Report";
                 reportButton.type = "submit";
                 reason.required = true;
+                reason.minLength = 6;
+                reason.maxLength = 50;
+                reason.title = "Insert a Reason"
+                reason.pattern = ("^[a-zA-Z ]+$");
+
+
 
                 let editBtn = document.createElement("button");
                 editBtn.innerText = "Edit";
