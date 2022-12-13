@@ -28,7 +28,9 @@ public class GetListingsMockRepo {
         Listing l1 = new Listing(1, 1, "test title 1", "test description 1", 1.99, "http://www.clker.com/cliparts/f/Z/G/4/h/Q/no-image-available-hi.png", "test category 1", "collection", 11.11, 22.22);
         Listing l2 = new Listing(2, 2, "test title 2", "test description 2", 2.99, "http://www.clker.com/cliparts/f/Z/G/4/h/Q/no-image-available-hi.png", "test category 2", "collection", 33.33, 44.44);
         given(listingRepository.getListings()).willReturn(List.of(l1, l2));
+
         ListingRequest listingRequest = ListingRequest.of().build();
+
         // WHEN
         var listingResponse = listingService.getListings(listingRequest);
         // THEN
@@ -50,10 +52,24 @@ public class GetListingsMockRepo {
     @Test
     public void shouldGetNoListingByInvalidCategory() {
         // GIVEN
+        Listing l1 = new Listing(1, 1, "test title 1", "test description 1", 1.99, "http://www.clker.com/cliparts/f/Z/G/4/h/Q/no-image-available-hi.png", "test category 1", "collection", 11.11, 22.22);
+        given(listingRepository.getListingsByCategory("test category 1")).willReturn(List.of(l1));
         ListingRequest listingRequest = ListingRequest.of().build();
         // WHEN
         var listingResponse = listingService.getListingsByCategory(listingRequest, "test category 2");
         // THEN
         assertEquals(0, listingResponse.getListings().size());
+    }
+
+    @Test
+    public void shouldGetAListingByValidId() {
+        // GIVEN
+        Listing l1 = new Listing(1, 1, "test title 1", "test description 1", 1.99, "http://www.clker.com/cliparts/f/Z/G/4/h/Q/no-image-available-hi.png", "test category 1", "collection", 11.11, 22.22);
+        given(listingRepository.getAListingById(1)).willReturn(Optional.of(l1));
+        ListingRequest listingRequest = ListingRequest.of().build();
+        // WHEN
+        var listingResponse = listingService.getAListingById(listingRequest, 1);
+        // THEN
+        assertEquals(1, listingResponse.getListingDto().getId());
     }
 }

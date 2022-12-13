@@ -18,7 +18,7 @@ public class ListingServiceImpl implements ListingService{
     public ListingServiceImpl(ListingRepository repo) {
         this.listingRepository = repo;
     }
-    private List<ListingDto> getListingDto(String category) {
+    private List<ListingDto> getListingsDtoByCategory(String category) {
         List<Listing> listings;
         if (category.isEmpty()) {
             listings = listingRepository.getListings();
@@ -29,9 +29,17 @@ public class ListingServiceImpl implements ListingService{
         return listingsDto;
     }
 
+    private ListingDto getListingDtoById(Integer id) {
+        Optional<Listing> listing;
+
+        listing = listingRepository.getAListingById(id);
+        ListingDto listingsDto = ListingAssembler.toDto(listing.get());
+        return listingsDto;
+    }
+
     @Override
     public ListingResponse getListings(ListingRequest listingRequest) {
-        List<ListingDto> listingsDto = getListingDto("");
+        List<ListingDto> listingsDto = getListingsDtoByCategory("");
         return ListingResponse
                 .of()
                 .listingRequest(listingRequest)
@@ -41,13 +49,7 @@ public class ListingServiceImpl implements ListingService{
 
     @Override
     public ListingResponse getAListingById(ListingRequest listingRequest, Integer id) {
-        Optional<Listing> listing = listingRepository.getAListById(id);
-        System.out.println("**************3333" + listingRepository.getAListById(2));
-        ListingDto listingDto = null;
-        if (listing.isPresent()) {
-            listingDto = ListingAssembler.toDto(listing.get());
-        }
-        
+        ListingDto listingDto = getListingDtoById(id);
         return ListingResponse
                 .of()
                 .listingRequest(listingRequest)
@@ -80,7 +82,7 @@ public class ListingServiceImpl implements ListingService{
 
     @Override
     public ListingResponse getListingsByCategory(ListingRequest listingRequest, String category) {
-        List<ListingDto> listingsDto = getListingDto(category);
+        List<ListingDto> listingsDto = getListingsDtoByCategory(category);
         return ListingResponse
                 .of()
                 .listingRequest(listingRequest)

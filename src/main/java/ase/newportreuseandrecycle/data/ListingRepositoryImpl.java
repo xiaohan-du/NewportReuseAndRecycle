@@ -35,8 +35,6 @@ public class ListingRepositoryImpl implements ListingRepository{
         Optional<Listing> aListing;
         try {
             aListing = listingJdbcRepo.findById(id);
-            System.out.println("**************1111" + id);
-            System.out.println("**************2222" + aListing);
             return aListing;
         } catch (IncorrectResultSizeDataAccessException e) {
             return Optional.empty();
@@ -54,11 +52,6 @@ public class ListingRepositoryImpl implements ListingRepository{
         List<Listing> listings = new ArrayList<>();
         listingJdbcRepo.findListingsByCategory(category).forEach(listings::add);
         return listings;
-    }
-
-    @Override
-    public Optional<Listing> getAListById(Integer id) {
-        return listingJdbcRepo.findListingById(id);
     }
 
     @Override
