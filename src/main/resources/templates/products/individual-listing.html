@@ -17,6 +17,9 @@
                 </div>
                 <div class="col-9">
                     <h1 th:text="*{title}"></h1>
+                    <a th:href="'/user/' + ${listing.userId}">
+                        <span>See more from this user!</span>
+                    </a>
                     <p th:text="*{description}"></p>
                 </div>
             </div>
