@@ -7,83 +7,58 @@ import ase.newportreuseandrecycle.service.message.ListingRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
-import java.util.List;
-
-import static org.mockito.BDDMockito.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.doNothing;
-
-import java.util.Optional;
 
 @SpringBootTest
 public class GetListingsMockRepo {
     @Autowired
     private ListingService listingService;
-    @MockBean
+    @Autowired
     private ListingRepository listingRepository;
-
-    @Test
-    public void shouldGetTwoListings() {
-        // GIVEN
-        Listing l1 = new Listing(1, 1, "test title 1", "test description 1", 1.99, "http://www.clker.com/cliparts/f/Z/G/4/h/Q/no-image-available-hi.png", "test category 1", "collection", 11.11, 22.22);
-        Listing l2 = new Listing(2, 2, "test title 2", "test description 2", 2.99, "http://www.clker.com/cliparts/f/Z/G/4/h/Q/no-image-available-hi.png", "test category 2", "collection", 33.33, 44.44);
-        given(listingRepository.getListings()).willReturn(List.of(l1, l2));
-
-        ListingRequest listingRequest = ListingRequest.of().build();
-
-        // WHEN
-        var listingResponse = listingService.getListings(listingRequest);
-        // THEN
-        assertEquals(2, listingResponse.getListings().size());
-    }
 
     @Test
     public void shouldGetAListingByValidCategory() {
         // GIVEN
-        Listing l1 = new Listing(1, 1, "test title 1", "test description 1", 1.99, "http://www.clker.com/cliparts/f/Z/G/4/h/Q/no-image-available-hi.png", "test category 1", "collection", 11.11, 22.22);
-        given(listingRepository.getListingsByCategory("test category 1")).willReturn(List.of(l1));
         ListingRequest listingRequest = ListingRequest.of().build();
         // WHEN
-        var listingResponse = listingService.getListingsByCategory(listingRequest, "test category 1");
+        var listingResponse = listingService.getListingsByCategory(listingRequest, "food");
         // THEN
-        assertEquals(1, listingResponse.getListings().size());
+        assertEquals(2, listingResponse.getListings().size());
     }
-
+//
     @Test
     public void shouldGetNoListingByInvalidCategory() {
         // GIVEN
-        Listing l1 = new Listing(1, 1, "test title 1", "test description 1", 1.99, "http://www.clker.com/cliparts/f/Z/G/4/h/Q/no-image-available-hi.png", "test category 1", "collection", 11.11, 22.22);
-        given(listingRepository.getListingsByCategory("test category 1")).willReturn(List.of(l1));
         ListingRequest listingRequest = ListingRequest.of().build();
         // WHEN
-        var listingResponse = listingService.getListingsByCategory(listingRequest, "test category 2");
+        var listingResponse = listingService.getListingsByCategory(listingRequest, "test");
         // THEN
         assertEquals(0, listingResponse.getListings().size());
     }
-
+//
     @Test
-    public void shouldGetAListingByValidId() {
+    public void shouldGetCorrectListingByValidId() {
         // GIVEN
-        Listing l1 = new Listing(1, 1, "test title 1", "test description 1", 1.99, "http://www.clker.com/cliparts/f/Z/G/4/h/Q/no-image-available-hi.png", "test category 1", "collection", 11.11, 22.22);
-        given(listingRepository.getAListingById(1)).willReturn(Optional.of(l1));
         ListingRequest listingRequest = ListingRequest.of().build();
-        // WHEN
-        var listingResponse = listingService.getAListingById(listingRequest, 1);
-        // THEN
-        assertEquals(1, listingResponse.getListingDto().getId());
+        for (int i = 1; i <= 4; i++) {
+            // WHEN
+            var listingResponse = listingService.getAListingById(listingRequest, i);
+            // THEN
+            assertEquals(i, listingResponse.getListingDto().getId());
+        }
     }
 
     @Test
     public void shouldAddAListingToRepo() {
         // GIVEN
         Listing l5 = new Listing(5, 1, "test title 1", "test description 1", 1.99, "http://www.clker.com/cliparts/f/Z/G/4/h/Q/no-image-available-hi.png", "test category 1", "collection", 11.11, 22.22);
-        doNothing().when(listingRepository).addNewListing(l5);
+        listingRepository.addNewListing(l5);
         ListingRequest listingRequest = ListingRequest.of().build();
         // WHEN
         var listingResponse = listingService.getAListingById(listingRequest, 5);
         // THEN
         assertEquals(5, listingResponse.getListingDto().getId());
+        listingRepository.deleteListingById(5);
     }
 }
