@@ -42,6 +42,7 @@ public class ListingServiceImpl implements ListingService{
     @Override
     public ListingResponse getAListingById(ListingRequest listingRequest, Integer id) {
         Optional<Listing> listing = listingRepository.getAListById(id);
+        System.out.println("**************3333" + listingRepository.getAListById(2));
         ListingDto listingDto = null;
         if (listing.isPresent()) {
             listingDto = ListingAssembler.toDto(listing.get());

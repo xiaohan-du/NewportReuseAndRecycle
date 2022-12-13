@@ -35,6 +35,8 @@ public class ListingRepositoryImpl implements ListingRepository{
         Optional<Listing> aListing;
         try {
             aListing = listingJdbcRepo.findById(id);
+            System.out.println("**************1111" + id);
+            System.out.println("**************2222" + aListing);
             return aListing;
         } catch (IncorrectResultSizeDataAccessException e) {
             return Optional.empty();
