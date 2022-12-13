@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:insert="fragments/header :: header">
+    <title>User List</title>
+</head>
+<body>
+<nav th:replace="fragments/navbar :: navbar-links"></nav>
+<div class="container">
+    <div>
+        <h1>List of Reports</h1>
+    </div>
+    <table>
+        <thead>
+        <th class="table-header">ID</th>
+        <th class="table-header">UserId</th>
+        <th class="table-header">ListingId</th>
+        <th class="table-header">Reason?</th>
+        </thead>
+        <tbody>
+        <tr th:each="report: ${reports}">
+            <td th:text="${report.id}">Id</td>
+            <td th:text="${report.userId}">User ID</td>
+            <td th:text="${report.listingId}">Listing ID</td>
+            <td th:text="${report.reason}">Reason</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:replace="fragments/footer :: footer-links"></div>
+</body>
+</html>

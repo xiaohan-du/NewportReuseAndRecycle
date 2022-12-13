@@ -114,6 +114,7 @@ const handleSidebar = (btnId) => {
                 form.appendChild(reportButton);
                 container.appendChild(form);
 
+
                 row.append(container);
             }
 

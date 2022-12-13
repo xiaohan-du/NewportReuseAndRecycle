@@ -1,5 +1,7 @@
 package ase.newportreuseandrecycle.web;
 
+import ase.newportreuseandrecycle.service.ReportDto;
+import ase.newportreuseandrecycle.service.ReportService;
 import ase.newportreuseandrecycle.service.UserDto;
 import ase.newportreuseandrecycle.service.UserService;
 import org.springframework.security.core.Authentication;
@@ -9,16 +11,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.management.modelmbean.ModelMBeanNotificationBroadcaster;
 import java.util.List;
 
 @Controller
 @RequestMapping("/")
 public class ReuseAndRecycleController {
 
+    private final ReportService reportService;
     private final UserService userService;
 
-    public ReuseAndRecycleController(UserService svc) {
-        this.userService = svc;
+    public ReuseAndRecycleController(UserService usersvc, ReportService svc ) {
+        this.userService = usersvc; this.reportService = svc;
     }
 
     @GetMapping("")
@@ -43,6 +47,16 @@ public class ReuseAndRecycleController {
         var mv = new ModelAndView("user/user-list");
         return mv;
     }
+
+    @GetMapping("report-list")
+    public ModelAndView getReports(Model model) {
+        List<ReportDto> report;
+        report = reportService.getReports();
+        model.addAttribute("reports", report);
+        var mv = new ModelAndView("report/report-list");
+        return mv;
+    }
+
 
     @GetMapping("contact-us")
     public ModelAndView contactus(Model model) {

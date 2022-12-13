@@ -2,7 +2,12 @@ package ase.newportreuseandrecycle.service;
 
 import ase.newportreuseandrecycle.data.ReportRepository;
 import ase.newportreuseandrecycle.domain.Report;
+import ase.newportreuseandrecycle.domain.User;
+import ase.newportreuseandrecycle.web.forms.ReportForm;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ReportServiceImpl implements ReportService{
@@ -20,5 +25,12 @@ public class ReportServiceImpl implements ReportService{
                 reportDto.getReason()
         );
         reportRepository.addNewReport(report);
+
+    }
+    @Override
+    public List<ReportDto> getReports() {
+        List<Report> reports = reportRepository.getReports();
+        return ReportAssembler.toDto(reports);
     }
 }
+
