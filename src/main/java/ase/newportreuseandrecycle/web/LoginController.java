@@ -34,17 +34,11 @@ public class LoginController {
     }
 
     @PostMapping("process_register")
-    public ModelAndView processRegister(@Valid UserSignupForm signupForm, BindingResult bindingResult, Model model) {
-        ModelAndView mv;
+    public ModelAndView processRegister(@ModelAttribute("signupForm") @Valid UserSignupForm signupForm, BindingResult bindingResult, ModelAndView model) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if (bindingResult.hasErrors()) {    
-            bindingResult.getAllErrors().forEach(System.out::print);
-            System.out.println(signupForm);
-            System.out.println(bindingResult.getAllErrors());
-
-            // model.addAttribute("signupForm", signupForm);
-            System.out.println(model.asMap());
-            mv = new ModelAndView("login/signup-form", model.asMap());
+            model.setViewName("login/signup-form");
+            return model;
         } else {
             UserDto userDto = new UserDto(signupForm.getId(),
                     signupForm.getUsername(),
@@ -53,9 +47,9 @@ public class LoginController {
                     Boolean.FALSE
             );
             userService.addNewUser(userDto);
-            mv = new ModelAndView("login/register-success", model.asMap());
+            model.setViewName("login/register-success");
         }
-        return mv;
+        return model;
     }
 
     @GetMapping("login")
