@@ -62,6 +62,13 @@ public class ListingRepositoryImpl implements ListingRepository{
     }
 
     @Override
+    public List<Listing> getListingsByUserId(Integer userId) {
+        List<Listing> listings = new ArrayList<>();
+        listingJdbcRepo.findListingsByUserId(userId).forEach(listings::add);
+        return listings;
+    }
+
+    @Override
     public void deleteListingById(Integer id) {
         listingJdbcRepo.deleteById(id);
     }

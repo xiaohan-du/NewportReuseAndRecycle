@@ -101,6 +101,17 @@ public class ListingServiceImpl implements ListingService{
     }
 
     @Override
+    public ListingResponse getListingsByUserId(ListingRequest listingRequest, Integer userId) {
+        List<Listing> listings = listingRepository.getListingsByUserId(userId);
+        List<ListingDto> listingDtos = ListingAssembler.toDto(listings);
+        return ListingResponse
+                .of()
+                .listingRequest(listingRequest)
+                .listings(listingDtos)
+                .build();
+    }
+
+    @Override
     public void updateListingById(Integer id, ListingDto listingDto) {
         Listing listing = new Listing(
                 listingDto.getId(),
