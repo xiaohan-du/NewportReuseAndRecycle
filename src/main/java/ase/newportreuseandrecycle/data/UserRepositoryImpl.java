@@ -42,6 +42,18 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public Optional<User> getAUserById(Integer id) {
+        String getAUserSQL = "SELECT * FROM users WHERE id = ?";
+        Optional<User> aUser;
+        try {
+            aUser = Optional.of(jdbcTemplate.queryForObject(getAUserSQL, userRowMapper, id));
+            return aUser;
+        } catch (IncorrectResultSizeDataAccessException e) {
+            return Optional.empty();
+        }
+    }
+
+    @Override
     public Optional<User> getAUserByUsername(String username) {
         String getAUserByUsernameSQL = "SELECT * FROM users WHERE username = ?";
         Optional<User> aUser;

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+    <head th:insert="fragments/header :: header">
+        <title th:text="User ${user.id} listings"></title>
+    </head>
+    <body>
+        <nav th:replace="fragments/navbar :: navbar-links"></nav>
+        <div class="container">
+            <div th:each="listing : ${listings}">
+                <div class="row m-3">
+                    <a th:href="'/listings/' + ${listing.id}">
+                        <span th:text="${listing.title}"></span>
+                        <p th:text="${listing.description}"></p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div th:replace="fragments/footer :: footer-links"></div>
+    </body>
+</html>
