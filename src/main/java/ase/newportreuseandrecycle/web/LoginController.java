@@ -38,7 +38,6 @@ public class LoginController {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if (bindingResult.hasErrors()) {    
             model.setViewName("login/signup-form");
-            return model;
         } else {
             UserDto userDto = new UserDto(signupForm.getId(),
                     signupForm.getUsername(),
