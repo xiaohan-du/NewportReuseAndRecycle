@@ -7,8 +7,6 @@ const handleSidebar = (btnId) => {
 
         results.innerHTML = "";
 
-        let minlength;
-        let maxlength;
         for (let i = 0; i < numOfRows; i++) {
             let row = document.createElement("div");
             row.className = "row";
@@ -79,15 +77,16 @@ const handleSidebar = (btnId) => {
                 reason.name = "reason";
                 reason.setAttribute(`placeholder`, "Reason For Report");
                 reason.setAttribute(`type`, "text");
+
                 let reportButton = document.createElement("input");
                 reportButton.value = "Report";
                 reportButton.type = "submit";
                 reason.required = true;
                 reason.minLength = 6;
                 reason.maxLength = 50;
-                reason.title = "Insert a Reason";
-                reason.pattern = "^[a-zA-Z ]+$";
-                // reason.pattern = ("[a-zA-Z_]+");
+                reason.title = "Provide a reason"
+                reason.pattern = ("^[a-zA-Z ]+$");
+
 
                 let editBtn = document.createElement("button");
                 editBtn.innerText = "Edit";
@@ -121,6 +120,7 @@ const handleSidebar = (btnId) => {
                 form.appendChild(reason);
                 form.appendChild(reportButton);
                 container.appendChild(form);
+
 
                 row.append(container);
             }

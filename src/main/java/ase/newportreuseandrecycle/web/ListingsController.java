@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.util.Optional;
 
 @Controller
@@ -50,7 +52,7 @@ public class ListingsController {
         ListingDto listingDto = listingResponse.getListingDto();
 
         if (listingResponse.isListingPresent()) {
-            model.addAttribute( "listing", listingDto);
+            model.addAttribute("listing", listingDto);
             mv = new ModelAndView("products/individual-listing", model.asMap());
         } else {
             mv = new ModelAndView("error", model.asMap());
@@ -87,7 +89,7 @@ public class ListingsController {
     public ModelAndView editListing(ListingRequest listingRequest, Model model, @PathVariable Integer id) {
         ListingResponse listingResponse = listingService.getAListingById(listingRequest, id);
         ListingDto listingDto = listingResponse.getListingDto();
-        
+
         ListingForm editForm = new ListingForm(
                 listingDto.getId(),
                 listingDto.getUserId(),
@@ -99,7 +101,7 @@ public class ListingsController {
                 listingDto.getCollectionOrDelivery(),
                 listingDto.getLatitude(),
                 listingDto.getLongitude());
-                
+
         model.addAttribute("methodType", "put");
         model.addAttribute("listingForm", editForm);
         model.addAttribute("submitURL", String.format("/api/listings/edit/%s", id));
@@ -109,13 +111,13 @@ public class ListingsController {
     }
 
     @PostMapping("addReport")
-    public ModelAndView addNewReport(ReportForm newReport) {
+    public String addNewReport(ReportForm newReport, RedirectAttributes redirectAttributes) {
         ReportDto reportDto = new ReportDto(newReport.getId(), newReport.getUserId(), newReport.getListingId(), newReport.getReason());
-        reportService.addReport(reportDto);
+        var success = reportService.addReport(reportDto);
 
-        var mv = new ModelAndView("redirect:/listings");
-        return mv;
+        redirectAttributes.addFlashAttribute("message", success ? "Reported successfully" : String.format("You have already Reported This post", newReport.getUserId(), newReport.getListingId()));
+
+        return "redirect:/listings";
     }
 
 }
-
