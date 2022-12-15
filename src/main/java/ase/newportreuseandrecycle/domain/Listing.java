@@ -1,6 +1,7 @@
 package ase.newportreuseandrecycle.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.lang.NonNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,6 +12,7 @@ public class Listing {
     @Id
     private Integer id;
     
+    @NonNull()
     private Integer userId;
     private String title;
     private String description;

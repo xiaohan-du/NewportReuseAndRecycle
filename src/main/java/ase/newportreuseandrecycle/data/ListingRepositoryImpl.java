@@ -55,15 +55,17 @@ public class ListingRepositoryImpl implements ListingRepository{
     }
 
     @Override
-    public Optional<Listing> getAListById(Integer id) {
-        return listingJdbcRepo.findListingById(id);
-    }
-
-    @Override
     public List<Category> getCategories() {
         List<Category> categories = new ArrayList<>();
         categoryJdbcRepo.findAll().forEach(categories::add);
         return categories;
+    }
+
+    @Override
+    public List<Listing> getListingsByUserId(Integer userId) {
+        List<Listing> listings = new ArrayList<>();
+        listingJdbcRepo.findListingsByUserId(userId).forEach(listings::add);
+        return listings;
     }
 
     @Override

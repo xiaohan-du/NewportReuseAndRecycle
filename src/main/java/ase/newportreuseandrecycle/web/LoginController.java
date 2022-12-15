@@ -8,8 +8,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.thymeleaf.spring5.expression.Fields;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.validation.Valid;
 
 @Controller
 public class LoginController {
@@ -21,17 +28,16 @@ public class LoginController {
 
     @GetMapping("register")
     public ModelAndView register(Model model) {
-        model.addAttribute("user", new UserSignupForm());
+        model.addAttribute("signupForm", new UserSignupForm());
         var mv = new ModelAndView("login/signup-form", model.asMap());
         return mv;
     }
 
     @PostMapping("process_register")
-    public ModelAndView processRegister(UserSignupForm signupForm, BindingResult bindingResult, Model model) {
+    public ModelAndView processRegister(@ModelAttribute("signupForm") @Valid UserSignupForm signupForm, BindingResult bindingResult, ModelAndView model) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        if (bindingResult.hasErrors()) {
-            bindingResult.getAllErrors().forEach(System.out::println);
-            return new ModelAndView("login/signup-form", model.asMap());
+        if (bindingResult.hasErrors()) {    
+            model.setViewName("login/signup-form");
         } else {
             UserDto userDto = new UserDto(signupForm.getId(),
                     signupForm.getUsername(),
@@ -40,10 +46,9 @@ public class LoginController {
                     Boolean.FALSE
             );
             userService.addNewUser(userDto);
-            var mv = new ModelAndView("login/register-success", model.asMap());
-            return mv;
-
+            model.setViewName("login/register-success");
         }
+        return model;
     }
 
     @GetMapping("login")
