@@ -84,8 +84,9 @@ const handleSidebar = (btnId) => {
                 reason.required = true;
                 reason.minLength = 6;
                 reason.maxLength = 50;
-                reason.title = "Insert a Reason"
+                reason.title = "Provide a reason"
                 reason.pattern = ("^[a-zA-Z ]+$");
+
 
                 let editBtn = document.createElement("button");
                 editBtn.innerText = "Edit";

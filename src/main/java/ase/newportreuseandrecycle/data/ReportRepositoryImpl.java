@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ReportRepositoryImpl implements ReportRepository {
@@ -41,6 +42,13 @@ public class ReportRepositoryImpl implements ReportRepository {
         String getReportsSQL = "SELECT * FROM report";
         JdbcOperations jdbcTemplate;
         return listingJdbcTemplate.query(getReportsSQL, ReportRowMapper);
+    }
+
+    @Override
+    public Optional<Report> findByUserIdAndListingId(Integer userId, Integer listingId) {
+        String findByUserIdAndListingIdSQL = "SELECT * FROM report WHERE userId = ? AND listingId = ?";
+        JdbcOperations jdbcTemplate;
+        return Optional.of(JdbcTemplate.query(findByUserIdAndListingIdSQL, ReportRowMapper));
     }
 
 }
