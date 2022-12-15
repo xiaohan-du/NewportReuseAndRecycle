@@ -10,7 +10,10 @@
     <body>
         <div th:replace="fragments/navbar :: navbar-links"></div>
 
+        <span th:if="${message}" th:text="${message}"></span>
+
         <div class="container d-flex">
+            <div th:text="${response}"></div>
             <div th:replace="fragments/sidebar"></div>
             <div class="d-flex flex-column w-75">
                 <h1 class="text-center">Product listings</h1>

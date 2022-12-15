@@ -3,6 +3,8 @@ package ase.newportreuseandrecycle.service;
 import java.util.List;
 
 public interface ReportService {
+    List<ReportDto> getReports();
 
-    void addReport(ReportDto newReport);
+    boolean addReport(ReportDto newReport);
 }
+
