@@ -34,6 +34,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<UserDto> getUserById(Integer id) {
+        Optional<User> aUser = userRepository.getAUserById(id);
+        if (aUser.isPresent()) {
+            return Optional.of(UserAssembler.toDto(aUser.get()));
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    @Override
     public Optional<UserDto> getUserByUsername(String username) {
         Optional<User> aUser = userRepository.getAUserByUsername(username);
         if (aUser.isPresent()) {
