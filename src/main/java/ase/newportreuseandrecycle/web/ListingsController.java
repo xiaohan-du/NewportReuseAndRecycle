@@ -115,7 +115,7 @@ public class ListingsController {
         ReportDto reportDto = new ReportDto(newReport.getId(), newReport.getUserId(), newReport.getListingId(), newReport.getReason());
         var success = reportService.addReport(reportDto);
 
-        redirectAttributes.addAttribute("message", success ? "Reported successfully" : "You have already Reported This post");
+        redirectAttributes.addFlashAttribute("message", success ? "Reported successfully" : String.format("You have already Reported This post", newReport.getUserId(), newReport.getListingId()));
 
         return "redirect:/listings";
     }

@@ -20,11 +20,11 @@ public class ReportServiceImpl implements ReportService {
         var option = reportRepository.findByUserIdAndListingId(reportDto.getUserId(), reportDto.getListingId());
 
         if (option.isEmpty()) {
-            return false;
+            reportRepository.addNewReport(new Report(reportDto.getId(), reportDto.getUserId(), reportDto.getListingId(), reportDto.getReason()));
+            return true;
         }
 
-        reportRepository.addNewReport(new Report(reportDto.getId(), reportDto.getUserId(), reportDto.getListingId(), reportDto.getReason()));
-        return true;
+        return false;
     }
 
     @Override
