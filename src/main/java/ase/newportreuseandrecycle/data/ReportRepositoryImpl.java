@@ -46,9 +46,8 @@ public class ReportRepositoryImpl implements ReportRepository {
 
     @Override
     public Optional<Report> findByUserIdAndListingId(Integer userId, Integer listingId) {
-        String findByUserIdAndListingIdSQL = "SELECT * FROM report WHERE userId = ? AND listingId = ?";
-        JdbcOperations jdbcTemplate;
-        return Optional.of(JdbcTemplate.query(findByUserIdAndListingIdSQL, ReportRowMapper));
+        String findByUserIdAndListingIdSQL = "SELECT * FROM report WHERE user_Id = ? AND listing_Id = ?";
+        return Optional.of((Report) listingJdbcTemplate.query(findByUserIdAndListingIdSQL, ReportRowMapper));
     }
 
 }
