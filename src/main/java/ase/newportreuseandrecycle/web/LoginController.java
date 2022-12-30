@@ -54,8 +54,7 @@ public class LoginController {
     @GetMapping("login")
     public ModelAndView getLogin(Model model) {
         model.addAttribute("loginForm", new LoginForm());
-        return new ModelAndView("/login/login-form", model.asMap());
+        return new ModelAndView("login/login-form", model.asMap());
     }
-
 }
 
