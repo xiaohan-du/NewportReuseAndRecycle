@@ -28,6 +28,7 @@
                         <label class="col-4 col-form-label">Username: </label>
                         <div class="col-8">
                             <input
+                                required
                                 type="text"
                                 th:field="*{username}"
                                 class="form-control"
@@ -46,13 +47,20 @@
                         <label class="col-4 col-form-label">Password: </label>
                         <div class="col-8">
                             <input
+                                required
                                 type="password"
                                 th:field="*{password}"
                                 class="form-control"
-                                required
                                 minlength="6"
                                 maxlength="10"
                             />
+                            <div
+                                class="alert alert-warning"
+                                th:errors="*{password}"
+                                th:if="${#fields.hasErrors('password')}"
+                            >
+                                Password Error
+                            </div>
                         </div>
                     </div>
 

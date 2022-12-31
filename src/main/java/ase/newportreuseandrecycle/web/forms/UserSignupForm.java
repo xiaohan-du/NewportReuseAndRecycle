@@ -13,6 +13,7 @@ public class UserSignupForm {
     private Integer id;
     @NotEmpty(message = "{username.invalid}")
     private String username;
+    @NotEmpty(message = "{password.invalid}")
     private String password;
     private String role;
 }
