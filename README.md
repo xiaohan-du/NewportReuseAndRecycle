@@ -11,14 +11,16 @@ CD to the project path, run
 ```bash
 ./gradlew bootJar
 ```
-to build an executable .jar file
+to build an executable .jar file,
+
+Run src/main/resources/create-db.sql to generate the prod database
 
 CD to `build/libs/`, run 
 
 ```bash
 java -jar NewportReuseAndRecycle-0.0.1-SNAPSHOT.jar
 ```
-to run the application with dev database (H2).
+to run the application with prod database (MariaDB).
 
 Go to `http://localhost:8080/login` to login, use the following details:
 
