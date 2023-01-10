@@ -13,7 +13,7 @@ CD to the project path, run
 ```
 to build an executable .jar file,
 
-Run src/main/resources/create-db.sql to generate the prod database
+Run src/main/resources/Project_Database.sql to generate the prod database
 
 CD to `build/libs/`, run 
 
