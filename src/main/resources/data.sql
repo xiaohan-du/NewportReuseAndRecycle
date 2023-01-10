@@ -20,4 +20,4 @@ VALUES ('food'),
 
 
 INSERT INTO report (user_id, listing_id, reason)
-VALUES(1,2,'This is inappropriate.')
+VALUES(1,2,'This is inappropriate.');
